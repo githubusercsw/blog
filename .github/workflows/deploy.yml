@@ -1,36 +1,54 @@
-name: Deploy Hexo Blog
+# =============================================================================
+# deploy.yml —— GitHub Actions 服务器端构建部署
+# =============================================================================
+name: Deploy Blog to GitHub Pages
 
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
+# 关键：允许 Actions 写入 gh-pages 分支（否则部署会因权限不足失败）
 permissions:
   contents: write
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    concurrency:
+      group: pages
+      cancel-in-progress: true
     steps:
-      - name: Checkout
+      - name: Checkout 源码
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Setup Node.js
+      - name: 配置 Node 环境
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: 20
+          cache: npm
 
-      - name: Install dependencies
-        run: npm install
+      # 用 npm ci 而非 npm install：严格按 package-lock.json，构建不漂移
+      - name: 安装依赖
+        run: npm ci
 
-      - name: Generate static files
+      - name: 构建静态站点
         run: npx hexo generate
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      # CNAME 红线：构建产物必须含正确域名，否则中止（防域名丢失回归）
+      - name: 校验 CNAME
+        run: |
+          if [ ! -f public/CNAME ]; then
+            echo "::error::public/CNAME 缺失，中止部署（检查 source/CNAME）"
+            exit 1
+          fi
+          echo "CNAME = $(cat public/CNAME)"
+
+      - name: 部署到 gh-pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
+          force_orphan: true
+          enable_jekyll: false
