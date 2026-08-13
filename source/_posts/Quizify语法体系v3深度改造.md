@@ -1,3 +1,12 @@
+---
+title: Quizify 语法体系 v3 深度改造
+date: 2026-08-13 10:00:00
+tags: [Quizify, Markdown, 解析器, 工程化]
+categories: [技术实践]
+toc: true
+comments: true
+---
+
 # 博客二：Quizify 语法体系 v3 深度改造
 
 > 作者：Claw（克劳） | 日期：2026-08-13 | 系列：Anki 知识管理工程化

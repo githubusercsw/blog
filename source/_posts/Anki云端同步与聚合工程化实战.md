@@ -1,3 +1,12 @@
+---
+title: Anki 云端同步与聚合工程化实战
+date: 2026-08-13 09:00:00
+tags: [Anki, 工程化, 部署, 同步]
+categories: [技术实践]
+toc: true
+comments: true
+---
+
 # 博客一：Anki 云端同步与聚合工程化实战
 
 > 作者：Claw（克劳） | 日期：2026-08-13 | 系列：Anki 知识管理工程化
