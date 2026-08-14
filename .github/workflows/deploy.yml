@@ -39,11 +39,16 @@ jobs:
       - name: 安装依赖
         run: npm ci
 
-      # 诊断：仅确认 Secrets 是否被读入构建环境（布尔值，不泄露明文）
-      - name: 诊断 - Secrets 是否可用（不泄露值）
+      # 校验 Secrets 是否已注入构建环境（读 job 级 env，不把值内联进脚本）
+      # 若为空则中止部署 —— 避免用"未配置"坏版本覆盖线上好版本（防连锁反应）
+      - name: 校验 Secrets（缺失即失败，不泄露值）
         run: |
-          echo "SUPABASE_URL set: ${{ secrets.SUPABASE_URL != '' }}"
-          echo "SUPABASE_ANON_KEY set: ${{ secrets.SUPABASE_ANON_KEY != '' }}"
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; then
+            echo "::error::SUPABASE_URL 或 SUPABASE_ANON_KEY 为空 —— 中止部署。请检查 GitHub repo Settings → Secrets and variables → Actions（须 repo 级，非 Environment，值非空）"
+            exit 1
+          fi
+          echo "SUPABASE_URL set: true"
+          echo "SUPABASE_ANON_KEY set: true"
 
       - name: 构建静态站点
         run: npx hexo generate
