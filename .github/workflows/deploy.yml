@@ -39,6 +39,12 @@ jobs:
       - name: 安装依赖
         run: npm ci
 
+      # 诊断：仅确认 Secrets 是否被读入构建环境（布尔值，不泄露明文）
+      - name: 诊断 - Secrets 是否可用（不泄露值）
+        run: |
+          echo "SUPABASE_URL set: ${{ secrets.SUPABASE_URL != '' }}"
+          echo "SUPABASE_ANON_KEY set: ${{ secrets.SUPABASE_ANON_KEY != '' }}"
+
       - name: 构建静态站点
         run: npx hexo generate
 
