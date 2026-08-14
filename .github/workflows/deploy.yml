@@ -18,6 +18,13 @@ jobs:
     concurrency:
       group: pages
       cancel-in-progress: true
+
+    # 构建期注入 Supabase 连接信息：hexo-renderer-ejs 会把 process.env.* 注入模板
+    # secret 名必须与 GitHub 仓库 Secrets 中一致（SUPABASE_URL / SUPABASE_ANON_KEY）
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+
     steps:
       - name: Checkout 源码
         uses: actions/checkout@v4
