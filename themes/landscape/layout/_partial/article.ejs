@@ -55,6 +55,7 @@
 <% } %>
 <% if (!index){ %>
 <section id="supabase-comments" data-post-id="<%- post.slug || post.path %>"></section>
+<link rel="stylesheet" href="<%- url_for('css/comments.css') %>">
 <script>
   window.SUPABASE_URL = "<%- process.env.SUPABASE_URL %>";
   window.SUPABASE_ANON_KEY = "<%- process.env.SUPABASE_ANON_KEY %>";
