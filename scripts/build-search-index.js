@@ -48,15 +48,19 @@ function extractPosts() {
 
       const html = fs.readFileSync(p, 'utf8');
       const $ = cheerio.load(html);
+      // 仅索引真正的文章页：评论系统已在每篇文章页注入
+      // <section id="supabase-comments" data-post-id="...">；
+      // 首页/归档/分类/标签/分页等列表页无此锚点 → 跳过，避免误当文章。
+      const postId = $('#supabase-comments').attr('data-post-id');
+      if (!postId) continue;
+
       const $article = $('.article-entry, article');
-      if (!$article.length) continue; // 非文章页
+      if (!$article.length) continue;
 
       const title = ($('title').first().text() || '').trim();
       const content = $article.text().replace(/\s+/g, ' ').trim();
       const rel = p.replace(PUBLIC_DIR, '').replace(/\\/g, '/');
       const url = rel.replace(/\/index\.html$/, '/');
-      const postId = $('#supabase-comments').attr('data-post-id') ||
-        rel.replace(/\.html$/, '').replace(/\/index$/, '');
       if (title && content) {
         posts.push({ post_id: postId, title, url, excerpt: content.slice(0, 120), content });
       }
