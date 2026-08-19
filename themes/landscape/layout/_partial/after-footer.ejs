@@ -20,6 +20,17 @@
 <% } %>
 
 <%- js('js/script') %>
+
+<%# 主题内置搜索框接线：supabase-js + 全局搜索脚本 + 配置注入（公开值来自主题 _config.yml，不依赖 GitHub Secrets） %>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  window.SEARCH_SUPABASE_URL = "<%= (theme.search && theme.search.supabase_url) || '' %>";
+  window.SEARCH_SUPABASE_ANON_KEY = "<%= (theme.search && theme.search.supabase_anon_key) || '' %>";
+</script>
+<link rel="stylesheet" href="<%- url_for('css/search.css') %>">
+<%- js('js/theme-search') %>
+<%- js('js/search') %>
+
 <%- partial('gauges-analytics') %>
 
 <% if(theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>

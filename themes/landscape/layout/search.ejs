@@ -1,16 +1,8 @@
 <%
-// 搜索页专用布局：仅渲染页面正文，并注入搜索配置与脚本
-// 不复用 _partial/article，以免把文章评论区/评论注入带到搜索页
-// 注意：自定义布局用 page.content 取正文（body 仅用于 layout.ejs 基类链）
+// 搜索页内容布局：仅输出页面正文（#search-ui 等）。
+// 站点框架（header/sidebar/footer）与全部脚本（supabase-js、配置注入、
+// theme-search.js、search.js）由 layout.ejs → _partial/after-footer.ejs 统一挂载，
+// 避免脚本被塞进正文、避免重复加载 supabase-js。
+// 本布局不复用 _partial/article，故评论区不会注入到搜索页。
 %>
 <%- page.content %>
-
-<link rel="stylesheet" href="<%- url_for('css/search.css') %>">
-<script>
-  // 前端配置来自主题 _config.yml 的公开值（anon key 可公开，RLS 保护数据），
-  // 构建期由 ejs 注入 window；不再依赖 GitHub Secrets，避免"缺少环境变量→未配置"。
-  window.SEARCH_SUPABASE_URL = "<%= (theme.search && theme.search.supabase_url) || '' %>";
-  window.SEARCH_SUPABASE_ANON_KEY = "<%= (theme.search && theme.search.supabase_anon_key) || '' %>";
-</script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="<%- url_for('js/search.js') %>"></script>
