@@ -24,10 +24,9 @@ jobs:
     env:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-      # 搜索后端（独立 project）：URL/anon 供前端调用，service 供构建期索引器写库
-      # 缺省时：前端搜索降级提示、索引器跳过 —— 搜索是增强项，绝不阻断博客部署
+      # 搜索后端（独立 project）：前端 url/anon 已改为提交进主题 _config.yml 的公开配置（anon 可公开），不再走 Secret
+      # 此处仅保留索引器所需的 URL + service_role（service_role 敏感，必须保留为 Secret）
       SEARCH_SUPABASE_URL: ${{ secrets.SEARCH_SUPABASE_URL }}
-      SEARCH_SUPABASE_ANON_KEY: ${{ secrets.SEARCH_SUPABASE_ANON_KEY }}
       SEARCH_SUPABASE_SERVICE_KEY: ${{ secrets.SEARCH_SUPABASE_SERVICE_KEY }}
 
     steps:

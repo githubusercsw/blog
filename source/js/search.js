@@ -2,7 +2,7 @@
  * Supabase 搜索组件（Phase C）
  * 安全约定：
  *  - 结果一律用 textContent / createElement 渲染，禁用 innerHTML 拼接（防 XSS）
- *  - anon key 来自 window.SEARCH_SUPABASE_URL / window.SEARCH_SUPABASE_ANON_KEY（构建期注入，不写死进仓库）
+ *  - anon key 来自 window.SEARCH_SUPABASE_URL / window.SEARCH_SUPABASE_ANON_KEY（构建期由 search.ejs 注入，值取自主题 _config.yml 的公开配置）
  *  - 缺配置 → 降级提示；所有异步调用 try/catch，失败不崩页
  */
 (function () {

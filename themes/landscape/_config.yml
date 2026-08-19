@@ -89,3 +89,14 @@ valine:
   lang: zh-cn # i18n: zh-cn/en
   placeholder: Just go go # valine comment input placeholder(like: Please leave your footprints )
   guest_info: nick,mail,link #valine comment header info
+
+# ===============
+# Search (Supabase 后端)
+# 注意：anon key 是"可公开"凭证（Supabase 用 RLS 保护数据，anon key 常驻前端是标准做法）
+# 因此前端所需的 url + anon_key 直接提交进仓库配置，构建期由 search.ejs 注入 window，
+# 不再依赖 GitHub Secrets —— 避免"缺少环境变量→搜索未配置"的脆弱链路。
+# service_role（写库索引器用）仍须作为 GitHub Secret，绝不进仓库。
+# ===============
+search:
+  supabase_url: https://jnrqbznmottytcbojjak.supabase.co
+  supabase_anon_key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpucnFiem5tb3R0eXRjYm9qamFrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcxMTYzMjUsImV4cCI6MjEwMjY5MjMyNX0.sjuZ_3z6-dEXaRQ7NC7Q1VynPfHRqQ_V8QUE5LXMqQU

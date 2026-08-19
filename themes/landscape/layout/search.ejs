@@ -7,9 +7,10 @@
 
 <link rel="stylesheet" href="<%- url_for('css/search.css') %>">
 <script>
-  // 由构建期 process.env 注入（不写死进仓库）；缺失则搜索组件降级提示
-  window.SEARCH_SUPABASE_URL = "<%- process.env.SEARCH_SUPABASE_URL %>";
-  window.SEARCH_SUPABASE_ANON_KEY = "<%- process.env.SEARCH_SUPABASE_ANON_KEY %>";
+  // 前端配置来自主题 _config.yml 的公开值（anon key 可公开，RLS 保护数据），
+  // 构建期由 ejs 注入 window；不再依赖 GitHub Secrets，避免"缺少环境变量→未配置"。
+  window.SEARCH_SUPABASE_URL = "<%= (theme.search && theme.search.supabase_url) || '' %>";
+  window.SEARCH_SUPABASE_ANON_KEY = "<%= (theme.search && theme.search.supabase_anon_key) || '' %>";
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="<%- url_for('js/search.js') %>"></script>
