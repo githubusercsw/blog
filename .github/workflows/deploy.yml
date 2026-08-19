@@ -24,6 +24,11 @@ jobs:
     env:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+      # 搜索后端（独立 project）：URL/anon 供前端调用，service 供构建期索引器写库
+      # 缺省时：前端搜索降级提示、索引器跳过 —— 搜索是增强项，绝不阻断博客部署
+      SEARCH_SUPABASE_URL: ${{ secrets.SEARCH_SUPABASE_URL }}
+      SEARCH_SUPABASE_ANON_KEY: ${{ secrets.SEARCH_SUPABASE_ANON_KEY }}
+      SEARCH_SUPABASE_SERVICE_KEY: ${{ secrets.SEARCH_SUPABASE_SERVICE_KEY }}
 
     steps:
       - name: Checkout 源码
@@ -52,6 +57,22 @@ jobs:
 
       - name: 构建静态站点
         run: npx hexo generate
+
+      # 搜索索引配置状态（仅信息，不失败）：告知是否启用了搜索索引
+      - name: 搜索索引配置状态
+        run: |
+          if [ -n "$SEARCH_SUPABASE_URL" ] && [ -n "$SEARCH_SUPABASE_SERVICE_KEY" ]; then
+            echo "search index: enabled"
+          else
+            echo "search index: disabled（缺少 SEARCH_SUPABASE_URL / SEARCH_SUPABASE_SERVICE_KEY，将跳过索引，线上搜索降级）"
+          fi
+
+      # 搜索索引（强制步骤）：每次部署动态重建，删除同步靠「先删不在集合内旧行再 upsert」
+      # 索引器自身处理降级：缺密钥 → exit 0 跳过；抽取异常 → exit 1。
+      # continue-on-error：搜索是增强项，即便索引失败也绝不阻断博客部署。
+      - name: 构建搜索索引（缺密钥则跳过，不阻断部署）
+        continue-on-error: true
+        run: node tools/build-search-index.js
 
       # CNAME 红线：构建产物必须含正确域名，否则中止（防域名丢失回归）
       - name: 校验 CNAME

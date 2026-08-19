@@ -5,6 +5,7 @@
 menu:
   Home: /
   Archives: /archives
+  搜索: /search/
 # RSS link
 rss: /atom.xml
 # Path of title banner image of page top

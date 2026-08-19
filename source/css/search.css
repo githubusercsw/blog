@@ -1,0 +1,59 @@
+/* 搜索页样式（Phase C） */
+#search-ui {
+  margin: 1.5em 0;
+}
+.search-input-wrap {
+  display: flex;
+  gap: 8px;
+  max-width: 520px;
+}
+#search-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 15px;
+  outline: none;
+}
+#search-input:focus {
+  border-color: #2baad7;
+}
+#search-btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 4px;
+  background: #2baad7;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+}
+#search-btn:hover {
+  background: #2196c4;
+}
+#search-results {
+  margin-top: 1.2em;
+}
+.search-result {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+.search-result-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2baad7;
+  text-decoration: none;
+}
+.search-result-title:hover {
+  text-decoration: underline;
+}
+.search-result-excerpt {
+  margin: 4px 0 0;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.search-status {
+  margin-top: 0.8em;
+  color: #999;
+  font-size: 14px;
+}

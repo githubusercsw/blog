@@ -1,0 +1,15 @@
+<%
+// 搜索页专用布局：仅渲染页面正文，并注入搜索配置与脚本
+// 不复用 _partial/article，以免把文章评论区/评论注入带到搜索页
+// 注意：自定义布局用 page.content 取正文（body 仅用于 layout.ejs 基类链）
+%>
+<%- page.content %>
+
+<link rel="stylesheet" href="<%- url_for('css/search.css') %>">
+<script>
+  // 由构建期 process.env 注入（不写死进仓库）；缺失则搜索组件降级提示
+  window.SEARCH_SUPABASE_URL = "<%- process.env.SEARCH_SUPABASE_URL %>";
+  window.SEARCH_SUPABASE_ANON_KEY = "<%- process.env.SEARCH_SUPABASE_ANON_KEY %>";
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="<%- url_for('js/search.js') %>"></script>
