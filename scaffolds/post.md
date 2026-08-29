@@ -1,9 +1,10 @@
 ---
 title: {{ title }}
 date: {{ date }}
+updated: {{ date }}
 tags:
 categories:
 toc: true
 comments: true
-mathjax: false
+math: false
 ---

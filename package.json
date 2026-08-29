@@ -25,11 +25,7 @@
     "hexo-renderer-marked": "^6.0.0",
     "hexo-renderer-stylus": "^3.0.0",
     "hexo-server": "^3.0.0",
-    "hexo-theme-landscape": "^1.1.0",
     "hexo-theme-next": "^8.29.0"
   },
-  "devDependencies": {
-    "@supabase/supabase-js": "^2.45.0",
-    "cheerio": "^1.0.0"
-  }
+  "devDependencies": {}
 }
