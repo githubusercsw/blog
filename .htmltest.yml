@@ -1,0 +1,19 @@
+# htmltest 配置 — 内部链接有效性检查
+# 文档：https://github.com/wjdp/htmltest
+
+DirectoryPath: public
+
+# 忽略目录缺少尾部斜杠（Hexo 生成的页面有些是 /path 而非 /path/）
+IgnoreDirectoryMissingTrailingSlash: true
+
+# 忽略图片缺少 alt 属性（不影响功能）
+IgnoreAltMissing: true
+
+# 忽略内部空 hash 链接（如 #）
+IgnoreInternalEmptyHash: true
+
+# 不检查外部链接（避免网络波动导致 CI 失败）
+CheckExternal: false
+
+# 日志级别：0=静默, 1=摘要, 2=详细
+LogLevel: 1

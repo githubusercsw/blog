@@ -1,86 +1,112 @@
-# =============================================================================
-# deploy.yml —— GitHub Actions 服务器端构建部署
-# =============================================================================
 name: Deploy Blog to GitHub Pages
 
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
-# 关键：允许 Actions 写入 gh-pages 分支（否则部署会因权限不足失败）
 permissions:
   contents: write
 
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
 jobs:
-  build-and-deploy:
+  # ============================================================
+  # 构建与验证（PR 和 main push 都运行）
+  # 五道质量门：依赖可复现 → 构建无错 → 产物完整 → 链接有效 → 产物可预览
+  # ============================================================
+  build-and-verify:
     runs-on: ubuntu-latest
-    concurrency:
-      group: pages
-      cancel-in-progress: true
-
-    # 构建期注入 Supabase 连接信息：hexo-renderer-ejs 会把 process.env.* 注入模板
-    # secret 名必须与 GitHub 仓库 Secrets 中一致（SUPABASE_URL / SUPABASE_ANON_KEY）
-    env:
-      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-      # 搜索后端（独立 project）：前端 url/anon 已改为提交进主题 _config.yml 的公开配置（anon 可公开），不再走 Secret
-      # 此处仅保留索引器所需的 URL + service_role（service_role 敏感，必须保留为 Secret）
-      SEARCH_SUPABASE_URL: ${{ secrets.SEARCH_SUPABASE_URL }}
-      SEARCH_SUPABASE_SERVICE_KEY: ${{ secrets.SEARCH_SUPABASE_SERVICE_KEY }}
-
     steps:
-      - name: Checkout 源码
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: 配置 Node 环境
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: .nvmrc
           cache: npm
 
-      # 用 npm ci 而非 npm install：严格按 package-lock.json，构建不漂移
-      - name: 安装依赖
+      # 门1：依赖可复现 — npm ci 严格按 package-lock.json，不一致即失败
+      - name: 门1 - 依赖可复现（npm ci）
         run: npm ci
 
-      # 校验 Secrets 是否已注入构建环境（读 job 级 env，不把值内联进脚本）
-      # 若为空则中止部署 —— 避免用"未配置"坏版本覆盖线上好版本（防连锁反应）
-      - name: 校验 Secrets（缺失即失败，不泄露值）
+      # 门2：构建无错 — hexo generate 必须 exit 0，且日志无 ERROR/FATAL
+      - name: 门2 - 构建无错
         run: |
-          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; then
-            echo "::error::SUPABASE_URL 或 SUPABASE_ANON_KEY 为空 —— 中止部署。请检查 GitHub repo Settings → Secrets and variables → Actions（须 repo 级，非 Environment，值非空）"
+          npx hexo generate 2>&1 | tee build.log
+          if [ ${PIPESTATUS[0]} -ne 0 ]; then
+            echo "::error::hexo generate 退出码非0"
             exit 1
           fi
-          echo "SUPABASE_URL set: true"
-          echo "SUPABASE_ANON_KEY set: true"
-
-      - name: 构建静态站点
-        run: npx hexo generate
-
-      # 搜索索引配置状态（仅信息，不失败）：告知是否启用了搜索索引
-      - name: 搜索索引配置状态
-        run: |
-          if [ -n "$SEARCH_SUPABASE_URL" ] && [ -n "$SEARCH_SUPABASE_SERVICE_KEY" ]; then
-            echo "search index: enabled"
-          else
-            echo "search index: disabled（缺少 SEARCH_SUPABASE_URL / SEARCH_SUPABASE_SERVICE_KEY，将跳过索引，线上搜索降级）"
-          fi
-
-      # 搜索索引（强制步骤）：每次部署动态重建，删除同步靠「先删不在集合内旧行再 upsert」
-      # 索引器自身处理降级：缺密钥 → exit 0 跳过；抽取异常 → exit 1。
-      # continue-on-error：搜索是增强项，即便索引失败也绝不阻断博客部署。
-      - name: 构建搜索索引（缺密钥则跳过，不阻断部署）
-        continue-on-error: true
-        run: node tools/build-search-index.js
-
-      # CNAME 红线：构建产物必须含正确域名，否则中止（防域名丢失回归）
-      - name: 校验 CNAME
-        run: |
-          if [ ! -f public/CNAME ]; then
-            echo "::error::public/CNAME 缺失，中止部署（检查 source/CNAME）"
+          if grep -qiE "ERROR|FATAL" build.log; then
+            echo "::error::构建日志包含 ERROR/FATAL"
+            grep -iE "ERROR|FATAL" build.log
             exit 1
           fi
-          echo "CNAME = $(cat public/CNAME)"
+          echo "构建成功，无 ERROR/FATAL"
+
+      # 门3：产物完整 — 关键文件必须存在，文章数必须 > 0
+      - name: 门3 - 产物完整
+        run: |
+          REQUIRED_FILES=(
+            "public/index.html"
+            "public/atom.xml"
+            "public/rss2.xml"
+            "public/search.json"
+            "public/about/index.html"
+            "public/CNAME"
+            "public/css/main.css"
+          )
+          MISSING=0
+          for f in "${REQUIRED_FILES[@]}"; do
+            if [ ! -f "$f" ]; then
+              echo "::error::缺失关键文件: $f"
+              MISSING=1
+            else
+              echo "✅ $f"
+            fi
+          done
+          if [ $MISSING -ne 0 ]; then
+            exit 1
+          fi
+          ARTICLE_COUNT=$(find public -type d -regextype posix-extended -regex ".*/20[0-9]{2}/[0-9]{2}/[0-9]{2}/[^/]+$" | wc -l)
+          echo "构建文章数: $ARTICLE_COUNT"
+          if [ "$ARTICLE_COUNT" -lt 1 ]; then
+            echo "::error::文章数为0，构建可能异常"
+            exit 1
+          fi
+
+      # 门4：链接有效 — htmltest 检查内部链接（外部链接跳过，避免网络波动）
+      - name: 门4 - 链接有效（htmltest）
+        uses: wjdp/htmltest-action@master
+        with:
+          config: .htmltest.yml
+
+      # 门5：产物可预览 — 上传构建产物，PR 时可下载本地预览
+      - name: 门5 - 上传构建产物（供预览/部署）
+        uses: actions/upload-artifact@v4
+        with:
+          name: public
+          path: public
+
+  # ============================================================
+  # 部署（仅 main 分支 push 时运行，PR 不部署）
+  # ============================================================
+  deploy:
+    needs: build-and-verify
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 下载构建产物
+        uses: actions/download-artifact@v4
+        with:
+          name: public
+          path: public
 
       - name: 部署到 gh-pages
         uses: peaceiris/actions-gh-pages@v3
