@@ -67,7 +67,7 @@ toc:
 codeblock:
   theme:
     light: default
-    dark: tomorrow-night
+    dark: atom-one-dark   # 注意：tomorrow-night 在新版 highlight.js 中已被移除
   copy_button:
     enable: true
     show_result: true
@@ -77,13 +77,13 @@ codeblock:
   word_wrap: false
 
 # ------------------------------------------------------------
-# 本地搜索（替代 Supabase 搜索，纯静态，构建时生成 search.xml）
+# 本地搜索（替代 Supabase 搜索，纯静态，构建时生成 search.json）
 # ------------------------------------------------------------
 local_search:
   enable: true
   top_n_per_article: 1
   unescape: false
-  preload: false          # 输入时才加载 search.xml，加快首屏
+  preload: false          # 输入时才加载 search.json，加快首屏
 
 # ------------------------------------------------------------
 # 数学公式（技术文章可能用到）
@@ -111,7 +111,7 @@ mermaid:
 
 # ------------------------------------------------------------
 # 评论系统
-# 阶段1：暂不启用。请在 https://giscus.app 配置后，填写下方字段，
+# 暂不启用。请在 https://giscus.app 配置后，填写下方字段，
 # 并将 active 改为 giscus。
 # ------------------------------------------------------------
 comments:
@@ -169,11 +169,3 @@ footer:
 # ------------------------------------------------------------
 seo: false
 index_with_subtitle: false
-
-# ------------------------------------------------------------
-# 站点验证（可选，搜索引擎站长平台验证用）
-# ------------------------------------------------------------
-# site_verification:
-#   google: ""
-#   baidu: ""
-#   bing: ""
