@@ -1,0 +1,171 @@
+# ============================================================
+# NexT 主题配置 —— Muse 方案
+# 对应主题版本：hexo-theme-next ^8.29.0
+# 文档：https://theme-next.js.org/docs/
+# ============================================================
+
+# ------------------------------------------------------------
+# 主题方案：Muse（左侧边栏，与 Chirpy 视觉风格最接近）
+# 可选：Muse | Mist | Pisces | Gemini
+# ------------------------------------------------------------
+scheme: Muse
+
+# ------------------------------------------------------------
+# 深色 / 浅色模式切换
+# ------------------------------------------------------------
+darkmode: true
+
+# ------------------------------------------------------------
+# 侧边栏
+# ------------------------------------------------------------
+sidebar:
+  position: left          # 左侧边栏
+  display: post           # 在文章页显示；首页也可设为 always
+  padding: 18
+  offset: 12
+  onmobile: false         # 移动端隐藏侧边栏（避免拥挤）
+
+# 头像（请将头像图片放到 source/images/avatar.png）
+avatar:
+  url: /images/avatar.png
+  rounded: true
+  opacity: 1
+  rotated: false
+
+# 社交链接（格式：名称: 链接 || 图标 class）
+social:
+  GitHub: https://github.com/githubusercsw || fab fa-github
+  E-Mail: mailto:your@email.com || fas fa-envelope
+  RSS: /atom.xml || fas fa-rss
+  # 可添加：Twitter、LinkedIn、知乎等
+
+# ------------------------------------------------------------
+# 文章元信息（标题下方显示的内容）
+# ------------------------------------------------------------
+post_meta:
+  item_text: true
+  created_at: true
+  updated_at:
+    enable: true
+    another_day: true     # 仅在与创建日期不同时显示更新时间
+  categories: true
+
+# ------------------------------------------------------------
+# 文章目录（TOC）
+# ------------------------------------------------------------
+toc:
+  enable: true
+  max_depth: 4            # 最多显示到 h4
+  min_depth: 2
+  expand_all: false       # 默认折叠
+  number: false           # 不显示编号
+  wrap: true
+
+# ------------------------------------------------------------
+# 代码块
+# ------------------------------------------------------------
+codeblock:
+  theme:
+    light: default
+    dark: atom-one-dark   # 注意：tomorrow-night 在新版 highlight.js 中已被移除
+  copy_button:
+    enable: true
+    show_result: true
+    style: default
+  highlight_theme: night
+  lang: true
+  word_wrap: false
+
+# ------------------------------------------------------------
+# 本地搜索（替代 Supabase 搜索，纯静态，构建时生成 search.json）
+# ------------------------------------------------------------
+local_search:
+  enable: true
+  top_n_per_article: 1
+  unescape: false
+  preload: false          # 输入时才加载 search.json，加快首屏
+
+# ------------------------------------------------------------
+# 数学公式（技术文章可能用到）
+# ------------------------------------------------------------
+math:
+  enable: true
+  engine: mathjax         # 可选：mathjax | katex
+  mathjax:
+    cdn: //cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  katex:
+    cdn: //cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css
+    copy_tex: false
+
+# ------------------------------------------------------------
+# Mermaid 流程图 / 图表
+# ------------------------------------------------------------
+mermaid:
+  enable: true
+  version: "10.6.1"
+  cdn: //cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js
+  options:
+    theme: default
+    themeVariables:
+      primaryColor: "#bbdefb"
+
+# ------------------------------------------------------------
+# 评论系统
+# 暂不启用。请在 https://giscus.app 配置后，填写下方字段，
+# 并将 active 改为 giscus。
+# ------------------------------------------------------------
+comments:
+  active:                  # 启用后改为：giscus
+  giscus:
+    repo:                   # 例如：githubusercsw/blog
+    repo_id:                # 在 giscus.app 配置后获取
+    category: General
+    category_id:            # 在 giscus.app 配置后获取
+    mapping: pathname
+    reactions_enabled: 1
+    emit_metadata: 0
+    input_position: bottom
+    theme: preferred_color_scheme
+    lang: zh-CN
+    lazy_load: false
+
+# ------------------------------------------------------------
+# 不蒜子统计（可选，不需要就保持 false）
+# ------------------------------------------------------------
+busuanzi:
+  enable: false
+  site_uv: true
+  site_pv: true
+  page_pv: true
+
+# ------------------------------------------------------------
+# 阅读进度条
+# ------------------------------------------------------------
+reading_progress:
+  enable: true
+  color: "#222"
+  height: 2px
+  left: true
+  options:
+    showIcon: false
+
+# ------------------------------------------------------------
+# 页脚
+# ------------------------------------------------------------
+footer:
+  since: 2024
+  icon:
+    name: heart
+    animated: true
+    color: "#fc5185"
+  copyright: githubusercsw
+  powered: true
+  theme:
+    enable: true
+    version: true
+
+# ------------------------------------------------------------
+# SEO
+# ------------------------------------------------------------
+seo: false
+index_with_subtitle: false
