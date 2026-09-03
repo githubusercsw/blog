@@ -1,0 +1,1180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>CSW 的思维角落</title>
+  <icon>https://chenshengwu.dpdns.org/icon.png</icon>
+  <subtitle>关于技术、认知与生活的断想</subtitle>
+  <link href="https://chenshengwu.dpdns.org/atom.xml" rel="self"/>
+  
+  <link href="https://chenshengwu.dpdns.org/"/>
+  <updated>2026-09-03T05:27:38.929Z</updated>
+  <id>https://chenshengwu.dpdns.org/</id>
+  
+  <author>
+    <name>githubusercsw</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Quizify Bridge 分阶段实战（十二）：规则审计与 LLM 差距——诚实地承认能力边界</title>
+    <link href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-12-%E5%AE%A1%E8%AE%A1%E4%B8%8ELLM%E5%B7%AE%E8%B7%9D/"/>
+    <id>https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-12-%E5%AE%A1%E8%AE%A1%E4%B8%8ELLM%E5%B7%AE%E8%B7%9D/</id>
+    <published>2026-09-03T13:50:00.000Z</published>
+    <updated>2026-09-03T05:27:38.929Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Quizify-Bridge-分阶段实战（十二）：规则审计与-LLM-差距——诚实地承认能力边界&quot;&gt;&lt;a href=&quot;#Quizify-Bridge-分阶段实战（十二）：规则审计与-LLM-差距——诚实地承认能力边界&quot; class=&quot;headerlink&quot; title=&quot;Quizify Bridge 分阶段实战（十二）：规则审计与 LLM 差距——诚实地承认能力边界&quot;&gt;&lt;/a&gt;Quizify Bridge 分阶段实战（十二）：规则审计与 LLM 差距——诚实地承认能力边界&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;日期：2026-09-03 · 系列终篇&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;规则引擎做到 139 个测试全绿后，最该做的一件事是：&lt;strong&gt;停下来问一句——它到底离”人”的理解差多远？&lt;/strong&gt; 本系列终篇讲规则审计的方法论与结论：用双轨对比量化规则与语义理解的差距，诚实标注能力边界，并给出收敛方向（LLM 兜底接口）。这是整个项目”元认知”的收束：不仅要知道系统能做什么，更要知道它不能做什么。&lt;/p&gt;
+&lt;h2 id=&quot;1-为什么审计比写代码更重要&quot;&gt;&lt;a href=&quot;#1-为什么审计比写代码更重要&quot; class=&quot;headerlink&quot; title=&quot;1. 为什么审计比写代码更重要&quot;&gt;&lt;/a&gt;1. 为什么审计比写代码更重要&lt;/h2&gt;&lt;p&gt;规则迭代到后期有个危险：&lt;strong&gt;测试全绿 ≠ 能力达标&lt;/strong&gt;。测试是自证的（自己写规则、自己写断言），如果规则本身有系统性盲区，测试会一起盲。&lt;/p&gt;
+&lt;p&gt;审计的方法：&lt;strong&gt;外部基准&lt;/strong&gt;——用语义侧的人工标注（理想结构）与脚本侧的实际输出对比，量化差距。&lt;/p&gt;
+&lt;h2 id=&quot;2-审计结论：与-LLM-人工的差距&quot;&gt;&lt;a href=&quot;#2-审计结论：与-LLM-人工的差距&quot; class=&quot;headerlink&quot; title=&quot;2. 审计结论：与 LLM&amp;#x2F;人工的差距&quot;&gt;&lt;/a&gt;2. 审计结论：与 LLM&amp;#x2F;人工的差距&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;场景&lt;/th&gt;
+&lt;th&gt;规则侧&lt;/th&gt;
+&lt;th&gt;人工&amp;#x2F;LLM&lt;/th&gt;
+&lt;th&gt;差距&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;显式信号（序号&amp;#x2F;emoji&amp;#x2F;加粗）&lt;/td&gt;
+&lt;td&gt;~90%&lt;/td&gt;
+&lt;td&gt;~100%&lt;/td&gt;
+&lt;td&gt;小&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;列表项 vs 标题（上下文引导）&lt;/td&gt;
+&lt;td&gt;~60%&lt;/td&gt;
+&lt;td&gt;~100%&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;最大&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;隐式语义标题&lt;/td&gt;
+&lt;td&gt;~50%&lt;/td&gt;
+&lt;td&gt;~95%&lt;/td&gt;
+&lt;td&gt;大&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;层级归位（嵌套结构）&lt;/td&gt;
+&lt;td&gt;无&lt;/td&gt;
+&lt;td&gt;~100%&lt;/td&gt;
+&lt;td&gt;无规则实现&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/t</summary>
+      
+    
+    
+    
+    <category term="技术实践" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/"/>
+    
+    
+    <category term="Quizify" scheme="https://chenshengwu.dpdns.org/tags/Quizify/"/>
+    
+    <category term="规则审计" scheme="https://chenshengwu.dpdns.org/tags/%E8%A7%84%E5%88%99%E5%AE%A1%E8%AE%A1/"/>
+    
+    <category term="LLM" scheme="https://chenshengwu.dpdns.org/tags/LLM/"/>
+    
+    <category term="能力边界" scheme="https://chenshengwu.dpdns.org/tags/%E8%83%BD%E5%8A%9B%E8%BE%B9%E7%95%8C/"/>
+    
+    <category term="总结" scheme="https://chenshengwu.dpdns.org/tags/%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Quizify Bridge 分阶段实战（十一）：工程方法总结——测试门、持久化、上下文锚点</title>
+    <link href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-11-%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/"/>
+    <id>https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-11-%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/</id>
+    <published>2026-09-03T13:40:00.000Z</published>
+    <updated>2026-09-03T05:27:38.929Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Quizify-Bridge-分阶段实战（十一）：工程方法总结——测试门、持久化、上下文锚点&quot;&gt;&lt;a href=&quot;#Quizify-Bridge-分阶段实战（十一）：工程方法总结——测试门、持久化、上下文锚点&quot; class=&quot;headerlink&quot; title=&quot;Quizify Bridge 分阶段实战（十一）：工程方法总结——测试门、持久化、上下文锚点&quot;&gt;&lt;/a&gt;Quizify Bridge 分阶段实战（十一）：工程方法总结——测试门、持久化、上下文锚点&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;日期：2026-09-03 · 系列第十一篇&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;前十个阶段讲了”做什么”，本篇讲”怎么做”——贯穿全程的三条工程方法：&lt;strong&gt;测试全绿为门&lt;/strong&gt;、&lt;strong&gt;环境持久化&lt;/strong&gt;、&lt;strong&gt;上下文锚点&lt;/strong&gt;。它们不是某个阶段的技术，而是让整个项目在长周期、多轮迭代、反复中断下仍能稳步推进的底层纪律。&lt;/p&gt;
+&lt;h2 id=&quot;1-方法一：测试全绿为门&quot;&gt;&lt;a href=&quot;#1-方法一：测试全绿为门&quot; class=&quot;headerlink&quot; title=&quot;1. 方法一：测试全绿为门&quot;&gt;&lt;/a&gt;1. 方法一：测试全绿为门&lt;/h2&gt;&lt;h3 id=&quot;1-1-定义&quot;&gt;&lt;a href=&quot;#1-1-定义&quot; class=&quot;headerlink&quot; title=&quot;1.1 定义&quot;&gt;&lt;/a&gt;1.1 定义&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;每个里程碑以”验证台全绿”为门。任何阶段红，修复到绿再前进。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;1-2-为什么它如此重要&quot;&gt;&lt;a href=&quot;#1-2-为什么它如此重要&quot; class=&quot;headerlink&quot; title=&quot;1.2 为什么它如此重要&quot;&gt;&lt;/a&gt;1.2 为什么它如此重要&lt;/h3&gt;&lt;p&gt;“完成”这个词在软件开发里极其含糊。没有门，就会出现项目里真实发生过的现象：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;写文档替代跑验证&lt;/strong&gt;：出了 6 个问题，团队选择写更多审计文档而不是修测试&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;测试锁的与代码跑的不是同一套&lt;/strong&gt;：StructureRouter 是死代码，测试却全绿&lt;/li&gt;
+&lt;li&gt;**”mock 全绿 ≠ 真实 DOM 全过”**：验证只在理想环境过，真实场景一跑就碎&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;测试门把”完成”变成&lt;strong&gt;可复现的度量&lt;/strong&gt;：绿 &amp;#x3D; 有证据，红 &amp;#x3D; 有责任。&lt;/p&gt;
+&lt;h3 id=&quot;1-3-分层验证体系&quot;&gt;&lt;a href=&quot;#1-3-分层验证体系&quot; class=&quot;headerlink&quot; title=&quot;1.3 分层验证体系&quot;&gt;&lt;/a&gt;1.3 分层验证体系&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;层&lt;/th&gt;
+&lt;th&gt;定位&lt;/th&gt;
+&lt;th&gt;跑多久&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;L1 引擎单测&lt;/td&gt;
+&lt;</summary>
+      
+    
+    
+    
+    <category term="技术实践" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/"/>
+    
+    
+    <category term="测试驱动" scheme="https://chenshengwu.dpdns.org/tags/%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8/"/>
+    
+    <category term="工程方法" scheme="https://chenshengwu.dpdns.org/tags/%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/"/>
+    
+    <category term="环境持久化" scheme="https://chenshengwu.dpdns.org/tags/%E7%8E%AF%E5%A2%83%E6%8C%81%E4%B9%85%E5%8C%96/"/>
+    
+    <category term="上下文管理" scheme="https://chenshengwu.dpdns.org/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/"/>
+    
+    <category term="复盘" scheme="https://chenshengwu.dpdns.org/tags/%E5%A4%8D%E7%9B%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Quizify Bridge 分阶段实战（十）：M6 真机端到端与发布——产品成立性验证</title>
+    <link href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-10-%E7%9C%9F%E6%9C%BA%E7%AB%AF%E5%88%B0%E7%AB%AF/"/>
+    <id>https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-10-%E7%9C%9F%E6%9C%BA%E7%AB%AF%E5%88%B0%E7%AB%AF/</id>
+    <published>2026-09-03T13:30:00.000Z</published>
+    <updated>2026-09-03T05:27:38.929Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Quizify-Bridge-分阶段实战（十）：M6-真机端到端与发布——产品成立性验证&quot;&gt;&lt;a href=&quot;#Quizify-Bridge-分阶段实战（十）：M6-真机端到端与发布——产品成立性验证&quot; class=&quot;headerlink&quot; title=&quot;Quizify Bridge 分阶段实战（十）：M6 真机端到端与发布——产品成立性验证&quot;&gt;&lt;/a&gt;Quizify Bridge 分阶段实战（十）：M6 真机端到端与发布——产品成立性验证&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;日期：2026-09-03 · 系列第十篇&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;M1-M5 的全部验证都在沙箱&amp;#x2F;JVM 上完成，但项目最初的六大问题里有一条始终悬着：&lt;strong&gt;产品成立性未端到端验证&lt;/strong&gt;——写入 AnkiDroid 从未真机成功。M6 就是补上这最后一块拼图：真机端到端 + 发布。本文讲真机验证的分工模型、版本号策略、以及”Agent 开发+静态验证；用户真机验证”的协作定案。&lt;/p&gt;
+&lt;h2 id=&quot;1-真机验证的分工模型&quot;&gt;&lt;a href=&quot;#1-真机验证的分工模型&quot; class=&quot;headerlink&quot; title=&quot;1. 真机验证的分工模型&quot;&gt;&lt;/a&gt;1. 真机验证的分工模型&lt;/h2&gt;&lt;p&gt;沙箱无法渲染 Compose UI、无法调用 AnkiDroid API、无法体验剪贴板 toast。因此从一开始就定下分工：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Agent 开发 + 静态验证；用户真机验证。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;验证项&lt;/th&gt;
+&lt;th&gt;归属&lt;/th&gt;
+&lt;th&gt;原因&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;引擎逻辑 &amp;#x2F; 规则 &amp;#x2F; 门禁&lt;/td&gt;
+&lt;td&gt;沙箱（L1&amp;#x2F;L3）&lt;/td&gt;
+&lt;td&gt;纯 JVM，秒级可测&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;UI 布局不变量&lt;/td&gt;
+&lt;td&gt;沙箱（L0b Robolectric）&lt;/td&gt;
+&lt;td&gt;锁死”按钮可见”等结构&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;剪贴板 toast 观感&lt;/td&gt;
+&lt;td&gt;真机&lt;/td&gt;
+&lt;td&gt;系统行为，沙箱不可见&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;暗黑模式观感&lt;/td&gt;
+&lt;td&gt;真机&lt;/td&gt;
+&lt;td&gt;渲染效果&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;写入 AnkiDroid 全链路&lt;/td&gt;
+&lt;td&gt;真机&lt;/td&gt;
+&lt;td&gt;依赖真机 AnkiDroid&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;R8 选择题渲染&lt;/td&gt;
+&lt;td&gt;真机&lt;/td&gt;
+&lt;td&gt;发布 blocker&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;这个分工让沙箱把能自动化的全部自动化，真机只留”必须人眼确认”的项——零环境成本，且观感项不阻塞开发迭代。&lt;/p&gt;
+&lt;h2 id=&quot;2-M6-真机端到端验证了什么&quot;&gt;&lt;a href</summary>
+      
+    
+    
+    
+    <category term="技术实践" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/"/>
+    
+    
+    <category term="Quizify" scheme="https://chenshengwu.dpdns.org/tags/Quizify/"/>
+    
+    <category term="AnkiDroid" scheme="https://chenshengwu.dpdns.org/tags/AnkiDroid/"/>
+    
+    <category term="真机验证" scheme="https://chenshengwu.dpdns.org/tags/%E7%9C%9F%E6%9C%BA%E9%AA%8C%E8%AF%81/"/>
+    
+    <category term="发布" scheme="https://chenshengwu.dpdns.org/tags/%E5%8F%91%E5%B8%83/"/>
+    
+    <category term="R8" scheme="https://chenshengwu.dpdns.org/tags/R8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Quizify Bridge 分阶段实战（九）：M5.4 UI 细节与样本固化——三次修正背后的测试思维</title>
+    <link href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-9-UI%E7%BB%86%E8%8A%82%E4%B8%8E%E6%A0%B7%E6%9C%AC%E5%9B%BA%E5%8C%96/"/>
+    <id>https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-9-UI%E7%BB%86%E8%8A%82%E4%B8%8E%E6%A0%B7%E6%9C%AC%E5%9B%BA%E5%8C%96/</id>
+    <published>2026-09-03T13:20:00.000Z</published>
+    <updated>2026-09-03T05:27:38.929Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Quizify-Bridge-分阶段实战（九）：M5-4-UI-细节与样本固化——三次修正背后的测试思维&quot;&gt;&lt;a href=&quot;#Quizify-Bridge-分阶段实战（九）：M5-4-UI-细节与样本固化——三次修正背后的测试思维&quot; class=&quot;headerlink&quot; title=&quot;Quizify Bridge 分阶段实战（九）：M5.4 UI 细节与样本固化——三次修正背后的测试思维&quot;&gt;&lt;/a&gt;Quizify Bridge 分阶段实战（九）：M5.4 UI 细节与样本固化——三次修正背后的测试思维&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;日期：2026-09-03 · 系列第九篇&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;M5.4 看起来是”小修小补”：Back 输入框高度、cloze 文案、牌组下拉、样本 7&amp;#x2F;8 固化。但这一阶段暴露了最有价值的工程思维：&lt;strong&gt;用户报一个 UI 问题，背后往往是一类规则缺口&lt;/strong&gt;。本文讲三处 UI 修正的取舍、样本 7&amp;#x2F;8 从”临时诊断”到”正式断言”的固化，以及”修一个测一类”的回归思维。&lt;/p&gt;
+&lt;h2 id=&quot;1-三处-UI-修正&quot;&gt;&lt;a href=&quot;#1-三处-UI-修正&quot; class=&quot;headerlink&quot; title=&quot;1. 三处 UI 修正&quot;&gt;&lt;/a&gt;1. 三处 UI 修正&lt;/h2&gt;&lt;h3 id=&quot;1-1-Back-输入框高度：从”随内容增长”到”固定上限”&quot;&gt;&lt;a href=&quot;#1-1-Back-输入框高度：从”随内容增长”到”固定上限”&quot; class=&quot;headerlink&quot; title=&quot;1.1 Back 输入框高度：从”随内容增长”到”固定上限”&quot;&gt;&lt;/a&gt;1.1 Back 输入框高度：从”随内容增长”到”固定上限”&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;用户反馈&lt;/strong&gt;：Back 字段自动生成长文后，输入框无限变长，每次都要滚动很久才能看到下方解析设置。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;根因&lt;/strong&gt;：&lt;code&gt;heightIn(min = 120.dp)&lt;/code&gt; 只设了下限——内容越长框越长，把设置区挤出屏幕。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;修复&lt;/strong&gt;：&lt;code&gt;heightIn(min = 120.dp, max = 200.dp)&lt;/code&gt;——固定上限，比原文输入框（max&amp;#x3D;160dp）稍长，长文在框内滚动而非撑开页面。&lt;/p&gt;
+&lt;h3 id=&quot;1-2-cloze-文案：从”技术描述”到”用户语言”&quot;&gt;&lt;a href=&quot;#1-2-cloze-文案：从”技术描述”到”用户语言”&quot; class=&quot;headerlink&quot; title=&quot;1.2 cloze 文案：从”技术描述”到”用户语言”&quot;&gt;&lt;/a&gt;1.2 cloze 文案：从”技术描述”到”用户语言”&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;用户反馈&lt;/strong&gt;：「自动 cloze（tier1，可逐条核对）：」太技术化。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;修复&lt;/strong&gt;：「自动 cloze 这些~：</summary>
+      
+    
+    
+    
+    <category term="技术实践" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/"/>
+    
+    
+    <category term="Quizify" scheme="https://chenshengwu.dpdns.org/tags/Quizify/"/>
+    
+    <category term="发布" scheme="https://chenshengwu.dpdns.org/tags/%E5%8F%91%E5%B8%83/"/>
+    
+    <category term="UI" scheme="https://chenshengwu.dpdns.org/tags/UI/"/>
+    
+    <category term="Robolectric" scheme="https://chenshengwu.dpdns.org/tags/Robolectric/"/>
+    
+    <category term="测试思维" scheme="https://chenshengwu.dpdns.org/tags/%E6%B5%8B%E8%AF%95%E6%80%9D%E7%BB%B4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Quizify Bridge 分阶段实战（八）：样本工程——双轨对比驱动的规则迭代</title>
+    <link href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-8-%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/"/>
+    <id>https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-8-%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/</id>
+    <published>2026-09-03T13:10:00.000Z</published>
+    <updated>2026-09-03T05:27:38.929Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Quizify-Bridge-分阶段实战（八）：样本工程——双轨对比驱动的规则迭代&quot;&gt;&lt;a href=&quot;#Quizify-Bridge-分阶段实战（八）：样本工程——双轨对比驱动的规则迭代&quot; class=&quot;headerlink&quot; title=&quot;Quizify Bridge 分阶段实战（八）：样本工程——双轨对比驱动的规则迭代&quot;&gt;&lt;/a&gt;Quizify Bridge 分阶段实战（八）：样本工程——双轨对比驱动的规则迭代&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;日期：2026-09-03 · 系列第八篇&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;规则不是设计出来的，是&lt;strong&gt;喂出来的&lt;/strong&gt;。标题识别规则体系迭代了四轮（P0-P3），每一次迭代都由真实样本驱动：脚本侧批量跑规则，语义侧人工标注理想结构，双轨对比暴露差距，再把差距沉淀成规则或测试。本文讲这套”样本工程”方法——它让规则迭代从”凭感觉”变成”可度量”。&lt;/p&gt;
+&lt;h2 id=&quot;1-为什么需要样本工程&quot;&gt;&lt;a href=&quot;#1-为什么需要样本工程&quot; class=&quot;headerlink&quot; title=&quot;1. 为什么需要样本工程&quot;&gt;&lt;/a&gt;1. 为什么需要样本工程&lt;/h2&gt;&lt;p&gt;规则系统最大的风险是&lt;strong&gt;过拟合与漏识别并存&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;只盯着一个样本调规则，换个样本就崩&lt;/li&gt;
+&lt;li&gt;没有基线度量，”改了没改好”只能靠感觉&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;解法：建立样本资产 + 双轨对比机制。&lt;/p&gt;
+&lt;h2 id=&quot;2-样本资产&quot;&gt;&lt;a href=&quot;#2-样本资产&quot; class=&quot;headerlink&quot; title=&quot;2. 样本资产&quot;&gt;&lt;/a&gt;2. 样本资产&lt;/h2&gt;&lt;h3 id=&quot;2-1-三批样本&quot;&gt;&lt;a href=&quot;#2-1-三批样本&quot; class=&quot;headerlink&quot; title=&quot;2.1 三批样本&quot;&gt;&lt;/a&gt;2.1 三批样本&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;批次&lt;/th&gt;
+&lt;th&gt;来源&lt;/th&gt;
+&lt;th&gt;样本&lt;/th&gt;
+&lt;th&gt;用途&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;第一批&lt;/td&gt;
+&lt;td&gt;用户真实复制&lt;/td&gt;
+&lt;td&gt;sample-01~06（六种 AI 平台格式）&lt;/td&gt;
+&lt;td&gt;金标回归基线&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;第二批&lt;/td&gt;
+&lt;td&gt;用户真实复制&lt;/td&gt;
+&lt;td&gt;sample-09~18（对话类）&lt;/td&gt;
+&lt;td&gt;批处理矩阵&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;自产批次&lt;/td&gt;
+&lt;td&gt;Agent 生成&lt;/td&gt;
+&lt;td&gt;auto-q01~q10（生活+技术问答）+ 2 篇真实文章&lt;/td&gt;
+&lt;td&gt;规则边界覆盖&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h3 id=&quot;2-2-样本形态覆盖&quot;&gt;&lt;a href=&quot;#2-2-样本形态覆盖&quot; class=&quot;headerlink&quot; title=&quot;2.2 样本形态覆盖&quot;&gt;&lt;/a&gt;2.2 样本形态覆盖&lt;/h3&gt;&lt;u</summary>
+      
+    
+    
+    
+    <category term="技术实践" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/"/>
+    
+    
+    <category term="Quizify" scheme="https://chenshengwu.dpdns.org/tags/Quizify/"/>
+    
+    <category term="样本工程" scheme="https://chenshengwu.dpdns.org/tags/%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/"/>
+    
+    <category term="双轨对比" scheme="https://chenshengwu.dpdns.org/tags/%E5%8F%8C%E8%BD%A8%E5%AF%B9%E6%AF%94/"/>
+    
+    <category term="测试" scheme="https://chenshengwu.dpdns.org/tags/%E6%B5%8B%E8%AF%95/"/>
+    
+    <category term="规则迭代" scheme="https://chenshengwu.dpdns.org/tags/%E8%A7%84%E5%88%99%E8%BF%AD%E4%BB%A3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Quizify Bridge 分阶段实战（七）：标题识别规则体系 P0-P3——从强信号到揭示语法</title>
+    <link href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-7-%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/"/>
+    <id>https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-7-%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/</id>
+    <published>2026-09-03T13:00:00.000Z</published>
+    <updated>2026-09-03T05:27:38.929Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Quizify-Bridge-分阶段实战（七）：标题识别规则体系-P0-P3——从强信号到揭示语法&quot;&gt;&lt;a href=&quot;#Quizify-Bridge-分阶段实战（七）：标题识别规则体系-P0-P3——从强信号到揭示语法&quot; class=&quot;headerlink&quot; title=&quot;Quizify Bridge 分阶段实战（七）：标题识别规则体系 P0-P3——从强信号到揭示语法&quot;&gt;&lt;/a&gt;Quizify Bridge 分阶段实战（七）：标题识别规则体系 P0-P3——从强信号到揭示语法&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;日期：2026-09-03 · 系列第七篇&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;剪贴板文本没有 &lt;code&gt;#&lt;/code&gt; 标题标记，折叠又从哪来？答案：&lt;strong&gt;从文本形态推断标题&lt;/strong&gt;。这是全项目最有技术含量的一章——用规则体系把”AI 长文里的标题”从正文中识别出来，精度逼近人工标注（显式信号 ~90%）。本文完整拆解 StructureInference v2 的规则体系：强信号、弱信号揭示语法、长度策略、以及八类正文误判排除。&lt;/p&gt;
+&lt;h2 id=&quot;1-问题：无标记文本怎么找标题&quot;&gt;&lt;a href=&quot;#1-问题：无标记文本怎么找标题&quot; class=&quot;headerlink&quot; title=&quot;1. 问题：无标记文本怎么找标题&quot;&gt;&lt;/a&gt;1. 问题：无标记文本怎么找标题&lt;/h2&gt;&lt;p&gt;AI 平台复制出的文本没有 Markdown 标记，标题和正文都是裸文本：&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;人机交互到底是什么：不只是&amp;quot;画界面&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;（正文段落…）&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;为什么建筑学、船舶与海洋工程的同学在转 HCI&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;（正文段落…）&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;要折叠，必须先回答：&lt;strong&gt;哪一行是标题？&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;2-信号分级：强信号-vs-弱信号&quot;&gt;&lt;a href=&quot;#2-信号分级：强信号-vs-弱信号&quot; class=&quot;headerlink&quot; title=&quot;2. 信号分级：强信号 vs 弱信号&quot;&gt;&lt;/a&gt;2. 信号分级：强信号 vs 弱信号&lt;/h2&gt;&lt;h3 id=&quot;2-1-强信号（命中即折叠，无长度门禁）&quot;&gt;&lt;a href=&quot;</summary>
+      
+    
+    
+    
+    <category term="技术实践" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/"/>
+    
+    
+    <category term="Quizify" scheme="https://chenshengwu.dpdns.org/tags/Quizify/"/>
+    
+    <category term="标题识别" scheme="https://chenshengwu.dpdns.org/tags/%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/"/>
+    
+    <category term="正则" scheme="https://chenshengwu.dpdns.org/tags/%E6%AD%A3%E5%88%99/"/>
+    
+    <category term="揭示语法" scheme="https://chenshengwu.dpdns.org/tags/%E6%8F%AD%E7%A4%BA%E8%AF%AD%E6%B3%95/"/>
+    
+    <category term="语言学" scheme="https://chenshengwu.dpdns.org/tags/%E8%AF%AD%E8%A8%80%E5%AD%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Quizify Bridge 分阶段实战（六）：M5.3 分层接线——把断开的链路真正接起来</title>
+    <link href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-6-%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/"/>
+    <id>https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-6-%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/</id>
+    <published>2026-09-03T12:50:00.000Z</published>
+    <updated>2026-09-03T05:27:38.929Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Quizify-Bridge-分阶段实战（六）：M5-3-分层接线——把断开的链路真正接起来&quot;&gt;&lt;a href=&quot;#Quizify-Bridge-分阶段实战（六）：M5-3-分层接线——把断开的链路真正接起来&quot; class=&quot;headerlink&quot; title=&quot;Quizify Bridge 分阶段实战（六）：M5.3 分层接线——把断开的链路真正接起来&quot;&gt;&lt;/a&gt;Quizify Bridge 分阶段实战（六）：M5.3 分层接线——把断开的链路真正接起来&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;日期：2026-09-03 · 系列第六篇&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;前五篇的引擎、UI 各自就绪，但存在一个致命问题：&lt;strong&gt;App 的 &lt;code&gt;regenerate()&lt;/code&gt; 只跑引擎管线，从未接线 StructureRouter&lt;/strong&gt;——路由是死代码。用户实测 Vaultwarden 样本”应该有折叠却没有”，正是链路断开的直接证据。M5.3 的核心工作：CardConverter → StructureInference → StructureRouter → Pipeline 全链路接线，并解决”剪贴板长文本必须有折叠”这一核心诉求。&lt;/p&gt;
+&lt;h2 id=&quot;1-断链根因：测试锁的与代码跑的不是同一套&quot;&gt;&lt;a href=&quot;#1-断链根因：测试锁的与代码跑的不是同一套&quot; class=&quot;headerlink&quot; title=&quot;1. 断链根因：测试锁的与代码跑的不是同一套&quot;&gt;&lt;/a&gt;1. 断链根因：测试锁的与代码跑的不是同一套&lt;/h2&gt;&lt;p&gt;诊断发现：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;测试锁的是 &lt;code&gt;StructureRouter&lt;/code&gt;（R0-R3 路由规格）行为&lt;/li&gt;
+&lt;li&gt;但 &lt;code&gt;regenerate()&lt;/code&gt; 实际只跑 engine &lt;code&gt;Pipeline&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;路由从未接线&lt;/strong&gt;（StructureRouter 是死代码）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这是典型的”测试与实现脱节”：测试绿，不代表产品行为对。也解释了用户”Back 字段自动更新是路由的关系，并没达到理想效果”的反馈。&lt;/p&gt;
+&lt;h2 id=&quot;2-接线后的全链路&quot;&gt;&lt;a href=&quot;#2-接线后的全链路&quot; class=&quot;headerlink&quot; title=&quot;2. 接线后的全链路&quot;&gt;&lt;/a&gt;2. 接线后的全链路&lt;/h2&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6</summary>
+      
+    
+    
+    
+    <category term="技术实践" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/"/>
+    
+    
+    <category term="Quizify" scheme="https://chenshengwu.dpdns.org/tags/Quizify/"/>
+    
+    <category term="架构" scheme="https://chenshengwu.dpdns.org/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+    <category term="路由" scheme="https://chenshengwu.dpdns.org/tags/%E8%B7%AF%E7%94%B1/"/>
+    
+    <category term="StructureRouter" scheme="https://chenshengwu.dpdns.org/tags/StructureRouter/"/>
+    
+    <category term="分层接线" scheme="https://chenshengwu.dpdns.org/tags/%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Quizify Bridge 分阶段实战（五）：M5 引擎入库与 UI 三件套——从纯逻辑到可交互</title>
+    <link href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-5-%E5%BC%95%E6%93%8E%E5%85%A5%E5%BA%93%E4%B8%8EUI/"/>
+    <id>https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-5-%E5%BC%95%E6%93%8E%E5%85%A5%E5%BA%93%E4%B8%8EUI/</id>
+    <published>2026-09-03T12:40:00.000Z</published>
+    <updated>2026-09-03T05:27:38.929Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Quizify-Bridge-分阶段实战（五）：M5-引擎入库与-UI-三件套——从纯逻辑到可交互&quot;&gt;&lt;a href=&quot;#Quizify-Bridge-分阶段实战（五）：M5-引擎入库与-UI-三件套——从纯逻辑到可交互&quot; class=&quot;headerlink&quot; title=&quot;Quizify Bridge 分阶段实战（五）：M5 引擎入库与 UI 三件套——从纯逻辑到可交互&quot;&gt;&lt;/a&gt;Quizify Bridge 分阶段实战（五）：M5 引擎入库与 UI 三件套——从纯逻辑到可交互&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;日期：2026-09-03 · 系列第五篇&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;M1-M4 的解析引擎是独立工程（verification&amp;#x2F;），跑在 JVM 验证台上，与安卓 App 完全分离。M5 的任务是把引擎&lt;strong&gt;物理并入安卓工程&lt;/strong&gt;成为 &lt;code&gt;:engine&lt;/code&gt; 模块，并完成 UI 三件套：剪贴板读取、设置开关、暗黑模式。这是项目从”逻辑正确”走向”产品可用”的转折点。&lt;/p&gt;
+&lt;h2 id=&quot;1-M5-1-引擎入库&quot;&gt;&lt;a href=&quot;#1-M5-1-引擎入库&quot; class=&quot;headerlink&quot; title=&quot;1. M5.1 引擎入库&quot;&gt;&lt;/a&gt;1. M5.1 引擎入库&lt;/h2&gt;&lt;h3 id=&quot;1-1-为什么必须入库&quot;&gt;&lt;a href=&quot;#1-1-为什么必须入库&quot; class=&quot;headerlink&quot; title=&quot;1.1 为什么必须入库&quot;&gt;&lt;/a&gt;1.1 为什么必须入库&lt;/h3&gt;&lt;p&gt;之前的引擎在独立工程 &lt;code&gt;verification/&lt;/code&gt;，App 用不到它——这是”引擎双份代码漂移”的温床：App 里一套规则、验证台里另一套。用户实测”解析处 0 阶段”正是因为 App 从未接线到引擎。&lt;/p&gt;
+&lt;h3 id=&quot;1-2-决策：物理单源&quot;&gt;&lt;a href=&quot;#1-2-决策：物理单源&quot; class=&quot;headerlink&quot; title=&quot;1.2 决策：物理单源&quot;&gt;&lt;/a&gt;1.2 决策：物理单源&lt;/h3&gt;&lt;p&gt;两个候选方案：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;方案&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;th&gt;判定&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;复制一份进 repo&lt;/td&gt;
+&lt;td&gt;保留 verification 独立&lt;/td&gt;
+&lt;td&gt;❌ 双份漂移风险仍在&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;verification 并入 repo 作为 &lt;code&gt;:engine&lt;/code&gt; 模块&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;物理单源&lt;/td&gt;
+&lt;td&gt;✅ 推荐，采纳&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;最终 &lt;code&gt;:engine&lt;/code&gt; 模块成立：纯 JVM（无 android.*），app 依赖 engine。迁移后以 repo 为唯一真源，verification 停更只读。&lt;/</summary>
+      
+    
+    
+    
+    <category term="技术实践" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/"/>
+    
+    
+    <category term="Quizify" scheme="https://chenshengwu.dpdns.org/tags/Quizify/"/>
+    
+    <category term="剪贴板" scheme="https://chenshengwu.dpdns.org/tags/%E5%89%AA%E8%B4%B4%E6%9D%BF/"/>
+    
+    <category term="Compose" scheme="https://chenshengwu.dpdns.org/tags/Compose/"/>
+    
+    <category term="暗黑模式" scheme="https://chenshengwu.dpdns.org/tags/%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="设置持久化" scheme="https://chenshengwu.dpdns.org/tags/%E8%AE%BE%E7%BD%AE%E6%8C%81%E4%B9%85%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Quizify Bridge 分阶段实战（四）：M4 增强层——蓝本没有的新能力</title>
+    <link href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-4-%E5%A2%9E%E5%BC%BA%E5%B1%82/"/>
+    <id>https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-4-%E5%A2%9E%E5%BC%BA%E5%B1%82/</id>
+    <published>2026-09-03T12:30:00.000Z</published>
+    <updated>2026-09-03T05:27:38.929Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Quizify-Bridge-分阶段实战（四）：M4-增强层——蓝本没有的新能力&quot;&gt;&lt;a href=&quot;#Quizify-Bridge-分阶段实战（四）：M4-增强层——蓝本没有的新能力&quot; class=&quot;headerlink&quot; title=&quot;Quizify Bridge 分阶段实战（四）：M4 增强层——蓝本没有的新能力&quot;&gt;&lt;/a&gt;Quizify Bridge 分阶段实战（四）：M4 增强层——蓝本没有的新能力&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;日期：2026-09-03 · 系列第四篇&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;蓝本解决了”标准结构怎么定”，但用户实际使用中还有蓝本覆盖不到的场景：标签页（tabs）开放模式、公式统一体系、强调词扩展映射、cloze 收窄默认开。M4 增强层就是这些”蓝本没有的新能力”的落地点。与补全&amp;#x2F;蓝本层的保守不同，增强层允许&lt;strong&gt;激进&lt;/strong&gt;——最多多包一层，内容无损。&lt;/p&gt;
+&lt;h2 id=&quot;1-增强层四件套&quot;&gt;&lt;a href=&quot;#1-增强层四件套&quot; class=&quot;headerlink&quot; title=&quot;1. 增强层四件套&quot;&gt;&lt;/a&gt;1. 增强层四件套&lt;/h2&gt;&lt;h3 id=&quot;1-1-tabs-开放模式（标签页）&quot;&gt;&lt;a href=&quot;#1-1-tabs-开放模式（标签页）&quot; class=&quot;headerlink&quot; title=&quot;1.1 tabs 开放模式（标签页）&quot;&gt;&lt;/a&gt;1.1 tabs 开放模式（标签页）&lt;/h3&gt;&lt;p&gt;蓝本只对”≥2 相邻代码块”触发 tabs。但 AI 回答里常见”短词+冒号”开头的对比段落（如”方案A：…&#92;n方案B：…”），蓝本不识别。&lt;/p&gt;
+&lt;p&gt;增强层：&lt;strong&gt;任意短词+冒号 → 标签页&lt;/strong&gt;，统一容器处理。风险可控——“最多多包一层代码框，内容无损”，与保守原则相符。&lt;/p&gt;
+&lt;h3 id=&quot;1-2-公式统一体系&quot;&gt;&lt;a href=&quot;#1-2-公式统一体系&quot; class=&quot;headerlink&quot; title=&quot;1.2 公式统一体系&quot;&gt;&lt;/a&gt;1.2 公式统一体系&lt;/h3&gt;&lt;p&gt;AI 回答中的数学公式形态混乱：块级 &lt;code&gt;$$&lt;/code&gt;、行内 &lt;code&gt;$&lt;/code&gt;、化学式 &lt;code&gt;&#92;ce&lt;/code&gt;。增强层把它们统一接入公式渲染体系：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;形态&lt;/th&gt;
+&lt;th&gt;处理&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;块级 &lt;code&gt;$$ ... $$&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;保留块级公式&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;行内 &lt;code&gt;$ ... $&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;行内公式&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;&#92;ce&amp;#123;...&amp;#125;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;化学式并入公式体系&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h3 id=&quot;1-3-强调词扩展映射（alert）&quot;&gt;&lt;a href=&quot;</summary>
+      
+    
+    
+    
+    <category term="技术实践" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/"/>
+    
+    
+    <category term="Quizify" scheme="https://chenshengwu.dpdns.org/tags/Quizify/"/>
+    
+    <category term="tabs" scheme="https://chenshengwu.dpdns.org/tags/tabs/"/>
+    
+    <category term="alert" scheme="https://chenshengwu.dpdns.org/tags/alert/"/>
+    
+    <category term="cloze" scheme="https://chenshengwu.dpdns.org/tags/cloze/"/>
+    
+    <category term="公式" scheme="https://chenshengwu.dpdns.org/tags/%E5%85%AC%E5%BC%8F/"/>
+    
+    <category term="增强层" scheme="https://chenshengwu.dpdns.org/tags/%E5%A2%9E%E5%BC%BA%E5%B1%82/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Quizify Bridge 分阶段实战（三）：M3 蓝本层——yuanbao2anki 权威规则的 Kotlin 移植</title>
+    <link href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-3-%E8%93%9D%E6%9C%AC%E5%B1%82/"/>
+    <id>https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-3-%E8%93%9D%E6%9C%AC%E5%B1%82/</id>
+    <published>2026-09-03T12:20:00.000Z</published>
+    <updated>2026-09-03T05:27:38.929Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Quizify-Bridge-分阶段实战（三）：M3-蓝本层——yuanbao2anki-权威规则的-Kotlin-移植&quot;&gt;&lt;a href=&quot;#Quizify-Bridge-分阶段实战（三）：M3-蓝本层——yuanbao2anki-权威规则的-Kotlin-移植&quot; class=&quot;headerlink&quot; title=&quot;Quizify Bridge 分阶段实战（三）：M3 蓝本层——yuanbao2anki 权威规则的 Kotlin 移植&quot;&gt;&lt;/a&gt;Quizify Bridge 分阶段实战（三）：M3 蓝本层——yuanbao2anki 权威规则的 Kotlin 移植&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;日期：2026-09-03 · 系列第三篇&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;补全层修好了输入，接下来要回答”结构怎么定”——答案来自蓝本：yuanbao2anki 的 markdown.js。M3 的核心是把这套经过实战检验的权威规则&lt;strong&gt;逐行移植成 Kotlin&lt;/strong&gt;，并保留它的”语法红线”（静默退化陷阱的硬性校验）。本文讲移植方法、关键规则、以及”直通蓝本”与”增强层”的边界。&lt;/p&gt;
+&lt;h2 id=&quot;1-蓝本是什么&quot;&gt;&lt;a href=&quot;#1-蓝本是什么&quot; class=&quot;headerlink&quot; title=&quot;1. 蓝本是什么&quot;&gt;&lt;/a&gt;1. 蓝本是什么&lt;/h2&gt;&lt;p&gt;yuanbao2anki 是 AnkiDroid 生态里把 AI 对话转成 Quizify 卡片的成熟方案，其 markdown.js 实现了从 Markdown 到 Quizify 语法的完整转换。我们的项目叫 Bridge（桥），蓝本 &amp;#x3D; 桥的”设计图纸”。&lt;/p&gt;
+&lt;p&gt;但注意：&lt;strong&gt;蓝本的能力边界是网页 DOM&lt;/strong&gt;。上一讲已说明，纯文本剪贴板输入需要补全层先修符号，蓝本才能发挥权威性。&lt;/p&gt;
+&lt;h2 id=&quot;2-移植路线：从-JS-到-Kotlin&quot;&gt;&lt;a href=&quot;#2-移植路线：从-JS-到-Kotlin&quot; class=&quot;headerlink&quot; title=&quot;2. 移植路线：从 JS 到 Kotlin&quot;&gt;&lt;/a&gt;2. 移植路线：从 JS 到 Kotlin&lt;/h2&gt;&lt;h3 id=&quot;2-1-蓝本的核心函数链&quot;&gt;&lt;a href=&quot;#2-1-蓝本的核心函数链&quot; class=&quot;headerlink&quot; title=&quot;2.1 蓝本的核心函数链&quot;&gt;&lt;/a&gt;2.1 蓝本的核心函数链&lt;/h3&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line</summary>
+      
+    
+    
+    
+    <category term="技术实践" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/"/>
+    
+    
+    <category term="工程化" scheme="https://chenshengwu.dpdns.org/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+    <category term="Quizify" scheme="https://chenshengwu.dpdns.org/tags/Quizify/"/>
+    
+    <category term="蓝本移植" scheme="https://chenshengwu.dpdns.org/tags/%E8%93%9D%E6%9C%AC%E7%A7%BB%E6%A4%8D/"/>
+    
+    <category term="Kotlin" scheme="https://chenshengwu.dpdns.org/tags/Kotlin/"/>
+    
+    <category term="语法红线" scheme="https://chenshengwu.dpdns.org/tags/%E8%AF%AD%E6%B3%95%E7%BA%A2%E7%BA%BF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Quizify Bridge 分阶段实战（二）：M2 补全层——修复平台复制丢失的符号</title>
+    <link href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-2-%E8%A1%A5%E5%85%A8%E5%B1%82/"/>
+    <id>https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-2-%E8%A1%A5%E5%85%A8%E5%B1%82/</id>
+    <published>2026-09-03T12:10:00.000Z</published>
+    <updated>2026-09-03T05:27:38.929Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Quizify-Bridge-分阶段实战（二）：M2-补全层——修复平台复制丢失的符号&quot;&gt;&lt;a href=&quot;#Quizify-Bridge-分阶段实战（二）：M2-补全层——修复平台复制丢失的符号&quot; class=&quot;headerlink&quot; title=&quot;Quizify Bridge 分阶段实战（二）：M2 补全层——修复平台复制丢失的符号&quot;&gt;&lt;/a&gt;Quizify Bridge 分阶段实战（二）：M2 补全层——修复平台复制丢失的符号&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;日期：2026-09-03 · 系列第二篇&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;M1 立起了验证台，但很快暴露一个残酷事实：**蓝本（yuanbao2anki）对剪贴板文本”完全无能力”**。AI 平台的 Markdown 在复制到剪贴板时，渲染符号大量脱落——表格变成纯文本、告警块丢了 &lt;code&gt;&amp;gt;&lt;/code&gt;、代码围栏丢语言标记、中文编号不识别、ASCII 框线图被误判成表格。M2 补全层就是剪贴板适配的”前置修复”：在结构解析之前，先把平台弄丢的符号补回来。&lt;/p&gt;
+&lt;h2 id=&quot;1-问题本质：网页-DOM-vs-剪贴板文本&quot;&gt;&lt;a href=&quot;#1-问题本质：网页-DOM-vs-剪贴板文本&quot; class=&quot;headerlink&quot; title=&quot;1. 问题本质：网页 DOM vs 剪贴板文本&quot;&gt;&lt;/a&gt;1. 问题本质：网页 DOM vs 剪贴板文本&lt;/h2&gt;&lt;p&gt;yuanbao2anki 蓝本假设输入是&lt;strong&gt;网页 DOM&lt;/strong&gt;（从浏览器注入脚本读 &lt;code&gt;innerText&lt;/code&gt; &amp;#x2F; HTML），结构信息天然存在。但 Quizify Bridge 的输入是&lt;strong&gt;用户在 AI 平台复制后粘贴的纯文本&lt;/strong&gt;——复制动作会触发渲染层的”降级输出”，符号大量丢失。&lt;/p&gt;
+&lt;p&gt;实测 6 份样本的蓝本识别率惨淡：样本 03 的 9 种格式 &lt;strong&gt;100% 漏识别&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&quot;2-补全层架构：三组十条规则&quot;&gt;&lt;a href=&quot;#2-补全层架构：三组十条规则&quot; class=&quot;headerlink&quot; title=&quot;2. 补全层架构：三组十条规则&quot;&gt;&lt;/a&gt;2. 补全层架构：三组十条规则&lt;/h2&gt;&lt;p&gt;补全层（Preprocessor）在解析管线最前端，分三组：&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/s</summary>
+      
+    
+    
+    
+    <category term="技术实践" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/"/>
+    
+    
+    <category term="工程化" scheme="https://chenshengwu.dpdns.org/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+    <category term="Quizify" scheme="https://chenshengwu.dpdns.org/tags/Quizify/"/>
+    
+    <category term="剪贴板" scheme="https://chenshengwu.dpdns.org/tags/%E5%89%AA%E8%B4%B4%E6%9D%BF/"/>
+    
+    <category term="预处理" scheme="https://chenshengwu.dpdns.org/tags/%E9%A2%84%E5%A4%84%E7%90%86/"/>
+    
+    <category term="Markdown" scheme="https://chenshengwu.dpdns.org/tags/Markdown/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Quizify Bridge 分阶段实战（一）：M1 JVM 验证台——测试全绿为门的第一块地基</title>
+    <link href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-1-JVM%E9%AA%8C%E8%AF%81%E5%8F%B0/"/>
+    <id>https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-1-JVM%E9%AA%8C%E8%AF%81%E5%8F%B0/</id>
+    <published>2026-09-03T12:00:00.000Z</published>
+    <updated>2026-09-03T05:27:38.929Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Quizify-Bridge-分阶段实战（一）：M1-JVM-验证台——测试全绿为门的第一块地基&quot;&gt;&lt;a href=&quot;#Quizify-Bridge-分阶段实战（一）：M1-JVM-验证台——测试全绿为门的第一块地基&quot; class=&quot;headerlink&quot; title=&quot;Quizify Bridge 分阶段实战（一）：M1 JVM 验证台——测试全绿为门的第一块地基&quot;&gt;&lt;/a&gt;Quizify Bridge 分阶段实战（一）：M1 JVM 验证台——测试全绿为门的第一块地基&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;日期：2026-09-03 · 系列定位：把 AI 长文自动转成 Quizify Markdown 卡片的 Android 应用，从零到发布的全过程拆解。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;本系列按里程碑（M1→M6）逐篇复盘 Quizify Bridge 的真实构建历程。开篇讲最容易被跳过、却决定了整个项目成败的一步：&lt;strong&gt;JVM 验证台&lt;/strong&gt;。它不是”测试脚手架”这种锦上添花的东西，而是”测试全绿为门”这一项目纪律的物理载体——没有它，后面所有”完成了”的说法都没有度量标准。&lt;/p&gt;
+&lt;h2 id=&quot;1-为什么需要验证台&quot;&gt;&lt;a href=&quot;#1-为什么需要验证台&quot; class=&quot;headerlink&quot; title=&quot;1. 为什么需要验证台&quot;&gt;&lt;/a&gt;1. 为什么需要验证台&lt;/h2&gt;&lt;h3 id=&quot;1-1-一个险些失控的项目背景&quot;&gt;&lt;a href=&quot;#1-1-一个险些失控的项目背景&quot; class=&quot;headerlink&quot; title=&quot;1.1 一个险些失控的项目背景&quot;&gt;&lt;/a&gt;1.1 一个险些失控的项目背景&lt;/h3&gt;&lt;p&gt;项目起点是一个”机械化雏形”：当时代码里有一套简单的规则（rules），但存在六个致命问题：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;#&lt;/th&gt;
+&lt;th&gt;问题&lt;/th&gt;
+&lt;th&gt;后果&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;产品成立性未端到端验证&lt;/td&gt;
+&lt;td&gt;写入 AnkiDroid 从未真机成功&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;元根因悬空&lt;/td&gt;
+&lt;td&gt;写文档替代跑验证门&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;无 &lt;code&gt;#&lt;/code&gt; 标题文本退化&lt;/td&gt;
+&lt;td&gt;剪贴板长文失去结构&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;规则三副本漂移&lt;/td&gt;
+&lt;td&gt;rules.md &amp;#x2F; verify_p0.py &amp;#x2F; RuleValidator.kt 互相矛盾&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;验证门当前不可运行&lt;/td&gt;
+&lt;td&gt;沙箱 L3 坏，无自动化兜底&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;td&gt;R8 选择题真机验证挂起&lt;/td&gt;
+&lt;td&gt;发布 blocker&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table</summary>
+      
+    
+    
+    
+    <category term="技术实践" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/"/>
+    
+    
+    <category term="工程化" scheme="https://chenshengwu.dpdns.org/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+    <category term="Quizify" scheme="https://chenshengwu.dpdns.org/tags/Quizify/"/>
+    
+    <category term="AnkiDroid" scheme="https://chenshengwu.dpdns.org/tags/AnkiDroid/"/>
+    
+    <category term="JUnit5" scheme="https://chenshengwu.dpdns.org/tags/JUnit5/"/>
+    
+    <category term="测试驱动" scheme="https://chenshengwu.dpdns.org/tags/%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Quizify Bridge 构建手记（六）：把工程变成可恢复知识库</title>
+    <link href="https://chenshengwu.dpdns.org/2026/08/31/Quizify-Bridge-%E6%9E%84%E5%BB%BA%E6%89%8B%E8%AE%B0-6-%E8%AE%B0%E5%BF%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%A4%87%E4%BB%BD/"/>
+    <id>https://chenshengwu.dpdns.org/2026/08/31/Quizify-Bridge-%E6%9E%84%E5%BB%BA%E6%89%8B%E8%AE%B0-6-%E8%AE%B0%E5%BF%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%A4%87%E4%BB%BD/</id>
+    <published>2026-08-31T14:50:00.000Z</published>
+    <updated>2026-09-03T05:27:38.929Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Quizify-Bridge-构建手记（六）：把工程变成可恢复知识库&quot;&gt;&lt;a href=&quot;#Quizify-Bridge-构建手记（六）：把工程变成可恢复知识库&quot; class=&quot;headerlink&quot; title=&quot;Quizify Bridge 构建手记（六）：把工程变成可恢复知识库&quot;&gt;&lt;/a&gt;Quizify Bridge 构建手记（六）：把工程变成可恢复知识库&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;日期：2026-08-31&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;六篇手记的收尾，回到一个贯穿全程的元认知：&lt;strong&gt;上下文是稀缺资源，输出要即时外部持久化&lt;/strong&gt;。本文讲我们如何用一套记忆文件系统 + 异地备份，让一个被打断很久的项目能冷启动恢复。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;1-为什么需要记忆文件系统&quot;&gt;&lt;a href=&quot;#1-为什么需要记忆文件系统&quot; class=&quot;headerlink&quot; title=&quot;1. 为什么需要记忆文件系统&quot;&gt;&lt;/a&gt;1. 为什么需要记忆文件系统&lt;/h2&gt;&lt;p&gt;Agent 的上下文窗口有限，且会话会中断。如果不把中间结论落盘，下一次进来就是”失忆的重启”。我们搭了三层：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;层&lt;/th&gt;
+&lt;th&gt;目录&lt;/th&gt;
+&lt;th&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;常驻&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;_memory/core/&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;state&amp;#x2F;decisions&amp;#x2F;rules&amp;#x2F;map 四件套，恢复快照&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;按需&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;_memory/wiki/&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;验证体系、适配指南等，懒加载&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;溯源&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;_memory/raw/&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;仅追加归档，保留历史真相&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;纪律&lt;/strong&gt;：core 常驻、wiki 按需、raw 溯源；状态推进仅过验证门后更新 &lt;code&gt;core/state.md&lt;/code&gt;；日志只追加不修改。&lt;/p&gt;
+&lt;h2 id=&quot;2-压缩边界锚定&quot;&gt;&lt;a href=&quot;#2-压缩边界锚定&quot; class=&quot;headerlink&quot; title=&quot;2. 压缩边界锚定&quot;&gt;&lt;/a&gt;2. 压缩边界锚定&lt;/h2&gt;&lt;p&gt;长对话压缩时，在边界处写”锚点”摘要——保留关键信息锚点，丢弃流水细节。本系列博客本身也是一种锚点：把对话知识变成可回顾篇章。&lt;/p&gt;
+&lt;h2 id=&quot;3-异地备份：Gitee-双仓&quot;&gt;&lt;a href=&quot;#3-异地备份：Gitee-双仓&quot; class=&quot;headerlink&quot; title=&quot;3. 异地备份：Gitee 双仓&quot;&gt;&lt;/a&gt;3. 异地备份：Gitee 双仓&lt;/h2&gt;&lt;p&gt;环境可能回收，本地工作会丢。我们推了两个仓库：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;</summary>
+      
+    
+    
+    
+    <category term="技术实践" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/"/>
+    
+    
+    <category term="上下文工程" scheme="https://chenshengwu.dpdns.org/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E5%B7%A5%E7%A8%8B/"/>
+    
+    <category term="记忆文件系统" scheme="https://chenshengwu.dpdns.org/tags/%E8%AE%B0%E5%BF%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/"/>
+    
+    <category term="备份" scheme="https://chenshengwu.dpdns.org/tags/%E5%A4%87%E4%BB%BD/"/>
+    
+    <category term="知识管理" scheme="https://chenshengwu.dpdns.org/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Quizify Bridge 构建手记（五）：真机反馈闭环</title>
+    <link href="https://chenshengwu.dpdns.org/2026/08/31/Quizify-Bridge-%E6%9E%84%E5%BB%BA%E6%89%8B%E8%AE%B0-5-%E7%9C%9F%E6%9C%BA%E5%8F%8D%E9%A6%88%E9%97%AD%E7%8E%AF/"/>
+    <id>https://chenshengwu.dpdns.org/2026/08/31/Quizify-Bridge-%E6%9E%84%E5%BB%BA%E6%89%8B%E8%AE%B0-5-%E7%9C%9F%E6%9C%BA%E5%8F%8D%E9%A6%88%E9%97%AD%E7%8E%AF/</id>
+    <published>2026-08-31T14:40:00.000Z</published>
+    <updated>2026-09-03T05:27:38.929Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Quizify-Bridge-构建手记（五）：真机反馈闭环&quot;&gt;&lt;a href=&quot;#Quizify-Bridge-构建手记（五）：真机反馈闭环&quot; class=&quot;headerlink&quot; title=&quot;Quizify Bridge 构建手记（五）：真机反馈闭环&quot;&gt;&lt;/a&gt;Quizify Bridge 构建手记（五）：真机反馈闭环&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;日期：2026-08-31&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;代码写完不等于做对。本篇记录一次真机自建运行后的四点评测，以及其中最重要的一个 UI 修复——“保存按钮被挤出屏幕”。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;1-真机四点评测&quot;&gt;&lt;a href=&quot;#1-真机四点评测&quot; class=&quot;headerlink&quot; title=&quot;1. 真机四点评测&quot;&gt;&lt;/a&gt;1. 真机四点评测&lt;/h2&gt;&lt;p&gt;用户在自己手机上编译运行后，反馈了 4 点：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;#&lt;/th&gt;
+&lt;th&gt;观测&lt;/th&gt;
+&lt;th&gt;真相&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;①&lt;/td&gt;
+&lt;td&gt;系统分享&amp;#x2F;粘贴两功能已实现&lt;/td&gt;
+&lt;td&gt;与代码一致 ✅&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;②&lt;/td&gt;
+&lt;td&gt;解析处”0 阶段”：引号→&lt;code&gt;&amp;#123;&amp;#123;&amp;#125;&amp;#125;&lt;/code&gt; + 全折叠”概览”&lt;/td&gt;
+&lt;td&gt;比观感强（还抽 MD 强调&amp;#x2F;英文&amp;#x2F;数字），但无 R0 路由&amp;#x2F;R1–R3 启发式，仍是 Phase 0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;③&lt;/td&gt;
+&lt;td&gt;后端空白，开 API 也未通信&lt;/td&gt;
+&lt;td&gt;happy path 从未端到端验证&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;④&lt;/td&gt;
+&lt;td&gt;“保存到 AnkiDroid”按钮被挤出屏幕&lt;/td&gt;
+&lt;td&gt;已修复&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;2-最重要的修复：按钮不变量&quot;&gt;&lt;a href=&quot;#2-最重要的修复：按钮不变量&quot; class=&quot;headerlink&quot; title=&quot;2. 最重要的修复：按钮不变量&quot;&gt;&lt;/a&gt;2. 最重要的修复：按钮不变量&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;根因&lt;/strong&gt;：外层 &lt;code&gt;Column&lt;/code&gt; 虽 &lt;code&gt;fillMaxSize&lt;/code&gt;，但中间动态内容（Back 字段及后续输入项）未用 &lt;code&gt;weight&lt;/code&gt;，内容无限向下撑开，把底部按钮顶出屏幕。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;修复&lt;/strong&gt;：中间内容区用 &lt;code&gt;weight(1f)&lt;/code&gt; + &lt;code&gt;verticalScroll&lt;/code&gt; 包住所有输入项，按钮移出滚动区、固定底部。&lt;/p&gt;
+&lt;figure class=&quot;highlight kotlin&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span c</summary>
+      
+    
+    
+    
+    <category term="技术实践" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/"/>
+    
+    
+    <category term="Compose" scheme="https://chenshengwu.dpdns.org/tags/Compose/"/>
+    
+    <category term="UI" scheme="https://chenshengwu.dpdns.org/tags/UI/"/>
+    
+    <category term="Android" scheme="https://chenshengwu.dpdns.org/tags/Android/"/>
+    
+    <category term="真机" scheme="https://chenshengwu.dpdns.org/tags/%E7%9C%9F%E6%9C%BA/"/>
+    
+    <category term="反馈" scheme="https://chenshengwu.dpdns.org/tags/%E5%8F%8D%E9%A6%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Quizify Bridge 构建手记（四）：分层验证体系 L0–L4（含一次&quot;沙箱能不能跑&quot;的澄清）</title>
+    <link href="https://chenshengwu.dpdns.org/2026/08/31/Quizify-Bridge-%E6%9E%84%E5%BB%BA%E6%89%8B%E8%AE%B0-4-%E5%88%86%E5%B1%82%E9%AA%8C%E8%AF%81%E4%BD%93%E7%B3%BB/"/>
+    <id>https://chenshengwu.dpdns.org/2026/08/31/Quizify-Bridge-%E6%9E%84%E5%BB%BA%E6%89%8B%E8%AE%B0-4-%E5%88%86%E5%B1%82%E9%AA%8C%E8%AF%81%E4%BD%93%E7%B3%BB/</id>
+    <published>2026-08-31T14:30:00.000Z</published>
+    <updated>2026-09-03T05:27:38.929Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Quizify-Bridge-构建手记（四）：分层验证体系-L0–L4（含一次”沙箱能不能跑”的澄清）&quot;&gt;&lt;a href=&quot;#Quizify-Bridge-构建手记（四）：分层验证体系-L0–L4（含一次”沙箱能不能跑”的澄清）&quot; class=&quot;headerlink&quot; title=&quot;Quizify Bridge 构建手记（四）：分层验证体系 L0–L4（含一次”沙箱能不能跑”的澄清）&quot;&gt;&lt;/a&gt;Quizify Bridge 构建手记（四）：分层验证体系 L0–L4（含一次”沙箱能不能跑”的澄清）&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;日期：2026-08-31&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;上篇说到元根因是”缺自动验证闭环”。本篇落地五层验证体系 L0–L4，并借一次对口复盘，澄清一个关键误区：&lt;strong&gt;沙箱能不能跑测试，和”编译是否可能”是两件事。&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;1-五层架构-L0–L4&quot;&gt;&lt;a href=&quot;#1-五层架构-L0–L4&quot; class=&quot;headerlink&quot; title=&quot;1. 五层架构 L0–L4&quot;&gt;&lt;/a&gt;1. 五层架构 L0–L4&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;层&lt;/th&gt;
+&lt;th&gt;定位&lt;/th&gt;
+&lt;th&gt;是否依赖 Android Runtime&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;L0a 纯逻辑单测&lt;/td&gt;
+&lt;td&gt;状态&amp;#x2F;校验&amp;#x2F;截断&amp;#x2F;字段映射（零 android.*）&lt;/td&gt;
+&lt;td&gt;否，纯 JVM&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;L0b UI 布局快照&lt;/td&gt;
+&lt;td&gt;Robolectric + Compose，锁死”按钮不被挤出”&lt;/td&gt;
+&lt;td&gt;否，JVM 伪造环境&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;L1 规则单一真源&lt;/td&gt;
+&lt;td&gt;rules.toml + 覆盖自检&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;L2 写入边界硬拒&lt;/td&gt;
+&lt;td&gt;save() 复检 P0&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;L3 安卓编译&amp;#x2F;真机&lt;/td&gt;
+&lt;td&gt;编译闸门 + 真机&lt;/td&gt;
+&lt;td&gt;是（真机&amp;#x2F;模拟器）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;L4 真机渲染&lt;/td&gt;
+&lt;td&gt;用户持有&lt;/td&gt;
+&lt;td&gt;是（真机）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;2-关键澄清：沙箱能跑-JVM，卡的是”拉依赖”&quot;&gt;&lt;a href=&quot;#2-关键澄清：沙箱能跑-JVM，卡的是”拉依赖”&quot; class=&quot;headerlink&quot; title=&quot;2. 关键澄清：沙箱能跑 JVM，卡的是”拉依赖”&quot;&gt;&lt;/a&gt;2. 关键澄清：沙箱能跑 JVM，卡的是”拉依赖”&lt;/h2&gt;&lt;p&gt;我曾判断”L0a&amp;#x2F;L0b 在沙箱不可跑”——这是&lt;strong&gt;误判&lt;/strong&gt;，需要纠正。&lt;/p&gt;
+&lt;p&gt;真相是：&lt;/p&gt;
+&lt;ul&gt;</summary>
+      
+    
+    
+    
+    <category term="技术实践" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/"/>
+    
+    
+    <category term="工程化" scheme="https://chenshengwu.dpdns.org/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+    <category term="Kotlin" scheme="https://chenshengwu.dpdns.org/tags/Kotlin/"/>
+    
+    <category term="测试" scheme="https://chenshengwu.dpdns.org/tags/%E6%B5%8B%E8%AF%95/"/>
+    
+    <category term="Robolectric" scheme="https://chenshengwu.dpdns.org/tags/Robolectric/"/>
+    
+    <category term="验证" scheme="https://chenshengwu.dpdns.org/tags/%E9%AA%8C%E8%AF%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Quizify Bridge 构建手记（三）：一次根因审计</title>
+    <link href="https://chenshengwu.dpdns.org/2026/08/31/Quizify-Bridge-%E6%9E%84%E5%BB%BA%E6%89%8B%E8%AE%B0-3-%E6%A0%B9%E5%9B%A0%E5%AE%A1%E8%AE%A1/"/>
+    <id>https://chenshengwu.dpdns.org/2026/08/31/Quizify-Bridge-%E6%9E%84%E5%BB%BA%E6%89%8B%E8%AE%B0-3-%E6%A0%B9%E5%9B%A0%E5%AE%A1%E8%AE%A1/</id>
+    <published>2026-08-31T14:20:00.000Z</published>
+    <updated>2026-09-03T05:27:38.929Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Quizify-Bridge-构建手记（三）：一次根因审计&quot;&gt;&lt;a href=&quot;#Quizify-Bridge-构建手记（三）：一次根因审计&quot; class=&quot;headerlink&quot; title=&quot;Quizify Bridge 构建手记（三）：一次根因审计&quot;&gt;&lt;/a&gt;Quizify Bridge 构建手记（三）：一次根因审计&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;日期：2026-08-31&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;工程推进到中段，我们停下手做了一次支线审计。用户敏锐指出：代码里”用了较多硬编码”。本文复盘这次审计——它如何把三个表层症状，还原成同一个深层根因。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;1-被点名的三个症状&quot;&gt;&lt;a href=&quot;#1-被点名的三个症状&quot; class=&quot;headerlink&quot; title=&quot;1. 被点名的三个症状&quot;&gt;&lt;/a&gt;1. 被点名的三个症状&lt;/h2&gt;&lt;p&gt;用户指出的潜在根因方向：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;环境假设 ↔ 业务逻辑耦合&lt;/strong&gt;：代码里有对环境（路径、SDK、网络）的隐式假设，和业务逻辑缠在一起。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自动化缺把关&lt;/strong&gt;：改动后没有自动验证闸门，靠肉眼&amp;#x2F;手动。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;状态依赖不可靠&lt;/strong&gt;：状态机&amp;#x2F;标志位被当作真相源，但来源并不可靠。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;2-一个被推翻的”捷径”建议&quot;&gt;&lt;a href=&quot;#2-一个被推翻的”捷径”建议&quot; class=&quot;headerlink&quot; title=&quot;2. 一个被推翻的”捷径”建议&quot;&gt;&lt;/a&gt;2. 一个被推翻的”捷径”建议&lt;/h2&gt;&lt;p&gt;审计中我曾建议”把本地编译复核推给用户”。这个建议被&lt;strong&gt;批判式驳回&lt;/strong&gt;——它本质是：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;把本属于开发流程的验证责任，转嫁到用户身上。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这恰好命中了根因 2（缺把关）。更糟的是，它用一个新症状（用户负担）掩盖了旧症状（无闭环）。&lt;/p&gt;
+&lt;h2 id=&quot;3-元反转：原”紧急问题”只是症状&quot;&gt;&lt;a href=&quot;#3-元反转：原”紧急问题”只是症状&quot; class=&quot;headerlink&quot; title=&quot;3. 元反转：原”紧急问题”只是症状&quot;&gt;&lt;/a&gt;3. 元反转：原”紧急问题”只是症状&lt;/h2&gt;&lt;p&gt;我们原以为”紧急问题”是硬编码。审计后重判：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;硬编码是&lt;strong&gt;症状&lt;/strong&gt;；真正的元根因是——&lt;strong&gt;开发工作流缺乏可执行的自动验证闭环&lt;/strong&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;换句话说：哪怕把硬编码全改掉，只要改动后没人&amp;#x2F;没机器验证，新的根因还会不断再生。&lt;/p&gt;
+&lt;h2 id=&quot;4-实证：沙箱能装-SDK，构建能转绿&quot;&gt;&lt;a href=&quot;#4-实证：沙箱能装-SDK，构建能转绿&quot; class=&quot;headerlink&quot; title=&quot;4. 实</summary>
+      
+    
+    
+    
+    <category term="技术实践" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/"/>
+    
+    
+    <category term="工程化" scheme="https://chenshengwu.dpdns.org/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+    <category term="根因分析" scheme="https://chenshengwu.dpdns.org/tags/%E6%A0%B9%E5%9B%A0%E5%88%86%E6%9E%90/"/>
+    
+    <category term="自动化" scheme="https://chenshengwu.dpdns.org/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+    
+    <category term="验证" scheme="https://chenshengwu.dpdns.org/tags/%E9%AA%8C%E8%AF%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Quizify Bridge 构建手记（二）：语法规则集 R0–R11/T1–T10</title>
+    <link href="https://chenshengwu.dpdns.org/2026/08/31/Quizify-Bridge-%E6%9E%84%E5%BB%BA%E6%89%8B%E8%AE%B0-2-%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99%E9%9B%86/"/>
+    <id>https://chenshengwu.dpdns.org/2026/08/31/Quizify-Bridge-%E6%9E%84%E5%BB%BA%E6%89%8B%E8%AE%B0-2-%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99%E9%9B%86/</id>
+    <published>2026-08-31T14:10:00.000Z</published>
+    <updated>2026-09-03T05:27:38.929Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Quizify-Bridge-构建手记（二）：语法规则集-R0–R11-T1–T10&quot;&gt;&lt;a href=&quot;#Quizify-Bridge-构建手记（二）：语法规则集-R0–R11-T1–T10&quot; class=&quot;headerlink&quot; title=&quot;Quizify Bridge 构建手记（二）：语法规则集 R0–R11&amp;#x2F;T1–T10&quot;&gt;&lt;/a&gt;Quizify Bridge 构建手记（二）：语法规则集 R0–R11&amp;#x2F;T1–T10&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;日期：2026-08-31&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;上篇交代了缘起与路线图。本篇深入 B 阶段的核心产出：一套可机器校验的 Quizify Markdown 语法契约——R0–R11 规则与 T1–T10 静默退化陷阱。重点不是语法本身多复杂，而是”把规则写成单一权威、可被代码消费”。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;1-为什么需要规则集&quot;&gt;&lt;a href=&quot;#1-为什么需要规则集&quot; class=&quot;headerlink&quot; title=&quot;1. 为什么需要规则集&quot;&gt;&lt;/a&gt;1. 为什么需要规则集&lt;/h2&gt;&lt;p&gt;Quizify Markdown 表达力强，但手写极易出错：一个未闭合的折叠、一个重复的字母选项，都会让整块功能&lt;strong&gt;静默退化&lt;/strong&gt;成普通文本——不报错，但卡片废了。&lt;/p&gt;
+&lt;p&gt;我们的应对是：把语法从”写在散文里”升级为”写进契约里”。最终沉淀为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;R0–R11&lt;/strong&gt;：结构&amp;#x2F;语义规则（折叠、标签页、警示框、完形、高亮、选择题、代码围栏闭合等）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;T1–T10&lt;/strong&gt;：静默退化陷阱（T 表示退化，出现即功能丢失，必须拦截或警告）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;2-规则分层示例&quot;&gt;&lt;a href=&quot;#2-规则分层示例&quot; class=&quot;headerlink&quot; title=&quot;2. 规则分层示例&quot;&gt;&lt;/a&gt;2. 规则分层示例&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;规则&lt;/th&gt;
+&lt;th&gt;类别&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;R1&lt;/td&gt;
+&lt;td&gt;折叠 &lt;code&gt;:::&lt;/code&gt; 配平&lt;/td&gt;
+&lt;td&gt;开闭数量必须相等&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;R2&lt;/td&gt;
+&lt;td&gt;标签页 &lt;code&gt;===&lt;/code&gt; 成对&lt;/td&gt;
+&lt;td&gt;裸 &lt;code&gt;===&lt;/code&gt; 会误关标签页&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;R5&lt;/td&gt;
+&lt;td&gt;警示框 &lt;code&gt;&amp;gt; [!TYPE]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;TYPE ∈ {NOTE,TIP,WARNING,CAUTION}&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;R8&lt;/td&gt;
+&lt;td&gt;选择题 &lt;code&gt;;;;&lt;/code&gt; 校验&lt;/td&gt;
+&lt;td&gt;选项字母唯一、答案∈选项&lt;/td&gt;
+&lt;/tr&gt;
+</summary>
+      
+    
+    
+    
+    <category term="技术实践" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/"/>
+    
+    
+    <category term="工程化" scheme="https://chenshengwu.dpdns.org/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+    <category term="Quizify" scheme="https://chenshengwu.dpdns.org/tags/Quizify/"/>
+    
+    <category term="Markdown" scheme="https://chenshengwu.dpdns.org/tags/Markdown/"/>
+    
+    <category term="解析器" scheme="https://chenshengwu.dpdns.org/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Quizify Bridge 构建手记（一）：缘起与全景架构</title>
+    <link href="https://chenshengwu.dpdns.org/2026/08/31/Quizify-Bridge-%E6%9E%84%E5%BB%BA%E6%89%8B%E8%AE%B0-1-%E7%BC%98%E8%B5%B7%E4%B8%8E%E5%85%A8%E6%99%AF%E6%9E%B6%E6%9E%84/"/>
+    <id>https://chenshengwu.dpdns.org/2026/08/31/Quizify-Bridge-%E6%9E%84%E5%BB%BA%E6%89%8B%E8%AE%B0-1-%E7%BC%98%E8%B5%B7%E4%B8%8E%E5%85%A8%E6%99%AF%E6%9E%B6%E6%9E%84/</id>
+    <published>2026-08-31T14:00:00.000Z</published>
+    <updated>2026-09-03T05:27:38.929Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Quizify-Bridge-构建手记（一）：缘起与全景架构&quot;&gt;&lt;a href=&quot;#Quizify-Bridge-构建手记（一）：缘起与全景架构&quot; class=&quot;headerlink&quot; title=&quot;Quizify Bridge 构建手记（一）：缘起与全景架构&quot;&gt;&lt;/a&gt;Quizify Bridge 构建手记（一）：缘起与全景架构&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;日期：2026-08-31&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;p&gt;Quizify Bridge 是一个 Kotlin&amp;#x2F;Compose Android App：把 AI 长文一键转成 Quizify Markdown 卡片，并写入 AnkiDroid。本文是六篇构建手记的第一篇，交代项目缘起、整体路线图（A→E 五阶段），以及贯穿全程的一个元认知——把”上下文”当作稀缺资源来经营。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;1-缘起：一个被反复手工解决的需求&quot;&gt;&lt;a href=&quot;#1-缘起：一个被反复手工解决的需求&quot; class=&quot;headerlink&quot; title=&quot;1. 缘起：一个被反复手工解决的需求&quot;&gt;&lt;/a&gt;1. 缘起：一个被反复手工解决的需求&lt;/h2&gt;&lt;p&gt;我和 AI 的对话越聊越长。一篇长文读完后，最想做的事是：&lt;strong&gt;把它变成一张可以反复复习的 Anki 卡片&lt;/strong&gt;。但手工复制、拆 front&amp;#x2F;back、套 Quizify 语法、再点进 AnkiDroid 粘贴——这条链路每篇都要重复，且极易出错。&lt;/p&gt;
+&lt;p&gt;Quizify Markdown 是 AnkiDroid 生态里一种”富结构”卡片语法（折叠、警示框、选择题、完形填空等），表达能力很强，但手写门槛高。于是需求收敛为一句话：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;粘贴 AI 长文 → 自动生成 Quizify Markdown 卡片 → 一键写入 AnkiDroid。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这就是 Quizify Bridge。&lt;/p&gt;
+&lt;h2 id=&quot;2-全景路线图（A-→-E）&quot;&gt;&lt;a href=&quot;#2-全景路线图（A-→-E）&quot; class=&quot;headerlink&quot; title=&quot;2. 全景路线图（A → E）&quot;&gt;&lt;/a&gt;2. 全景路线图（A → E）&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;阶段&lt;/th&gt;
+&lt;th&gt;目标&lt;/th&gt;
+&lt;th&gt;关键交付&lt;/th&gt;
+&lt;th&gt;状态&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;A 需求与选型&lt;/td&gt;
+&lt;td&gt;定技术栈&amp;#x2F;工作流&amp;#x2F;MVP 边界&lt;/td&gt;
+&lt;td&gt;需求文档、决策记录&lt;/td&gt;
+&lt;td&gt;✅ 已完成&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;B 语法规则规范化&lt;/td&gt;
+&lt;td&gt;沉淀 Quizify MD 规则集 R0–R11 &amp;#x2F; T1–T10&lt;/td&gt;
+&lt;td&gt;规则集、适配指南、样本&lt;/td&gt;
+&lt;td&gt;✅ 真机渲染闭环&lt;/td&gt;
+&lt;/tr&gt;
+&lt;t</summary>
+      
+    
+    
+    
+    <category term="技术实践" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/"/>
+    
+    
+    <category term="工程化" scheme="https://chenshengwu.dpdns.org/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+    <category term="Quizify" scheme="https://chenshengwu.dpdns.org/tags/Quizify/"/>
+    
+    <category term="AnkiDroid" scheme="https://chenshengwu.dpdns.org/tags/AnkiDroid/"/>
+    
+    <category term="Kotlin" scheme="https://chenshengwu.dpdns.org/tags/Kotlin/"/>
+    
+    <category term="Compose" scheme="https://chenshengwu.dpdns.org/tags/Compose/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>双 Agent 接管脚本猫：一次云端与本地 AI 协作的部署实录</title>
+    <link href="https://chenshengwu.dpdns.org/2026/08/29/%E5%8F%8CAgent%E6%8E%A5%E7%AE%A1%E8%84%9A%E6%9C%AC%E7%8C%AB-%E4%B8%80%E6%AC%A1%E4%BA%91%E7%AB%AF%E4%B8%8E%E6%9C%AC%E5%9C%B0AI%E5%8D%8F%E4%BD%9C%E9%83%A8%E7%BD%B2%E5%AE%9E%E5%BD%95/"/>
+    <id>https://chenshengwu.dpdns.org/2026/08/29/%E5%8F%8CAgent%E6%8E%A5%E7%AE%A1%E8%84%9A%E6%9C%AC%E7%8C%AB-%E4%B8%80%E6%AC%A1%E4%BA%91%E7%AB%AF%E4%B8%8E%E6%9C%AC%E5%9C%B0AI%E5%8D%8F%E4%BD%9C%E9%83%A8%E7%BD%B2%E5%AE%9E%E5%BD%95/</id>
+    <published>2026-08-29T14:00:00.000Z</published>
+    <updated>2026-09-03T05:27:38.929Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h1&gt;&lt;p&gt;ScriptCat 是一款强大的浏览器用户脚本管理器，近期推出了”外部访问”（External Access）功能，允许通过 &lt;code&gt;sctl&lt;/code&gt; 命令行工具和 MCP 协议从浏览器外部管理脚本。这为 AI Agent 接管浏览器自动化打开了大门。&lt;/p&gt;
+&lt;p&gt;但一个实际问题立刻浮现：如果你同时有一个&lt;strong&gt;本地 AI Agent&lt;/strong&gt;（以 TRAE 客户端形式运行在桌面上）和一个&lt;strong&gt;云端 AI Agent&lt;/strong&gt;（运行在远程沙箱中），如何让这两个 Agent 都能操控同一台机器上的 ScriptCat？&lt;/p&gt;
+&lt;p&gt;本文记录了这次部署的完整过程——从理解架构到打通云端通道，踩过的坑和最终方案。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;一、理解-ScriptCat-的外部访问架构&quot;&gt;&lt;a href=&quot;#一、理解-ScriptCat-的外部访问架构&quot; class=&quot;headerlink&quot; title=&quot;一、理解 ScriptCat 的外部访问架构&quot;&gt;&lt;/a&gt;一、理解 ScriptCat 的外部访问架构&lt;/h1&gt;&lt;p&gt;在动手之前，先读懂官方文档的架构图：&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;AI 客户端 ── stdio MCP ──▶ sctl mcp ── 本地控制 API ──▶ sctl serve ── WebSocket ──▶ ScriptCat&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CLI ────────────────────────────────────────────────────────▲&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;核心组件：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;组件&lt;/th&gt;
+&lt;th&gt;作用&lt;/th&gt;
+&lt;th&gt;运行位置&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;sctl serve&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;守护进程，通过 WebSocket 与浏览器扩展通信&lt;/td&gt;
+&lt;td&gt;本地&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;sctl mcp&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;MCP 服务器进程，供 AI 客户端通过 stdio 调用&lt;/td&gt;
+&lt;td&gt;本地&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;sctl&lt;/code&gt; CLI&lt;/td&gt;
+&lt;td&gt;命令行工具，直接操作脚本&lt;/td&gt;
+&lt;td&gt;本地&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ScriptCat 扩展&lt;/td&gt;
+&lt;td&gt;浏览器端，执行实际的脚本读写&lt;/td&gt;
+&lt;t</summary>
+      
+    
+    
+    
+    <category term="技术随笔" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="自动化" scheme="https://chenshengwu.dpdns.org/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+    
+    <category term="ScriptCat" scheme="https://chenshengwu.dpdns.org/tags/ScriptCat/"/>
+    
+    <category term="MCP" scheme="https://chenshengwu.dpdns.org/tags/MCP/"/>
+    
+    <category term="AI Agent" scheme="https://chenshengwu.dpdns.org/tags/AI-Agent/"/>
+    
+    <category term="浏览器扩展" scheme="https://chenshengwu.dpdns.org/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>微信云托管部署 memos 实战：从 CLI 代理陷阱到六次迭代终成与 503 排查</title>
+    <link href="https://chenshengwu.dpdns.org/2026/08/29/%E5%BE%AE%E4%BF%A1%E4%BA%91%E6%89%98%E7%AE%A1%E9%83%A8%E7%BD%B2memos%E5%AE%9E%E6%88%98-%E4%BB%8ECLI%E4%BB%A3%E7%90%86%E9%99%B7%E9%98%B1%E5%88%B0%E5%85%AD%E6%AC%A1%E8%BF%AD%E4%BB%A3%E7%BB%88%E6%88%90%E4%B8%8E503%E6%8E%92%E6%9F%A5/"/>
+    <id>https://chenshengwu.dpdns.org/2026/08/29/%E5%BE%AE%E4%BF%A1%E4%BA%91%E6%89%98%E7%AE%A1%E9%83%A8%E7%BD%B2memos%E5%AE%9E%E6%88%98-%E4%BB%8ECLI%E4%BB%A3%E7%90%86%E9%99%B7%E9%98%B1%E5%88%B0%E5%85%AD%E6%AC%A1%E8%BF%AD%E4%BB%A3%E7%BB%88%E6%88%90%E4%B8%8E503%E6%8E%92%E6%9F%A5/</id>
+    <published>2026-08-29T13:00:00.000Z</published>
+    <updated>2026-09-03T05:27:38.930Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/usememos/memos&quot;&gt;memos&lt;/a&gt; 是一个轻量级、自托管的笔记管理应用，采用 Go 后端 + React 前端，支持 Markdown 编辑和知识管理。&lt;strong&gt;微信云托管 (Cloud Run)&lt;/strong&gt; 是微信团队提供的容器化应用托管平台，支持通过 GitHub 仓库自动构建 Docker 镜像并部署。&lt;/p&gt;
+&lt;p&gt;用户已 fork memos 到自己的 GitHub 仓库 &lt;code&gt;githubusercsw/memos&lt;/code&gt;，并通过 &lt;code&gt;cloud.weixin.qq.com/cloudrun&lt;/code&gt; 网站连接了仓库。但 fork 版本缺少 Dockerfile，需要自行创建。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;两条学习路径&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Path A (CLI)&lt;/strong&gt;: 在云端 Linux 环境中用 &lt;code&gt;@wxcloud/cli&lt;/code&gt; 全自动化部署 — 本文主线&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Path B (Console)&lt;/strong&gt;: 通过浏览器驱动控制台手动部署另一个项目 — 备选方案&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;一、Dockerfile-创建&quot;&gt;&lt;a href=&quot;#一、Dockerfile-创建&quot; class=&quot;headerlink&quot; title=&quot;一、Dockerfile 创建&quot;&gt;&lt;/a&gt;一、Dockerfile 创建&lt;/h1&gt;&lt;p&gt;官方 memos 仓库的 Dockerfile 位于 &lt;code&gt;scripts/Dockerfile&lt;/code&gt;，但它不构建前端（依赖 CI 中 &lt;code&gt;pnpm release&lt;/code&gt; 预构建产物），且 &lt;code&gt;.dockerignore&lt;/code&gt; 排除了 &lt;code&gt;/web/&lt;/code&gt; 目录。直接 clone 后 docker build 必然失败。&lt;/p&gt;
+&lt;p&gt;创建的自包含 Dockerfile 采用三阶段构建：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;阶段&lt;/th&gt;
+&lt;th&gt;基础镜像&lt;/th&gt;
+&lt;th&gt;职责&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;Stage 1: frontend&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;node:24-alpine&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;pnpm install + pnpm release 构建前端&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Stage 2: backend&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;golang:1.27.0-alpine&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;go mod download + go build 嵌入前端&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Stage 3: runtime&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;alpine:3.21&lt;/code&gt;&lt;/</summary>
+      
+    
+    
+    
+    <category term="技术随笔" scheme="https://chenshengwu.dpdns.org/categories/%E6%8A%80%E6%9C%AF%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="部署" scheme="https://chenshengwu.dpdns.org/tags/%E9%83%A8%E7%BD%B2/"/>
+    
+    <category term="踩坑" scheme="https://chenshengwu.dpdns.org/tags/%E8%B8%A9%E5%9D%91/"/>
+    
+    <category term="Docker" scheme="https://chenshengwu.dpdns.org/tags/Docker/"/>
+    
+    <category term="微信云托管" scheme="https://chenshengwu.dpdns.org/tags/%E5%BE%AE%E4%BF%A1%E4%BA%91%E6%89%98%E7%AE%A1/"/>
+    
+    <category term="memos" scheme="https://chenshengwu.dpdns.org/tags/memos/"/>
+    
+    <category term="CLI" scheme="https://chenshengwu.dpdns.org/tags/CLI/"/>
+    
+    <category term="代理" scheme="https://chenshengwu.dpdns.org/tags/%E4%BB%A3%E7%90%86/"/>
+    
+    <category term="扩缩容" scheme="https://chenshengwu.dpdns.org/tags/%E6%89%A9%E7%BC%A9%E5%AE%B9/"/>
+    
+  </entry>
+  
+</feed>

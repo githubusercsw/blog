@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>把 AI 对话一键送进 Anki：一个 Chrome 扩展 MV3 的工程化开发实录 | CSW 的思维角落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="引子：一个”抄作业抄不动”的需求我一直用 Anki 做知识积累，也一直在用腾讯元宝这样的 AI 助手查资料。时间一长，有个很自然的诉求冒出来：我在元宝里问到一段不错的讲解，想让它直接变成 Anki 卡片，而不是手动复制、再手动粘贴进 Anki。 于是想写一个 Chrome 扩展：在元宝页面上加个按钮，点击就把当前对话通过 AnkiConnect 写进我的 Anki。听起来不复杂，但真动手才发现，一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="把 AI 对话一键送进 Anki：一个 Chrome 扩展 MV3 的工程化开发实录">
+<meta property="og:url" content="https://chenshengwu.dpdns.org/2026/08/14/%E6%8A%8AAI%E5%AF%B9%E8%AF%9D%E4%B8%80%E9%94%AE%E9%80%81%E8%BF%9BAnki-%E4%B8%80%E4%B8%AAChrome%E6%89%A9%E5%B1%95MV3%E7%9A%84%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%BC%80%E5%8F%91%E5%AE%9E%E5%BD%95/index.html">
+<meta property="og:site_name" content="CSW 的思维角落">
+<meta property="og:description" content="引子：一个”抄作业抄不动”的需求我一直用 Anki 做知识积累，也一直在用腾讯元宝这样的 AI 助手查资料。时间一长，有个很自然的诉求冒出来：我在元宝里问到一段不错的讲解，想让它直接变成 Anki 卡片，而不是手动复制、再手动粘贴进 Anki。 于是想写一个 Chrome 扩展：在元宝页面上加个按钮，点击就把当前对话通过 AnkiConnect 写进我的 Anki。听起来不复杂，但真动手才发现，一">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-08-14T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-09-03T05:27:38.930Z">
+<meta property="article:author" content="githubusercsw">
+<meta property="article:tag" content="Anki">
+<meta property="article:tag" content="工程化">
+<meta property="article:tag" content="踩坑">
+<meta property="article:tag" content="浏览器扩展">
+<meta property="article:tag" content="Chrome扩展">
+<meta property="article:tag" content="MV3">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="CSW 的思维角落" type="application/atom+xml"><link rel="alternate" href="/rss2.xml" title="CSW 的思维角落" type="application/rss+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">CSW 的思维角落</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">关于技术、认知与生活的断想</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/search/">搜索</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://chenshengwu.dpdns.org"></form>
+        <div id="search-result" class="search-dropdown"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-把AI对话一键送进Anki-一个Chrome扩展MV3的工程化开发实录" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/14/%E6%8A%8AAI%E5%AF%B9%E8%AF%9D%E4%B8%80%E9%94%AE%E9%80%81%E8%BF%9BAnki-%E4%B8%80%E4%B8%AAChrome%E6%89%A9%E5%B1%95MV3%E7%9A%84%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%BC%80%E5%8F%91%E5%AE%9E%E5%BD%95/" class="article-date">
+  <time class="dt-published" datetime="2026-08-14T04:00:00.000Z" itemprop="datePublished">2026-08-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">技术实践</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      把 AI 对话一键送进 Anki：一个 Chrome 扩展 MV3 的工程化开发实录
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="引子：一个”抄作业抄不动”的需求"><a href="#引子：一个”抄作业抄不动”的需求" class="headerlink" title="引子：一个”抄作业抄不动”的需求"></a>引子：一个”抄作业抄不动”的需求</h1><p>我一直用 Anki 做知识积累，也一直在用腾讯元宝这样的 AI 助手查资料。时间一长，有个很自然的诉求冒出来：<strong>我在元宝里问到一段不错的讲解，想让它直接变成 Anki 卡片，而不是手动复制、再手动粘贴进 Anki。</strong></p>
+<p>于是想写一个 Chrome 扩展：在元宝页面上加个按钮，点击就把当前对话通过 AnkiConnect 写进我的 Anki。听起来不复杂，但真动手才发现，一个”看起来很简单”的浏览器扩展，一旦认真做工程化，会踩到一大堆之前完全没想到的坑。</p>
+<p>这篇文章不写”怎么用 API”，而是完整记录<strong>一套扩展是怎么一步步搭起来的</strong>——包括我犯过的错、改过的架构判断、以及那些让 bug 反复出现的深层原因。希望能给想写浏览器扩展、或正在做类似小工具的你一些可复用的经验。</p>
+<hr>
+<h1 id="一、先想清楚：这个扩展到底要解决什么"><a href="#一、先想清楚：这个扩展到底要解决什么" class="headerlink" title="一、先想清楚：这个扩展到底要解决什么"></a>一、先想清楚：这个扩展到底要解决什么</h1><p>动手前我先把目标拆成三层，避免被”加个按钮”这种表象带偏：</p>
+<ol>
+<li><strong>抓取</strong>：从元宝页面 DOM 里，把”用户提问 + AI 回答”按结构提取出来。</li>
+<li><strong>转换</strong>：把抓到的 HTML 转成适合 Anki 的内容（我用的是 Quizify Markdown 模板）。</li>
+<li><strong>写入</strong>：通过 AnkiConnect 的 JSON-RPC 接口把卡片写进 Anki 指定牌组。</li>
+</ol>
+<p>技术选型很快定下来：<strong>Manifest V3</strong>（Chrome 新标准）。真正花心思的不是选型，而是怎么把代码组织得”不怕元宝改版、不怕 Anki 环境变化、不怕自己写错”。</p>
+<hr>
+<h1 id="二、架构：分层、依赖注入、配置外置"><a href="#二、架构：分层、依赖注入、配置外置" class="headerlink" title="二、架构：分层、依赖注入、配置外置"></a>二、架构：分层、依赖注入、配置外置</h1><p>一开始我犯了个典型新手错误：把所有逻辑塞在 <code>background</code> 和 <code>content</code> 两个脚本里，环境判断、业务逻辑、DOM 抓取全混在一起。结果改一处坏一处，还经常出现”明明环境是好的却报错”的玄学问题。</p>
+<p>后来我做了三件事，直接把代码从”能跑”拉到了”能维护”：</p>
+<h2 id="分层，让每一层只干一件事"><a href="#分层，让每一层只干一件事" class="headerlink" title="分层，让每一层只干一件事"></a>分层，让每一层只干一件事</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">UI 表现层  content/popup（按钮、预览面板、配置页）</span><br><span class="line">业务编排层  PipelineService（抓取→预览→幂等提交）</span><br><span class="line">环境层      AnkiService + ConfigStore（Anki 通信、配置）</span><br><span class="line">DOM 适配层  SiteAdapter（元宝页面 DOM 抓取）</span><br></pre></td></tr></table></figure>
+
+<h2 id="依赖注入，避免”多实例缓存不同步”"><a href="#依赖注入，避免”多实例缓存不同步”" class="headerlink" title="依赖注入，避免”多实例缓存不同步”"></a>依赖注入，避免”多实例缓存不同步”</h2><p>这个坑很隐蔽：<code>AnkiService</code> 里缓存了 AnkiConnect 的 URL，而配置是从 <code>ConfigStore</code> 读的。如果 <code>AnkiService</code> 和别处各自 <code>new</code> 一个 <code>ConfigStore</code>，就会出现”改了配置，缓存还是旧的”这种诡异问题。<strong>解法是让 ConfigStore 全项目共享单实例，AnkiService 通过构造函数注入</strong>，禁止各自 new。</p>
+<h2 id="配置外置，环境与业务解耦"><a href="#配置外置，环境与业务解耦" class="headerlink" title="配置外置，环境与业务解耦"></a>配置外置，环境与业务解耦</h2><p>端口、牌组、模型、抓取范围……全部做成可配置项，不进代码。这样 Anki 换个端口、想换个牌组，改配置就行，不用动代码。</p>
+<hr>
+<h1 id="三、分阶段迭代：稳，比快重要"><a href="#三、分阶段迭代：稳，比快重要" class="headerlink" title="三、分阶段迭代：稳，比快重要"></a>三、分阶段迭代：稳，比快重要</h1><p>我给自己定了铁律：<strong>每个阶段都要真实验证通过了，才进入下一阶段。</strong> 整个扩展按六步走：</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>内容</th>
+<th>交付</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Phase0</td>
+<td>地基</td>
+<td>manifest 修正、配置系统</td>
+</tr>
+<tr>
+<td>Phase1</td>
+<td>环境层</td>
+<td>AnkiService（动态探测、错误分类）</td>
+</tr>
+<tr>
+<td>Phase2</td>
+<td>适配层</td>
+<td>选择器配置化 + DOM 抓取 + 自检</td>
+</tr>
+<tr>
+<td>Phase3</td>
+<td>把关层</td>
+<td>预览确认 + 幂等提交</td>
+</tr>
+<tr>
+<td>Phase3.5</td>
+<td>成果美化</td>
+<td>内容转成 Quizify 增强语法</td>
+</tr>
+<tr>
+<td>Phase4</td>
+<td>可靠性</td>
+<td>日志、降级、超时、防抖</td>
+</tr>
+</tbody></table>
+<p>每一步都先写单元测试验证，再往前走。这样出了问题能立刻定位是”哪一层”的锅，而不是在乱麻里猜。</p>
+<hr>
+<h1 id="四、三个根源问题，和它们对应的解法"><a href="#四、三个根源问题，和它们对应的解法" class="headerlink" title="四、三个根源问题，和它们对应的解法"></a>四、三个根源问题，和它们对应的解法</h1><p>做到一半我发现，那些反复出现的 bug，其实都能归到三个根源上。搞清这三个，比修一百个具体 bug 更值：</p>
+<h2 id="1-“环境假设”-与-“业务逻辑”-耦合"><a href="#1-“环境假设”-与-“业务逻辑”-耦合" class="headerlink" title="1. “环境假设” 与 “业务逻辑” 耦合"></a>1. “环境假设” 与 “业务逻辑” 耦合</h2><p>典型表现：写死端口、写死牌组、假设 Anki 一定在跑、假设元宝 DOM 一定长这样。一旦环境变了，业务逻辑就炸。</p>
+<p><strong>解法</strong>：把环境探测和业务逻辑分开。Anki 是否可用、牌组模型是否存在，都<strong>动态探测</strong>；Anki 没开是”环境问题”，和”业务失败”明确区分，由上层决定怎么降级。</p>
+<h2 id="2-自动化缺”把关”"><a href="#2-自动化缺”把关”" class="headerlink" title="2. 自动化缺”把关”"></a>2. 自动化缺”把关”</h2><p>一键写库很爽，但万一抓错了、卡片重复了，用户是无感的。<strong>没有确认和去重的自动化，是危险的自动化。</strong></p>
+<p><strong>解法</strong>：写入前必经<strong>预览确认</strong>；提交做<strong>幂等 + 去重</strong>（重复内容直接跳过）。</p>
+<h2 id="3-状态依赖不可靠"><a href="#3-状态依赖不可靠" class="headerlink" title="3. 状态依赖不可靠"></a>3. 状态依赖不可靠</h2><p>最坑的一类 bug。比如”假设元宝渲染一定用某个 class”、”假设页面结构不会变”。</p>
+<p><strong>解法</strong>：选择器全部<strong>配置化 + 多级 fallback</strong>，页面结构变了自动降级；抓取前做<strong>自检</strong>，识别率不足就给出诊断而不是瞎猜。</p>
+<hr>
+<h1 id="五、踩坑实录：六类让我掉头发的坑"><a href="#五、踩坑实录：六类让我掉头发的坑" class="headerlink" title="五、踩坑实录：六类让我掉头发的坑"></a>五、踩坑实录：六类让我掉头发的坑</h1><p>这部分是我最想分享的。每一个坑背后都有一个”我以为不会这样”的盲区。</p>
+<h2 id="坑-1：manifest-配置一个小错误，整个扩展加载失败"><a href="#坑-1：manifest-配置一个小错误，整个扩展加载失败" class="headerlink" title="坑 1：manifest 配置一个小错误，整个扩展加载失败"></a>坑 1：manifest 配置一个小错误，整个扩展加载失败</h2><p><code>default_locale</code> 配错了类型，导致扩展根本加载不出来。教训是：<strong>manifest 是清单不是散文，字段类型必须精确</strong>。Chrome 的报错信息有时候很含蓄，要学会看 <code>chrome://extensions</code> 的错误面板。</p>
+<h2 id="坑-2：MV3-的-background-里没有-DOM"><a href="#坑-2：MV3-的-background-里没有-DOM" class="headerlink" title="坑 2：MV3 的 background 里没有 DOM"></a>坑 2：MV3 的 background 里没有 DOM</h2><p>我在 background 里想用 <code>DOMParser</code> 解析 HTML，结果报 <code>DOMParser is not defined</code>。**MV3 的 service worker 是纯 JS 环境，没有 <code>document</code>、<code>window</code>、<code>DOMParser</code>**。这是 MV3 和旧版 V2 最大的心智差异之一。</p>
+<p><strong>解法</strong>：把 HTML 转 Markdown 的逻辑改成<strong>纯字符串正则实现，零 DOM 依赖</strong>，这样在 content 和 background 都能跑。</p>
+<h2 id="坑-3：service-worker-缓存，改完代码刷新却不变"><a href="#坑-3：service-worker-缓存，改完代码刷新却不变" class="headerlink" title="坑 3：service worker 缓存，改完代码刷新却不变"></a>坑 3：service worker 缓存，改完代码刷新却不变</h2><p>改完代码重载扩展，bug 还在——其实是 <strong>service worker 缓存了旧代码</strong>。要用”移除扩展再重新添加”或者手动终止 service worker 才能彻底加载新版。<strong>调试 MV3 扩展，第一步永远是先确认你跑的是不是最新代码。</strong></p>
+<h2 id="坑-4：AnkiConnect-的查询语法比想象中严格"><a href="#坑-4：AnkiConnect-的查询语法比想象中严格" class="headerlink" title="坑 4：AnkiConnect 的查询语法比想象中严格"></a>坑 4：AnkiConnect 的查询语法比想象中严格</h2><p>去重时需要查询”这个卡片是不是已经存在”。一开始用 <code>&quot;Front: 关键词&quot;</code> 这种写法查不到，后来才发现 AnkiConnect 用的是字段搜索语法 <code>Front:&quot;关键词&quot;</code>。<strong>查 API 文档永远比猜语法靠谱。</strong></p>
+<h2 id="坑-5：目标网站的-DOM-是”畸形”的"><a href="#坑-5：目标网站的-DOM-是”畸形”的" class="headerlink" title="坑 5：目标网站的 DOM 是”畸形”的"></a>坑 5：目标网站的 DOM 是”畸形”的</h2><p>这是我最意外的发现。抓元宝页面时发现它的<strong>表格和列表居然省略了闭合标签</strong>（<code>&lt;td&gt;..&lt;td&gt;..</code> 靠下一个标签隐式闭合），<code>&lt;tbody&gt;</code> 还嵌套在第一个 <code>&lt;tr&gt;</code> 里。用正则按闭合标签解析必然失败，连现成的 HTML 解析库都会解析错乱。</p>
+<p><strong>解法</strong>：用 lookahead 边界（找下一个 <code>td/tr/tbody</code>）而非闭合标签来切分单元格。类似的还有：数学公式是 KaTeX 渲染的（没有原始 LaTeX，只能从渲染结果还原）、代码块是三层嵌套的。</p>
+<p><strong>教训</strong>：别假设别人网站的 HTML 是规范的。<strong>用真实页面抓包验证，比看文档猜结构靠谱一百倍。</strong></p>
+<h2 id="坑-6：多轮对话，每个按钮都发最后一条"><a href="#坑-6：多轮对话，每个按钮都发最后一条" class="headerlink" title="坑 6：多轮对话，每个按钮都发最后一条"></a>坑 6：多轮对话，每个按钮都发最后一条</h2><p>扩展支持在每条 AI 消息旁边放一个按钮。结果发现：<strong>不管点哪条消息的按钮，发出去的都是最后一条</strong>。原因是所有按钮绑定了同一个回调，回调里取的是”全局最后一轮”。</p>
+<p><strong>解法</strong>：每个按钮传入自己对应的消息元素，从该元素向前找到它所属的那一轮，精确提取。<strong>凡是”列表里每个元素一个按钮”的，都要注意闭包&#x2F;数据绑定是不是把”每个”错当成了”最后一个”。</strong></p>
+<hr>
+<h1 id="六、可靠性：让扩展不那么容易崩"><a href="#六、可靠性：让扩展不那么容易崩" class="headerlink" title="六、可靠性：让扩展不那么容易崩"></a>六、可靠性：让扩展不那么容易崩</h1><p>Phase 4 我专门补了一轮健壮性，因为发现真正的风险不是”功能没有”，而是”环境一变就悄悄坏”：</p>
+<ul>
+<li><strong>双层超时</strong>：AnkiConnect 请求加 10 秒超时（用 AbortController），前端通信加 12 秒超时——避免任一端挂起导致扩展”假死”。</li>
+<li><strong>全局忙锁</strong>：防连点。用户快速点两下，只执行一次，第二次提示”正在处理”。</li>
+<li><strong>选择器失效降级</strong>：核心结构（消息列表）还在时，即使输入框等次要选择器失效也<strong>降级继续</strong>，而不是直接拒绝；只有核心结构都没了才报错，并附上<strong>诊断快照</strong>（URL、各选择器命中情况、页面线索），方便元宝改版后快速定位。</li>
+<li><strong>日志系统</strong>：全链路打日志（自检、抓取、预览、提交、失败诊断），沉淀到存储，扩展弹窗里能直接查看。出问题不再靠猜。</li>
+</ul>
+<hr>
+<h1 id="七、一些通用的思考"><a href="#七、一些通用的思考" class="headerlink" title="七、一些通用的思考"></a>七、一些通用的思考</h1><p>写完这个扩展，我最大的感受是：<strong>写浏览器扩展，难点从来不在”调用 AnkiConnect 的 API”，而在于对抗不确定性。</strong></p>
+<ul>
+<li>网页的 DOM 会变 → 用配置化选择器 + 自检 + 降级</li>
+<li>环境（Anki 是否开、端口对不对）会变 → 动态探测 + 错误分类</li>
+<li>用户会连点、会重复 → 幂等 + 防抖</li>
+<li>调试环境会缓存 → 先确认跑的是最新代码</li>
+</ul>
+<p>这些不是”某个扩展”的专属问题，而是<strong>所有跟外部页面 + 外部服务打交道的自动化工具的共性</strong>。把它们想清楚，代码自然就稳了。</p>
+<p>如果你也在做类似的”网页内容一键入库”的小工具，希望这篇能帮你少踩几个坑。下一步我打算把扩展打包发布，并在里面加上用 LLM 提炼卡片的进阶功能——到时候再来写一篇。</p>
+<hr>
+<p><em>（本文基于个人实际开发经验记录，具体选择器与接口细节随版本迭代可能变化，仅供参考。）</em></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/08/14/%E6%8A%8AAI%E5%AF%B9%E8%AF%9D%E4%B8%80%E9%94%AE%E9%80%81%E8%BF%9BAnki-%E4%B8%80%E4%B8%AAChrome%E6%89%A9%E5%B1%95MV3%E7%9A%84%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%BC%80%E5%8F%91%E5%AE%9E%E5%BD%95/" data-id="cmtl330um002psg2b0rbtdn04" data-title="把 AI 对话一键送进 Anki：一个 Chrome 扩展 MV3 的工程化开发实录" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Anki/" rel="tag">Anki</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Chrome%E6%89%A9%E5%B1%95/" rel="tag">Chrome扩展</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MV3/" rel="tag">MV3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag">工程化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95/" rel="tag">浏览器扩展</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2026/08/14/%E8%AE%A9AI%E5%8A%A9%E6%89%8B%E4%B8%8D%E5%A4%B1%E5%BF%86%E4%B8%8D%E8%B7%91%E5%81%8F-%E4%B8%80%E6%AC%A1%E4%BA%BA%E6%9C%BA%E5%8D%8F%E4%BD%9C%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87%E5%B7%A5%E7%A8%8B%E5%AE%9E%E5%BD%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          让 AI 助手&#34;不失忆、不跑偏&#34;：一次浏览器扩展开发的人机协作上下文工程实录
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2026/08/13/%E4%BB%8E%E9%95%BF%E6%96%87%E6%9C%AC%E5%88%B0%E7%BB%93%E6%9E%84%E5%8C%96Quizify%E8%81%9A%E5%90%88%E5%8D%A1-Agent%E5%88%B6%E5%8D%A1%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%85%B1%E5%BB%BA%E5%AE%9E%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">从长文本到结构化 Quizify 聚合卡：一次 Agent 制卡工作流的完整共建</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+<section id="supabase-comments" data-post-id="把AI对话一键送进Anki-一个Chrome扩展MV3的工程化开发实录"></section>
+<link rel="stylesheet" href="/css/comments.css">
+<script>
+  window.SUPABASE_URL = "https://wdhjeduuiirmvqlfnjyg.supabase.co";
+  window.SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkaGplZHV1aWlybXZxbGZuanlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2ODU2NDIsImV4cCI6MjEwMjI2MTY0Mn0.406_tuwVUYINOR-uN7IcqJ1giy2lukZeNKSLURi_KVE";
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/comments.js"></script>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">开源项目</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%81%A5%E5%BA%B7%E4%B8%8E%E5%BF%83%E7%90%86/">健康与心理</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%81%A5%E5%BA%B7%E7%A7%91%E6%99%AE/">健康科普</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E6%88%90%E9%95%BF/">学习成长</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/">工程实践</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BF%83%E7%90%86%E4%B8%8E%E8%AE%A4%E7%9F%A5/">心理与认知</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">技术实践</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF%E9%9A%8F%E7%AC%94/">技术随笔</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A4%E7%9F%A5%E4%B8%8E%E6%96%B9%E6%B3%95/">认知与方法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI-Agent/" rel="tag">AI Agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agent/" rel="tag">Agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Anki/" rel="tag">Anki</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AnkiDroid/" rel="tag">AnkiDroid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/" rel="tag">CI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI-CD/" rel="tag">CI&#x2F;CD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CLI/" rel="tag">CLI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Chrome%E6%89%A9%E5%B1%95/" rel="tag">Chrome扩展</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compose/" rel="tag">Compose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/" rel="tag">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Actions/" rel="tag">GitHub Actions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Pages/" rel="tag">GitHub Pages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JUnit5/" rel="tag">JUnit5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kotlin/" rel="tag">Kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCP/" rel="tag">MCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MV3/" rel="tag">MV3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Memos/" rel="tag">Memos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Northflank/" rel="tag">Northflank</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle-Cloud/" rel="tag">Oracle Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quizify/" rel="tag">Quizify</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R8/" rel="tag">R8</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Render/" rel="tag">Render</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Robolectric/" rel="tag">Robolectric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScriptCat/" rel="tag">ScriptCat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serv00/" rel="tag">Serv00</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StructureRouter/" rel="tag">StructureRouter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Supabase/" rel="tag">Supabase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI/" rel="tag">UI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alert/" rel="tag">alert</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloze/" rel="tag">cloze</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memos/" rel="tag">memos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/" rel="tag">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pnpm/" rel="tag">pnpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tabs/" rel="tag">tabs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E5%B7%A5%E7%A8%8B/" rel="tag">上下文工程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/" rel="tag">上下文管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" rel="tag">个人成长</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%BA%E6%9C%BA%E5%8D%8F%E4%BD%9C/" rel="tag">人机协作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%BA%E9%99%85%E5%85%B3%E7%B3%BB/" rel="tag">人际关系</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%90%86/" rel="tag">代理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%AE%E5%A4%8D/" rel="tag">修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%81%A5%E5%BA%B7/" rel="tag">健康</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%AC%E5%BC%8F/" rel="tag">公式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%B3%E7%AD%96/" rel="tag">决策</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/" rel="tag">分层接线</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%BB%E6%84%8F%E7%BB%83%E4%B9%A0/" rel="tag">刻意练习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%AA%E8%B4%B4%E6%9D%BF/" rel="tag">剪贴板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" rel="tag">包管理器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%8B%E5%8A%9B%E7%AE%A1%E7%90%86/" rel="tag">压力管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8C%E8%BD%A8%E5%AF%B9%E6%AF%94/" rel="tag">双轨对比</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E8%84%86%E5%BC%B1/" rel="tag">反脆弱</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E9%A6%88/" rel="tag">反馈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%91%E5%B8%83/" rel="tag">发布</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8C%E6%AD%A5/" rel="tag">同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A2%9E%E5%BC%BA%E5%B1%82/" rel="tag">增强层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%87%E4%BB%BD/" rel="tag">备份</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E7%9B%98/" rel="tag">复盘</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" rel="tag">学习方法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/" rel="tag">工作流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag">工程化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/" rel="tag">工程实践</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/" rel="tag">工程方法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" rel="tag">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E4%BF%A1%E4%BA%91%E6%89%98%E7%AE%A1/" rel="tag">微信云托管</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7/" rel="tag">心理健康</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6/" rel="tag">心理学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E7%A5%9E%E7%BB%8F%E5%85%8D%E7%96%AB%E5%AD%A6/" rel="tag">心理神经免疫学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%BB%E7%BB%93/" rel="tag">总结</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%83%85%E7%BB%AA%E8%BF%9B%E9%A3%9F/" rel="tag">情绪进食</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%88%90%E9%95%BF/" rel="tag">成长</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%88%90%E9%95%BF%E6%80%9D%E7%BB%B4/" rel="tag">成长思维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%A9%E7%BC%A9%E5%AE%B9/" rel="tag">扩缩容</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%AB%E6%8F%8F/" rel="tag">扫描</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%AD%E7%A4%BA%E8%AF%AD%E6%B3%95/" rel="tag">揭示语法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F/" rel="tag">数据质量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%B9%E6%B3%95%E8%AE%BA/" rel="tag">方法论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F/" rel="tag">暗黑模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/" rel="tag">标题识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/" rel="tag">样本工程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%B9%E5%9B%A0%E5%88%86%E6%9E%90/" rel="tag">根因分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%88%99/" rel="tag">正则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%BF%B5%E9%A5%AE%E9%A3%9F/" rel="tag">正念饮食</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B2%9F%E9%80%9A%E6%8A%80%E5%B7%A7/" rel="tag">沟通技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E6%80%9D%E7%BB%B4/" rel="tag">测试思维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8/" rel="tag">测试驱动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95/" rel="tag">浏览器扩展</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%8C%81%E4%B9%85%E5%8C%96/" rel="tag">环境持久化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9C%9F%E6%9C%BA/" rel="tag">真机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9C%9F%E6%9C%BA%E9%AA%8C%E8%AF%81/" rel="tag">真机验证</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/" rel="tag">知识管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6/" rel="tag">神经科学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2/" rel="tag">站内搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%A0%E9%81%93%E8%8F%8C%E7%BE%A4/" rel="tag">肠道菌群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%83%BD%E5%8A%9B%E8%BE%B9%E7%95%8C/" rel="tag">能力边界</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%86%B3%E9%A3%9F%E7%BA%A4%E7%BB%B4/" rel="tag">膳食纤维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" rel="tag">自动化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E6%88%91%E8%B0%83%E8%8A%82/" rel="tag">自我调节</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E6%89%98%E7%AE%A1/" rel="tag">自托管</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%90%A5%E5%85%BB/" rel="tag">营养</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%93%9D%E6%9C%AC%E7%A7%BB%E6%A4%8D/" rel="tag">蓝本移植</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A1%80%E7%B3%96%E6%8E%A7%E5%88%B6/" rel="tag">血糖控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%84%E5%88%99%E5%AE%A1%E8%AE%A1/" rel="tag">规则审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%84%E5%88%99%E8%BF%AD%E4%BB%A3/" rel="tag">规则迭代</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" rel="tag">解析器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A4%E7%9F%A5/" rel="tag">认知</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A4%E7%9F%A5%E7%A7%91%E5%AD%A6/" rel="tag">认知科学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%B0%E5%BF%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" rel="tag">记忆文件系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/" rel="tag">记忆系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E7%BD%AE%E6%8C%81%E4%B9%85%E5%8C%96/" rel="tag">设置持久化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%AD%E6%B3%95%E7%BA%A2%E7%BA%BF/" rel="tag">语法红线</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%AD%E8%A8%80%E5%AD%A6/" rel="tag">语言学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%AF%E7%94%B1/" rel="tag">路由</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" rel="tag">静态博客</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A2%84%E5%A4%84%E7%90%86/" rel="tag">预处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%AA%8C%E8%AF%81/" rel="tag">验证</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/AI-Agent/" style="font-size: 11.43px;">AI Agent</a> <a href="/tags/Agent/" style="font-size: 10px;">Agent</a> <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Anki/" style="font-size: 15.71px;">Anki</a> <a href="/tags/AnkiDroid/" style="font-size: 12.86px;">AnkiDroid</a> <a href="/tags/CI/" style="font-size: 11.43px;">CI</a> <a href="/tags/CI-CD/" style="font-size: 10px;">CI/CD</a> <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/Chrome%E6%89%A9%E5%B1%95/" style="font-size: 10px;">Chrome扩展</a> <a href="/tags/Compose/" style="font-size: 12.86px;">Compose</a> <a href="/tags/Docker/" style="font-size: 11.43px;">Docker</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/GitHub-Actions/" style="font-size: 12.86px;">GitHub Actions</a> <a href="/tags/GitHub-Pages/" style="font-size: 10px;">GitHub Pages</a> <a href="/tags/Hexo/" style="font-size: 15.71px;">Hexo</a> <a href="/tags/JUnit5/" style="font-size: 10px;">JUnit5</a> <a href="/tags/Kotlin/" style="font-size: 12.86px;">Kotlin</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/MCP/" style="font-size: 10px;">MCP</a> <a href="/tags/MV3/" style="font-size: 10px;">MV3</a> <a href="/tags/Markdown/" style="font-size: 12.86px;">Markdown</a> <a href="/tags/Memos/" style="font-size: 10px;">Memos</a> <a href="/tags/Northflank/" style="font-size: 10px;">Northflank</a> <a href="/tags/Oracle-Cloud/" style="font-size: 10px;">Oracle Cloud</a> <a href="/tags/Quizify/" style="font-size: 20px;">Quizify</a> <a href="/tags/R8/" style="font-size: 10px;">R8</a> <a href="/tags/Render/" style="font-size: 10px;">Render</a> <a href="/tags/Robolectric/" style="font-size: 11.43px;">Robolectric</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/ScriptCat/" style="font-size: 10px;">ScriptCat</a> <a href="/tags/Serv00/" style="font-size: 10px;">Serv00</a> <a href="/tags/StructureRouter/" style="font-size: 10px;">StructureRouter</a> <a href="/tags/Supabase/" style="font-size: 11.43px;">Supabase</a> <a href="/tags/UI/" style="font-size: 11.43px;">UI</a> <a href="/tags/alert/" style="font-size: 10px;">alert</a> <a href="/tags/cloze/" style="font-size: 10px;">cloze</a> <a href="/tags/memos/" style="font-size: 10px;">memos</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/pnpm/" style="font-size: 10px;">pnpm</a> <a href="/tags/tabs/" style="font-size: 10px;">tabs</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E5%B7%A5%E7%A8%8B/" style="font-size: 11.43px;">上下文工程</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/" style="font-size: 10px;">上下文管理</a> <a href="/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" style="font-size: 11.43px;">个人成长</a> <a href="/tags/%E4%BA%BA%E6%9C%BA%E5%8D%8F%E4%BD%9C/" style="font-size: 10px;">人机协作</a> <a href="/tags/%E4%BA%BA%E9%99%85%E5%85%B3%E7%B3%BB/" style="font-size: 10px;">人际关系</a> <a href="/tags/%E4%BB%A3%E7%90%86/" style="font-size: 10px;">代理</a> <a href="/tags/%E4%BF%AE%E5%A4%8D/" style="font-size: 10px;">修复</a> <a href="/tags/%E5%81%A5%E5%BA%B7/" style="font-size: 10px;">健康</a> <a href="/tags/%E5%85%AC%E5%BC%8F/" style="font-size: 10px;">公式</a> <a href="/tags/%E5%86%B3%E7%AD%96/" style="font-size: 10px;">决策</a> <a href="/tags/%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/" style="font-size: 10px;">分层接线</a> <a href="/tags/%E5%88%BB%E6%84%8F%E7%BB%83%E4%B9%A0/" style="font-size: 11.43px;">刻意练习</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%AA%E8%B4%B4%E6%9D%BF/" style="font-size: 11.43px;">剪贴板</a> <a href="/tags/%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" style="font-size: 10px;">包管理器</a> <a href="/tags/%E5%8E%8B%E5%8A%9B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">压力管理</a> <a href="/tags/%E5%8F%8C%E8%BD%A8%E5%AF%B9%E6%AF%94/" style="font-size: 10px;">双轨对比</a> <a href="/tags/%E5%8F%8D%E8%84%86%E5%BC%B1/" style="font-size: 10px;">反脆弱</a> <a href="/tags/%E5%8F%8D%E9%A6%88/" style="font-size: 11.43px;">反馈</a> <a href="/tags/%E5%8F%91%E5%B8%83/" style="font-size: 11.43px;">发布</a> <a href="/tags/%E5%90%8C%E6%AD%A5/" style="font-size: 10px;">同步</a> <a href="/tags/%E5%A2%9E%E5%BC%BA%E5%B1%82/" style="font-size: 10px;">增强层</a> <a href="/tags/%E5%A4%87%E4%BB%BD/" style="font-size: 10px;">备份</a> <a href="/tags/%E5%A4%8D%E7%9B%98/" style="font-size: 10px;">复盘</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" style="font-size: 11.43px;">学习方法</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/" style="font-size: 11.43px;">工作流</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 18.57px;">工程化</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/" style="font-size: 10px;">工程实践</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/" style="font-size: 10px;">工程方法</a> <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">开发工具</a> <a href="/tags/%E5%BE%AE%E4%BF%A1%E4%BA%91%E6%89%98%E7%AE%A1/" style="font-size: 10px;">微信云托管</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7/" style="font-size: 10px;">心理健康</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6/" style="font-size: 10px;">心理学</a> <a href="/tags/%E5%BF%83%E7%90%86%E7%A5%9E%E7%BB%8F%E5%85%8D%E7%96%AB%E5%AD%A6/" style="font-size: 10px;">心理神经免疫学</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 10px;">总结</a> <a href="/tags/%E6%83%85%E7%BB%AA%E8%BF%9B%E9%A3%9F/" style="font-size: 10px;">情绪进食</a> <a href="/tags/%E6%88%90%E9%95%BF/" style="font-size: 10px;">成长</a> <a href="/tags/%E6%88%90%E9%95%BF%E6%80%9D%E7%BB%B4/" style="font-size: 10px;">成长思维</a> <a href="/tags/%E6%89%A9%E7%BC%A9%E5%AE%B9/" style="font-size: 10px;">扩缩容</a> <a href="/tags/%E6%89%AB%E6%8F%8F/" style="font-size: 10px;">扫描</a> <a href="/tags/%E6%8F%AD%E7%A4%BA%E8%AF%AD%E6%B3%95/" style="font-size: 10px;">揭示语法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F/" style="font-size: 10px;">数据质量</a> <a href="/tags/%E6%96%B9%E6%B3%95%E8%AE%BA/" style="font-size: 10px;">方法论</a> <a href="/tags/%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">暗黑模式</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 11.43px;">架构</a> <a href="/tags/%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/" style="font-size: 10px;">标题识别</a> <a href="/tags/%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/" style="font-size: 10px;">样本工程</a> <a href="/tags/%E6%A0%B9%E5%9B%A0%E5%88%86%E6%9E%90/" style="font-size: 10px;">根因分析</a> <a href="/tags/%E6%AD%A3%E5%88%99/" style="font-size: 10px;">正则</a> <a href="/tags/%E6%AD%A3%E5%BF%B5%E9%A5%AE%E9%A3%9F/" style="font-size: 10px;">正念饮食</a> <a href="/tags/%E6%B2%9F%E9%80%9A%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">沟通技巧</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 11.43px;">测试</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%80%9D%E7%BB%B4/" style="font-size: 10px;">测试思维</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8/" style="font-size: 11.43px;">测试驱动</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95/" style="font-size: 11.43px;">浏览器扩展</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E6%8C%81%E4%B9%85%E5%8C%96/" style="font-size: 10px;">环境持久化</a> <a href="/tags/%E7%9C%9F%E6%9C%BA/" style="font-size: 10px;">真机</a> <a href="/tags/%E7%9C%9F%E6%9C%BA%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">真机验证</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/" style="font-size: 10px;">知识管理</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6/" style="font-size: 10px;">神经科学</a> <a href="/tags/%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2/" style="font-size: 10px;">站内搜索</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a> <a href="/tags/%E8%82%A0%E9%81%93%E8%8F%8C%E7%BE%A4/" style="font-size: 10px;">肠道菌群</a> <a href="/tags/%E8%83%BD%E5%8A%9B%E8%BE%B9%E7%95%8C/" style="font-size: 10px;">能力边界</a> <a href="/tags/%E8%86%B3%E9%A3%9F%E7%BA%A4%E7%BB%B4/" style="font-size: 10px;">膳食纤维</a> <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" style="font-size: 14.29px;">自动化</a> <a href="/tags/%E8%87%AA%E6%88%91%E8%B0%83%E8%8A%82/" style="font-size: 10px;">自我调节</a> <a href="/tags/%E8%87%AA%E6%89%98%E7%AE%A1/" style="font-size: 10px;">自托管</a> <a href="/tags/%E8%90%A5%E5%85%BB/" style="font-size: 10px;">营养</a> <a href="/tags/%E8%93%9D%E6%9C%AC%E7%A7%BB%E6%A4%8D/" style="font-size: 10px;">蓝本移植</a> <a href="/tags/%E8%A1%80%E7%B3%96%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">血糖控制</a> <a href="/tags/%E8%A7%84%E5%88%99%E5%AE%A1%E8%AE%A1/" style="font-size: 10px;">规则审计</a> <a href="/tags/%E8%A7%84%E5%88%99%E8%BF%AD%E4%BB%A3/" style="font-size: 10px;">规则迭代</a> <a href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" style="font-size: 11.43px;">解析器</a> <a href="/tags/%E8%AE%A4%E7%9F%A5/" style="font-size: 10px;">认知</a> <a href="/tags/%E8%AE%A4%E7%9F%A5%E7%A7%91%E5%AD%A6/" style="font-size: 10px;">认知科学</a> <a href="/tags/%E8%AE%B0%E5%BF%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">记忆文件系统</a> <a href="/tags/%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">记忆系统</a> <a href="/tags/%E8%AE%BE%E7%BD%AE%E6%8C%81%E4%B9%85%E5%8C%96/" style="font-size: 10px;">设置持久化</a> <a href="/tags/%E8%AF%AD%E6%B3%95%E7%BA%A2%E7%BA%BF/" style="font-size: 10px;">语法红线</a> <a href="/tags/%E8%AF%AD%E8%A8%80%E5%AD%A6/" style="font-size: 10px;">语言学</a> <a href="/tags/%E8%B7%AF%E7%94%B1/" style="font-size: 10px;">路由</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 17.14px;">踩坑</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 17.14px;">部署</a> <a href="/tags/%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">静态博客</a> <a href="/tags/%E9%A2%84%E5%A4%84%E7%90%86/" style="font-size: 10px;">预处理</a> <a href="/tags/%E9%AA%8C%E8%AF%81/" style="font-size: 11.43px;">验证</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">九月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-12-%E5%AE%A1%E8%AE%A1%E4%B8%8ELLM%E5%B7%AE%E8%B7%9D/">Quizify Bridge 分阶段实战（十二）：规则审计与 LLM 差距——诚实地承认能力边界</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-11-%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/">Quizify Bridge 分阶段实战（十一）：工程方法总结——测试门、持久化、上下文锚点</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-10-%E7%9C%9F%E6%9C%BA%E7%AB%AF%E5%88%B0%E7%AB%AF/">Quizify Bridge 分阶段实战（十）：M6 真机端到端与发布——产品成立性验证</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-9-UI%E7%BB%86%E8%8A%82%E4%B8%8E%E6%A0%B7%E6%9C%AC%E5%9B%BA%E5%8C%96/">Quizify Bridge 分阶段实战（九）：M5.4 UI 细节与样本固化——三次修正背后的测试思维</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-8-%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/">Quizify Bridge 分阶段实战（八）：样本工程——双轨对比驱动的规则迭代</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 githubusercsw<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/search/" class="mobile-nav-link">搜索</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  window.SEARCH_SUPABASE_URL = "https://jnrqbznmottytcbojjak.supabase.co";
+  window.SEARCH_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpucnFiem5tb3R0eXRjYm9qamFrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcxMTYzMjUsImV4cCI6MjEwMjY5MjMyNX0.sjuZ_3z6-dEXaRQ7NC7Q1VynPfHRqQ_V8QUE5LXMqQU";
+</script>
+<link rel="stylesheet" href="/css/search.css">
+
+<script src="/js/theme-search.js"></script>
+
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+  </div>
+</body>
+</html>

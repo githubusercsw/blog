@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>博客自动化部署踩坑记：从 CNAME 丢失到自定义域名样式丢失 | CSW 的思维角落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="引言最近我在搭建一个”Anki 素材 → 博文 → GitHub Pages”的自动化博文工作流，过程中连续踩了几个坑，从自定义域名 404 到自定义域名只有 HTML 没有样式，排查下来才发现问题都指向同一个根源——配置与环境耦合。 这篇文章把这些问题和修复思路完整记录下来，希望能帮到同样在用 Hexo + GitHub Pages 部署博客的朋友。  问题一：自定义域名突然 404现象博客原本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="博客自动化部署踩坑记：从 CNAME 丢失到自定义域名样式丢失">
+<meta property="og:url" content="https://chenshengwu.dpdns.org/2026/08/12/%E5%8D%9A%E5%AE%A2%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E8%B8%A9%E5%9D%91%E8%AE%B0/index.html">
+<meta property="og:site_name" content="CSW 的思维角落">
+<meta property="og:description" content="引言最近我在搭建一个”Anki 素材 → 博文 → GitHub Pages”的自动化博文工作流，过程中连续踩了几个坑，从自定义域名 404 到自定义域名只有 HTML 没有样式，排查下来才发现问题都指向同一个根源——配置与环境耦合。 这篇文章把这些问题和修复思路完整记录下来，希望能帮到同样在用 Hexo + GitHub Pages 部署博客的朋友。  问题一：自定义域名突然 404现象博客原本">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-08-12T12:00:00.000Z">
+<meta property="article:modified_time" content="2026-09-03T05:27:38.929Z">
+<meta property="article:author" content="githubusercsw">
+<meta property="article:tag" content="部署">
+<meta property="article:tag" content="踩坑">
+<meta property="article:tag" content="自动化">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="GitHub Pages">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="CSW 的思维角落" type="application/atom+xml"><link rel="alternate" href="/rss2.xml" title="CSW 的思维角落" type="application/rss+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">CSW 的思维角落</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">关于技术、认知与生活的断想</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/search/">搜索</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://chenshengwu.dpdns.org"></form>
+        <div id="search-result" class="search-dropdown"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-博客自动化部署踩坑记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/12/%E5%8D%9A%E5%AE%A2%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E8%B8%A9%E5%9D%91%E8%AE%B0/" class="article-date">
+  <time class="dt-published" datetime="2026-08-12T12:00:00.000Z" itemprop="datePublished">2026-08-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E9%9A%8F%E7%AC%94/">技术随笔</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      博客自动化部署踩坑记：从 CNAME 丢失到自定义域名样式丢失
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>最近我在搭建一个”Anki 素材 → 博文 → GitHub Pages”的自动化博文工作流，过程中连续踩了几个坑，从<strong>自定义域名 404</strong> 到<strong>自定义域名只有 HTML 没有样式</strong>，排查下来才发现问题都指向同一个根源——<strong>配置与环境耦合</strong>。</p>
+<p>这篇文章把这些问题和修复思路完整记录下来，希望能帮到同样在用 Hexo + GitHub Pages 部署博客的朋友。</p>
+<hr>
+<h1 id="问题一：自定义域名突然-404"><a href="#问题一：自定义域名突然-404" class="headerlink" title="问题一：自定义域名突然 404"></a>问题一：自定义域名突然 404</h1><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>博客原本可以正常访问，某次重新构建部署后，访问第三方域名提示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">There isn&#x27;t a GitHub pages site here</span><br></pre></td></tr></table></figure>
+
+<p>而默认域名 <code>xxx.github.io</code> 却一切正常。</p>
+<h2 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h2><p>GitHub Pages 的自定义域名，靠的是<strong>发布分支根目录下的 <code>CNAME</code> 文件</strong>（文件内容就是你绑定的域名）。</p>
+<p>我检查后发现：</p>
+<ul>
+<li>GitHub Pages 配置里 <code>cname</code> 字段变成了空；</li>
+<li>发布分支上的 <code>CNAME</code> 文件<strong>不见了</strong>。</li>
+</ul>
+<h2 id="根因"><a href="#根因" class="headerlink" title="根因"></a>根因</h2><p>我的发布流程是 <code>hexo clean &amp;&amp; hexo generate</code>，再用 <code>public/</code> 目录整体强制推送到 <code>gh-pages</code> 分支。</p>
+<p>问题就在这里：**<code>hexo clean</code> 会清空 <code>public/</code> 目录**，而我的 <code>source/</code> 里没有 <code>CNAME</code> 文件，所以重建后的 <code>public/</code> 里也不含它。一强制推送，<code>gh-pages</code> 分支上的 <code>CNAME</code> 就被删除了。GitHub 检测到 CNAME 消失，就自动清掉了自定义域名配置。</p>
+<blockquote>
+<p><strong>教训</strong>：不要依赖 GitHub Pages 设置页自动生成的 <code>CNAME</code> 文件——那个文件在下次 <code>hexo clean</code> + 部署时会被覆盖清掉。</p>
+</blockquote>
+<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><p>在 <code>source/CNAME</code> 里声明一行域名：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">your-domain.com</span><br></pre></td></tr></table></figure>
+
+<p>这样每次构建，<code>CNAME</code> 都会自动进入 <code>public/</code>，随站点部署到发布分支，<strong>域名从此不会再因重建丢失</strong>。</p>
+<hr>
+<h1 id="问题二：自定义域名只有-HTML，没有样式"><a href="#问题二：自定义域名只有-HTML，没有样式" class="headerlink" title="问题二：自定义域名只有 HTML，没有样式"></a>问题二：自定义域名只有 HTML，没有样式</h1><h2 id="现象-1"><a href="#现象-1" class="headerlink" title="现象"></a>现象</h2><p>自定义域名能访问了，但页面只有文字，<strong>所有 CSS 样式都丢了</strong>，看起来像没有加载主题。</p>
+<h2 id="排查-1"><a href="#排查-1" class="headerlink" title="排查"></a>排查</h2><p>我打开浏览器开发者工具，发现样式文件全部 404。再看 HTML 里的静态资源引用，路径是这样的：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;/blog/css/style.css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>而实际访问时，自定义域名下站点在根路径 <code>/</code>，对应的样式地址应该是 <code>/css/style.css</code>。</p>
+<p>我实测验证：</p>
+<ul>
+<li><code>https://your-domain.com/css/style.css</code> → <strong>200</strong>（样式实际存在）</li>
+<li><code>https://your-domain.com/blog/css/style.css</code> → <strong>404</strong>（HTML 引用的正是这个）</li>
+</ul>
+<h2 id="根因-1"><a href="#根因-1" class="headerlink" title="根因"></a>根因</h2><p>问题出在 <code>_config.yml</code> 里：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">url:</span> <span class="string">https://xxx.github.io</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/blog/</span></span><br></pre></td></tr></table></figure>
+
+<p><code>root: /blog/</code> 让 Hexo 把<strong>所有静态资源路径</strong>都写成了绝对路径 <code>/blog/...</code>。</p>
+<ul>
+<li>默认域名 <code>xxx.github.io/blog/</code>：路径匹配，样式正常；</li>
+<li>自定义域名 <code>your-domain.com/</code>：GitHub Pages 在自定义域名下以<strong>根路径</strong>服务，但 HTML 还引用 <code>/blog/...</code>，于是样式 404。</li>
+</ul>
+<p><strong>本质</strong>：构建产物被 <code>root</code> 绑死，无法同时适配”子路径部署”和”根路径部署”两种访问方式。</p>
+<h2 id="修复-1"><a href="#修复-1" class="headerlink" title="修复"></a>修复</h2><p>如果你以自定义域名为主，把配置改为：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">url:</span> <span class="string">https://your-domain.com</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/</span></span><br></pre></td></tr></table></figure>
+
+<p>重新构建后，HTML 里的资源路径变成 <code>/css/style.css</code>，自定义域名下样式就正常了。</p>
+<blockquote>
+<p><strong>核心原则</strong>：<code>root</code> 和 <code>url</code> 必须与实际访问路径一致。它们属于”环境相关配置”，应该外置并在发布前校验，而不是写死在构建逻辑里。</p>
+</blockquote>
+<hr>
+<h1 id="问题三：GitHub-推送反复网络报错"><a href="#问题三：GitHub-推送反复网络报错" class="headerlink" title="问题三：GitHub 推送反复网络报错"></a>问题三：GitHub 推送反复网络报错</h1><h2 id="现象-2"><a href="#现象-2" class="headerlink" title="现象"></a>现象</h2><p>推送 <code>gh-pages</code> 时反复失败：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fatal: unable to access &#x27;https://github.com/.../&#x27;: GnuTLS recv error (-110): The TLS connection was non-properly terminated.</span><br><span class="line">error: failed to push some refs</span><br></pre></td></tr></table></figure>
+
+<p>有时还会出现 <code>Error in the HTTP2 framing layer</code>。</p>
+<h2 id="根因与修复"><a href="#根因与修复" class="headerlink" title="根因与修复"></a>根因与修复</h2><p>这是 Git 客户端与 GitHub 之间 <strong>HTTP&#x2F;2 连接不稳定</strong>导致的。改用 <strong>HTTP&#x2F;1.1</strong> 后稳定通过：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git -c http.version=HTTP/1.1 push -f origin gh-pages</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>小技巧：在推送命令里显式指定 <code>http.version=HTTP/1.1</code>，可规避部分 HTTP&#x2F;2 传输层的偶发错误。</p>
+</blockquote>
+<hr>
+<h1 id="问题四：git-锁文件残留"><a href="#问题四：git-锁文件残留" class="headerlink" title="问题四：git 锁文件残留"></a>问题四：git 锁文件残留</h1><h2 id="现象-3"><a href="#现象-3" class="headerlink" title="现象"></a>现象</h2><p>推送被中断后，再次执行 <code>git add</code> 报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fatal: Unable to create &#x27;.../.git/index.lock&#x27;: File exists.</span><br><span class="line">Another git process seems to be running in this repository...</span><br></pre></td></tr></table></figure>
+
+<h2 id="根因与修复-1"><a href="#根因与修复-1" class="headerlink" title="根因与修复"></a>根因与修复</h2><p>这是 git 崩溃&#x2F;中断后残留的临时锁文件。确认没有其他 git 进程在跑后，删除锁文件即可恢复：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -f path/to/repo/.git/index.lock</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="问题五：云端环境不支持定时任务"><a href="#问题五：云端环境不支持定时任务" class="headerlink" title="问题五：云端环境不支持定时任务"></a>问题五：云端环境不支持定时任务</h1><h2 id="现象-4"><a href="#现象-4" class="headerlink" title="现象"></a>现象</h2><p>我想用 cron 每天自动发布博文，但当前运行在云上环境，<strong>不支持创建定时任务</strong>。</p>
+<h2 id="处理"><a href="#处理" class="headerlink" title="处理"></a>处理</h2><ul>
+<li>云上环境无法直接挂 cron，需切换到支持定时任务的环境（如本地&#x2F;服务器，或客户端”连接我的电脑”模式）；</li>
+<li>工作流的<strong>入口脚本保持通用</strong>，外部 cron 只负责”到点触发”，业务逻辑全在脚本内，换环境即可复用。</li>
+</ul>
+<hr>
+<h1 id="根源反思：这些坑为什么一个接一个"><a href="#根源反思：这些坑为什么一个接一个" class="headerlink" title="根源反思：这些坑为什么一个接一个"></a>根源反思：这些坑为什么一个接一个</h1><p>回头看，这五个问题不是孤立的，它们都指向同一个根源——<strong>工作流的”环境假设”与”业务逻辑”耦合</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>根源耦合点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>自定义域名 404</td>
+<td>域名声明依赖了构建产物（CNAME 被重建清掉）</td>
+</tr>
+<tr>
+<td>样式丢失</td>
+<td><code>root</code> 路径写死进构建产物</td>
+</tr>
+<tr>
+<td>网络报错</td>
+<td>传输层假设（HTTP&#x2F;2）</td>
+</tr>
+<tr>
+<td>锁文件</td>
+<td>中断处理不健壮</td>
+</tr>
+<tr>
+<td>定时限制</td>
+<td>运行环境假设</td>
+</tr>
+</tbody></table>
+<p><strong>修复原则</strong>可以总结为四句话：</p>
+<ol>
+<li><strong>配置外置</strong>：域名、路径、凭证等环境项，从代码逻辑里剥离，集中声明；</li>
+<li><strong>动态注入</strong>：声明随构建&#x2F;运行自动进入产物（如 <code>source/CNAME</code> → <code>public/CNAME</code>）；</li>
+<li><strong>发布前校验</strong>：CNAME、<code>root</code>、凭证都在发布前断言正确，缺失即中止；</li>
+<li><strong>状态可重建</strong>：素材库、状态文件都能由脚本重建，不依赖脆弱记忆。</li>
+</ol>
+<hr>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>这些坑看似琐碎，但每一个都是”配置与环境耦合”的具体体现。把<strong>环境假设外置 + 校验前置</strong>后，工作流从”换个环境就崩”变成了”换环境只改声明”。</p>
+<p>自动化部署的价值，不在于”一键跑通”，而在于<strong>即使出了错，也能快速定位、安全修复、不产生连锁反应</strong>。希望这篇踩坑记录能帮你少走弯路。</p>
+<hr>
+<p><em>本文为作者在搭建自动化博文工作流过程中的真实排障记录。</em></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/08/12/%E5%8D%9A%E5%AE%A2%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E8%B8%A9%E5%9D%91%E8%AE%B0/" data-id="cmtl330uf0028sg2bhm9vgzwt" data-title="博客自动化部署踩坑记：从 CNAME 丢失到自定义域名样式丢失" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GitHub-Pages/" rel="tag">GitHub Pages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" rel="tag">自动化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2026/08/13/Anki%E4%BA%91%E7%AB%AF%E5%90%8C%E6%AD%A5%E4%B8%8E%E8%81%9A%E5%90%88%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E6%88%98/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Anki 云端同步与聚合工程化实战
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2026/08/12/%E5%89%8D%E7%AB%AF%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E6%80%8E%E4%B9%88%E9%80%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">前端包管理器怎么选：npm、yarn 还是 pnpm？</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+<section id="supabase-comments" data-post-id="博客自动化部署踩坑记"></section>
+<link rel="stylesheet" href="/css/comments.css">
+<script>
+  window.SUPABASE_URL = "https://wdhjeduuiirmvqlfnjyg.supabase.co";
+  window.SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkaGplZHV1aWlybXZxbGZuanlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2ODU2NDIsImV4cCI6MjEwMjI2MTY0Mn0.406_tuwVUYINOR-uN7IcqJ1giy2lukZeNKSLURi_KVE";
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/comments.js"></script>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">开源项目</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%81%A5%E5%BA%B7%E4%B8%8E%E5%BF%83%E7%90%86/">健康与心理</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%81%A5%E5%BA%B7%E7%A7%91%E6%99%AE/">健康科普</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E6%88%90%E9%95%BF/">学习成长</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/">工程实践</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BF%83%E7%90%86%E4%B8%8E%E8%AE%A4%E7%9F%A5/">心理与认知</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">技术实践</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF%E9%9A%8F%E7%AC%94/">技术随笔</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A4%E7%9F%A5%E4%B8%8E%E6%96%B9%E6%B3%95/">认知与方法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI-Agent/" rel="tag">AI Agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agent/" rel="tag">Agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Anki/" rel="tag">Anki</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AnkiDroid/" rel="tag">AnkiDroid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/" rel="tag">CI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI-CD/" rel="tag">CI&#x2F;CD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CLI/" rel="tag">CLI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Chrome%E6%89%A9%E5%B1%95/" rel="tag">Chrome扩展</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compose/" rel="tag">Compose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/" rel="tag">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Actions/" rel="tag">GitHub Actions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Pages/" rel="tag">GitHub Pages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JUnit5/" rel="tag">JUnit5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kotlin/" rel="tag">Kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCP/" rel="tag">MCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MV3/" rel="tag">MV3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Memos/" rel="tag">Memos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Northflank/" rel="tag">Northflank</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle-Cloud/" rel="tag">Oracle Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quizify/" rel="tag">Quizify</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R8/" rel="tag">R8</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Render/" rel="tag">Render</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Robolectric/" rel="tag">Robolectric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScriptCat/" rel="tag">ScriptCat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serv00/" rel="tag">Serv00</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StructureRouter/" rel="tag">StructureRouter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Supabase/" rel="tag">Supabase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI/" rel="tag">UI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alert/" rel="tag">alert</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloze/" rel="tag">cloze</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memos/" rel="tag">memos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/" rel="tag">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pnpm/" rel="tag">pnpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tabs/" rel="tag">tabs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E5%B7%A5%E7%A8%8B/" rel="tag">上下文工程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/" rel="tag">上下文管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" rel="tag">个人成长</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%BA%E6%9C%BA%E5%8D%8F%E4%BD%9C/" rel="tag">人机协作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%BA%E9%99%85%E5%85%B3%E7%B3%BB/" rel="tag">人际关系</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%90%86/" rel="tag">代理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%AE%E5%A4%8D/" rel="tag">修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%81%A5%E5%BA%B7/" rel="tag">健康</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%AC%E5%BC%8F/" rel="tag">公式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%B3%E7%AD%96/" rel="tag">决策</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/" rel="tag">分层接线</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%BB%E6%84%8F%E7%BB%83%E4%B9%A0/" rel="tag">刻意练习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%AA%E8%B4%B4%E6%9D%BF/" rel="tag">剪贴板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" rel="tag">包管理器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%8B%E5%8A%9B%E7%AE%A1%E7%90%86/" rel="tag">压力管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8C%E8%BD%A8%E5%AF%B9%E6%AF%94/" rel="tag">双轨对比</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E8%84%86%E5%BC%B1/" rel="tag">反脆弱</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E9%A6%88/" rel="tag">反馈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%91%E5%B8%83/" rel="tag">发布</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8C%E6%AD%A5/" rel="tag">同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A2%9E%E5%BC%BA%E5%B1%82/" rel="tag">增强层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%87%E4%BB%BD/" rel="tag">备份</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E7%9B%98/" rel="tag">复盘</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" rel="tag">学习方法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/" rel="tag">工作流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag">工程化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/" rel="tag">工程实践</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/" rel="tag">工程方法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" rel="tag">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E4%BF%A1%E4%BA%91%E6%89%98%E7%AE%A1/" rel="tag">微信云托管</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7/" rel="tag">心理健康</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6/" rel="tag">心理学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E7%A5%9E%E7%BB%8F%E5%85%8D%E7%96%AB%E5%AD%A6/" rel="tag">心理神经免疫学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%BB%E7%BB%93/" rel="tag">总结</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%83%85%E7%BB%AA%E8%BF%9B%E9%A3%9F/" rel="tag">情绪进食</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%88%90%E9%95%BF/" rel="tag">成长</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%88%90%E9%95%BF%E6%80%9D%E7%BB%B4/" rel="tag">成长思维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%A9%E7%BC%A9%E5%AE%B9/" rel="tag">扩缩容</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%AB%E6%8F%8F/" rel="tag">扫描</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%AD%E7%A4%BA%E8%AF%AD%E6%B3%95/" rel="tag">揭示语法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F/" rel="tag">数据质量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%B9%E6%B3%95%E8%AE%BA/" rel="tag">方法论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F/" rel="tag">暗黑模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/" rel="tag">标题识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/" rel="tag">样本工程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%B9%E5%9B%A0%E5%88%86%E6%9E%90/" rel="tag">根因分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%88%99/" rel="tag">正则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%BF%B5%E9%A5%AE%E9%A3%9F/" rel="tag">正念饮食</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B2%9F%E9%80%9A%E6%8A%80%E5%B7%A7/" rel="tag">沟通技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E6%80%9D%E7%BB%B4/" rel="tag">测试思维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8/" rel="tag">测试驱动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95/" rel="tag">浏览器扩展</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%8C%81%E4%B9%85%E5%8C%96/" rel="tag">环境持久化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9C%9F%E6%9C%BA/" rel="tag">真机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9C%9F%E6%9C%BA%E9%AA%8C%E8%AF%81/" rel="tag">真机验证</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/" rel="tag">知识管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6/" rel="tag">神经科学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2/" rel="tag">站内搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%A0%E9%81%93%E8%8F%8C%E7%BE%A4/" rel="tag">肠道菌群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%83%BD%E5%8A%9B%E8%BE%B9%E7%95%8C/" rel="tag">能力边界</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%86%B3%E9%A3%9F%E7%BA%A4%E7%BB%B4/" rel="tag">膳食纤维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" rel="tag">自动化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E6%88%91%E8%B0%83%E8%8A%82/" rel="tag">自我调节</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E6%89%98%E7%AE%A1/" rel="tag">自托管</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%90%A5%E5%85%BB/" rel="tag">营养</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%93%9D%E6%9C%AC%E7%A7%BB%E6%A4%8D/" rel="tag">蓝本移植</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A1%80%E7%B3%96%E6%8E%A7%E5%88%B6/" rel="tag">血糖控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%84%E5%88%99%E5%AE%A1%E8%AE%A1/" rel="tag">规则审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%84%E5%88%99%E8%BF%AD%E4%BB%A3/" rel="tag">规则迭代</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" rel="tag">解析器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A4%E7%9F%A5/" rel="tag">认知</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A4%E7%9F%A5%E7%A7%91%E5%AD%A6/" rel="tag">认知科学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%B0%E5%BF%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" rel="tag">记忆文件系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/" rel="tag">记忆系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E7%BD%AE%E6%8C%81%E4%B9%85%E5%8C%96/" rel="tag">设置持久化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%AD%E6%B3%95%E7%BA%A2%E7%BA%BF/" rel="tag">语法红线</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%AD%E8%A8%80%E5%AD%A6/" rel="tag">语言学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%AF%E7%94%B1/" rel="tag">路由</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" rel="tag">静态博客</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A2%84%E5%A4%84%E7%90%86/" rel="tag">预处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%AA%8C%E8%AF%81/" rel="tag">验证</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/AI-Agent/" style="font-size: 11.43px;">AI Agent</a> <a href="/tags/Agent/" style="font-size: 10px;">Agent</a> <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Anki/" style="font-size: 15.71px;">Anki</a> <a href="/tags/AnkiDroid/" style="font-size: 12.86px;">AnkiDroid</a> <a href="/tags/CI/" style="font-size: 11.43px;">CI</a> <a href="/tags/CI-CD/" style="font-size: 10px;">CI/CD</a> <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/Chrome%E6%89%A9%E5%B1%95/" style="font-size: 10px;">Chrome扩展</a> <a href="/tags/Compose/" style="font-size: 12.86px;">Compose</a> <a href="/tags/Docker/" style="font-size: 11.43px;">Docker</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/GitHub-Actions/" style="font-size: 12.86px;">GitHub Actions</a> <a href="/tags/GitHub-Pages/" style="font-size: 10px;">GitHub Pages</a> <a href="/tags/Hexo/" style="font-size: 15.71px;">Hexo</a> <a href="/tags/JUnit5/" style="font-size: 10px;">JUnit5</a> <a href="/tags/Kotlin/" style="font-size: 12.86px;">Kotlin</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/MCP/" style="font-size: 10px;">MCP</a> <a href="/tags/MV3/" style="font-size: 10px;">MV3</a> <a href="/tags/Markdown/" style="font-size: 12.86px;">Markdown</a> <a href="/tags/Memos/" style="font-size: 10px;">Memos</a> <a href="/tags/Northflank/" style="font-size: 10px;">Northflank</a> <a href="/tags/Oracle-Cloud/" style="font-size: 10px;">Oracle Cloud</a> <a href="/tags/Quizify/" style="font-size: 20px;">Quizify</a> <a href="/tags/R8/" style="font-size: 10px;">R8</a> <a href="/tags/Render/" style="font-size: 10px;">Render</a> <a href="/tags/Robolectric/" style="font-size: 11.43px;">Robolectric</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/ScriptCat/" style="font-size: 10px;">ScriptCat</a> <a href="/tags/Serv00/" style="font-size: 10px;">Serv00</a> <a href="/tags/StructureRouter/" style="font-size: 10px;">StructureRouter</a> <a href="/tags/Supabase/" style="font-size: 11.43px;">Supabase</a> <a href="/tags/UI/" style="font-size: 11.43px;">UI</a> <a href="/tags/alert/" style="font-size: 10px;">alert</a> <a href="/tags/cloze/" style="font-size: 10px;">cloze</a> <a href="/tags/memos/" style="font-size: 10px;">memos</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/pnpm/" style="font-size: 10px;">pnpm</a> <a href="/tags/tabs/" style="font-size: 10px;">tabs</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E5%B7%A5%E7%A8%8B/" style="font-size: 11.43px;">上下文工程</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/" style="font-size: 10px;">上下文管理</a> <a href="/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" style="font-size: 11.43px;">个人成长</a> <a href="/tags/%E4%BA%BA%E6%9C%BA%E5%8D%8F%E4%BD%9C/" style="font-size: 10px;">人机协作</a> <a href="/tags/%E4%BA%BA%E9%99%85%E5%85%B3%E7%B3%BB/" style="font-size: 10px;">人际关系</a> <a href="/tags/%E4%BB%A3%E7%90%86/" style="font-size: 10px;">代理</a> <a href="/tags/%E4%BF%AE%E5%A4%8D/" style="font-size: 10px;">修复</a> <a href="/tags/%E5%81%A5%E5%BA%B7/" style="font-size: 10px;">健康</a> <a href="/tags/%E5%85%AC%E5%BC%8F/" style="font-size: 10px;">公式</a> <a href="/tags/%E5%86%B3%E7%AD%96/" style="font-size: 10px;">决策</a> <a href="/tags/%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/" style="font-size: 10px;">分层接线</a> <a href="/tags/%E5%88%BB%E6%84%8F%E7%BB%83%E4%B9%A0/" style="font-size: 11.43px;">刻意练习</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%AA%E8%B4%B4%E6%9D%BF/" style="font-size: 11.43px;">剪贴板</a> <a href="/tags/%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" style="font-size: 10px;">包管理器</a> <a href="/tags/%E5%8E%8B%E5%8A%9B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">压力管理</a> <a href="/tags/%E5%8F%8C%E8%BD%A8%E5%AF%B9%E6%AF%94/" style="font-size: 10px;">双轨对比</a> <a href="/tags/%E5%8F%8D%E8%84%86%E5%BC%B1/" style="font-size: 10px;">反脆弱</a> <a href="/tags/%E5%8F%8D%E9%A6%88/" style="font-size: 11.43px;">反馈</a> <a href="/tags/%E5%8F%91%E5%B8%83/" style="font-size: 11.43px;">发布</a> <a href="/tags/%E5%90%8C%E6%AD%A5/" style="font-size: 10px;">同步</a> <a href="/tags/%E5%A2%9E%E5%BC%BA%E5%B1%82/" style="font-size: 10px;">增强层</a> <a href="/tags/%E5%A4%87%E4%BB%BD/" style="font-size: 10px;">备份</a> <a href="/tags/%E5%A4%8D%E7%9B%98/" style="font-size: 10px;">复盘</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" style="font-size: 11.43px;">学习方法</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/" style="font-size: 11.43px;">工作流</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 18.57px;">工程化</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/" style="font-size: 10px;">工程实践</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/" style="font-size: 10px;">工程方法</a> <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">开发工具</a> <a href="/tags/%E5%BE%AE%E4%BF%A1%E4%BA%91%E6%89%98%E7%AE%A1/" style="font-size: 10px;">微信云托管</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7/" style="font-size: 10px;">心理健康</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6/" style="font-size: 10px;">心理学</a> <a href="/tags/%E5%BF%83%E7%90%86%E7%A5%9E%E7%BB%8F%E5%85%8D%E7%96%AB%E5%AD%A6/" style="font-size: 10px;">心理神经免疫学</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 10px;">总结</a> <a href="/tags/%E6%83%85%E7%BB%AA%E8%BF%9B%E9%A3%9F/" style="font-size: 10px;">情绪进食</a> <a href="/tags/%E6%88%90%E9%95%BF/" style="font-size: 10px;">成长</a> <a href="/tags/%E6%88%90%E9%95%BF%E6%80%9D%E7%BB%B4/" style="font-size: 10px;">成长思维</a> <a href="/tags/%E6%89%A9%E7%BC%A9%E5%AE%B9/" style="font-size: 10px;">扩缩容</a> <a href="/tags/%E6%89%AB%E6%8F%8F/" style="font-size: 10px;">扫描</a> <a href="/tags/%E6%8F%AD%E7%A4%BA%E8%AF%AD%E6%B3%95/" style="font-size: 10px;">揭示语法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F/" style="font-size: 10px;">数据质量</a> <a href="/tags/%E6%96%B9%E6%B3%95%E8%AE%BA/" style="font-size: 10px;">方法论</a> <a href="/tags/%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">暗黑模式</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 11.43px;">架构</a> <a href="/tags/%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/" style="font-size: 10px;">标题识别</a> <a href="/tags/%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/" style="font-size: 10px;">样本工程</a> <a href="/tags/%E6%A0%B9%E5%9B%A0%E5%88%86%E6%9E%90/" style="font-size: 10px;">根因分析</a> <a href="/tags/%E6%AD%A3%E5%88%99/" style="font-size: 10px;">正则</a> <a href="/tags/%E6%AD%A3%E5%BF%B5%E9%A5%AE%E9%A3%9F/" style="font-size: 10px;">正念饮食</a> <a href="/tags/%E6%B2%9F%E9%80%9A%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">沟通技巧</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 11.43px;">测试</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%80%9D%E7%BB%B4/" style="font-size: 10px;">测试思维</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8/" style="font-size: 11.43px;">测试驱动</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95/" style="font-size: 11.43px;">浏览器扩展</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E6%8C%81%E4%B9%85%E5%8C%96/" style="font-size: 10px;">环境持久化</a> <a href="/tags/%E7%9C%9F%E6%9C%BA/" style="font-size: 10px;">真机</a> <a href="/tags/%E7%9C%9F%E6%9C%BA%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">真机验证</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/" style="font-size: 10px;">知识管理</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6/" style="font-size: 10px;">神经科学</a> <a href="/tags/%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2/" style="font-size: 10px;">站内搜索</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a> <a href="/tags/%E8%82%A0%E9%81%93%E8%8F%8C%E7%BE%A4/" style="font-size: 10px;">肠道菌群</a> <a href="/tags/%E8%83%BD%E5%8A%9B%E8%BE%B9%E7%95%8C/" style="font-size: 10px;">能力边界</a> <a href="/tags/%E8%86%B3%E9%A3%9F%E7%BA%A4%E7%BB%B4/" style="font-size: 10px;">膳食纤维</a> <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" style="font-size: 14.29px;">自动化</a> <a href="/tags/%E8%87%AA%E6%88%91%E8%B0%83%E8%8A%82/" style="font-size: 10px;">自我调节</a> <a href="/tags/%E8%87%AA%E6%89%98%E7%AE%A1/" style="font-size: 10px;">自托管</a> <a href="/tags/%E8%90%A5%E5%85%BB/" style="font-size: 10px;">营养</a> <a href="/tags/%E8%93%9D%E6%9C%AC%E7%A7%BB%E6%A4%8D/" style="font-size: 10px;">蓝本移植</a> <a href="/tags/%E8%A1%80%E7%B3%96%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">血糖控制</a> <a href="/tags/%E8%A7%84%E5%88%99%E5%AE%A1%E8%AE%A1/" style="font-size: 10px;">规则审计</a> <a href="/tags/%E8%A7%84%E5%88%99%E8%BF%AD%E4%BB%A3/" style="font-size: 10px;">规则迭代</a> <a href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" style="font-size: 11.43px;">解析器</a> <a href="/tags/%E8%AE%A4%E7%9F%A5/" style="font-size: 10px;">认知</a> <a href="/tags/%E8%AE%A4%E7%9F%A5%E7%A7%91%E5%AD%A6/" style="font-size: 10px;">认知科学</a> <a href="/tags/%E8%AE%B0%E5%BF%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">记忆文件系统</a> <a href="/tags/%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">记忆系统</a> <a href="/tags/%E8%AE%BE%E7%BD%AE%E6%8C%81%E4%B9%85%E5%8C%96/" style="font-size: 10px;">设置持久化</a> <a href="/tags/%E8%AF%AD%E6%B3%95%E7%BA%A2%E7%BA%BF/" style="font-size: 10px;">语法红线</a> <a href="/tags/%E8%AF%AD%E8%A8%80%E5%AD%A6/" style="font-size: 10px;">语言学</a> <a href="/tags/%E8%B7%AF%E7%94%B1/" style="font-size: 10px;">路由</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 17.14px;">踩坑</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 17.14px;">部署</a> <a href="/tags/%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">静态博客</a> <a href="/tags/%E9%A2%84%E5%A4%84%E7%90%86/" style="font-size: 10px;">预处理</a> <a href="/tags/%E9%AA%8C%E8%AF%81/" style="font-size: 11.43px;">验证</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">九月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-12-%E5%AE%A1%E8%AE%A1%E4%B8%8ELLM%E5%B7%AE%E8%B7%9D/">Quizify Bridge 分阶段实战（十二）：规则审计与 LLM 差距——诚实地承认能力边界</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-11-%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/">Quizify Bridge 分阶段实战（十一）：工程方法总结——测试门、持久化、上下文锚点</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-10-%E7%9C%9F%E6%9C%BA%E7%AB%AF%E5%88%B0%E7%AB%AF/">Quizify Bridge 分阶段实战（十）：M6 真机端到端与发布——产品成立性验证</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-9-UI%E7%BB%86%E8%8A%82%E4%B8%8E%E6%A0%B7%E6%9C%AC%E5%9B%BA%E5%8C%96/">Quizify Bridge 分阶段实战（九）：M5.4 UI 细节与样本固化——三次修正背后的测试思维</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-8-%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/">Quizify Bridge 分阶段实战（八）：样本工程——双轨对比驱动的规则迭代</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 githubusercsw<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/search/" class="mobile-nav-link">搜索</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  window.SEARCH_SUPABASE_URL = "https://jnrqbznmottytcbojjak.supabase.co";
+  window.SEARCH_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpucnFiem5tb3R0eXRjYm9qamFrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcxMTYzMjUsImV4cCI6MjEwMjY5MjMyNX0.sjuZ_3z6-dEXaRQ7NC7Q1VynPfHRqQ_V8QUE5LXMqQU";
+</script>
+<link rel="stylesheet" href="/css/search.css">
+
+<script src="/js/theme-search.js"></script>
+
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+  </div>
+</body>
+</html>

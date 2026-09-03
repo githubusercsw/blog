@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>微信云托管部署 memos 实战：从 CLI 代理陷阱到六次迭代终成与 503 排查 | CSW 的思维角落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="背景memos 是一个轻量级、自托管的笔记管理应用，采用 Go 后端 + React 前端，支持 Markdown 编辑和知识管理。微信云托管 (Cloud Run) 是微信团队提供的容器化应用托管平台，支持通过 GitHub 仓库自动构建 Docker 镜像并部署。 用户已 fork memos 到自己的 GitHub 仓库 githubusercsw&#x2F;memos，并通过 cloud.weixi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信云托管部署 memos 实战：从 CLI 代理陷阱到六次迭代终成与 503 排查">
+<meta property="og:url" content="https://chenshengwu.dpdns.org/2026/08/29/%E5%BE%AE%E4%BF%A1%E4%BA%91%E6%89%98%E7%AE%A1%E9%83%A8%E7%BD%B2memos%E5%AE%9E%E6%88%98-%E4%BB%8ECLI%E4%BB%A3%E7%90%86%E9%99%B7%E9%98%B1%E5%88%B0%E5%85%AD%E6%AC%A1%E8%BF%AD%E4%BB%A3%E7%BB%88%E6%88%90%E4%B8%8E503%E6%8E%92%E6%9F%A5/index.html">
+<meta property="og:site_name" content="CSW 的思维角落">
+<meta property="og:description" content="背景memos 是一个轻量级、自托管的笔记管理应用，采用 Go 后端 + React 前端，支持 Markdown 编辑和知识管理。微信云托管 (Cloud Run) 是微信团队提供的容器化应用托管平台，支持通过 GitHub 仓库自动构建 Docker 镜像并部署。 用户已 fork memos 到自己的 GitHub 仓库 githubusercsw&#x2F;memos，并通过 cloud.weixi">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-08-29T13:00:00.000Z">
+<meta property="article:modified_time" content="2026-09-03T05:27:38.930Z">
+<meta property="article:author" content="githubusercsw">
+<meta property="article:tag" content="部署">
+<meta property="article:tag" content="踩坑">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="微信云托管">
+<meta property="article:tag" content="memos">
+<meta property="article:tag" content="CLI">
+<meta property="article:tag" content="代理">
+<meta property="article:tag" content="扩缩容">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="CSW 的思维角落" type="application/atom+xml"><link rel="alternate" href="/rss2.xml" title="CSW 的思维角落" type="application/rss+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">CSW 的思维角落</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">关于技术、认知与生活的断想</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/search/">搜索</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://chenshengwu.dpdns.org"></form>
+        <div id="search-result" class="search-dropdown"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-微信云托管部署memos实战-从CLI代理陷阱到六次迭代终成与503排查" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/29/%E5%BE%AE%E4%BF%A1%E4%BA%91%E6%89%98%E7%AE%A1%E9%83%A8%E7%BD%B2memos%E5%AE%9E%E6%88%98-%E4%BB%8ECLI%E4%BB%A3%E7%90%86%E9%99%B7%E9%98%B1%E5%88%B0%E5%85%AD%E6%AC%A1%E8%BF%AD%E4%BB%A3%E7%BB%88%E6%88%90%E4%B8%8E503%E6%8E%92%E6%9F%A5/" class="article-date">
+  <time class="dt-published" datetime="2026-08-29T13:00:00.000Z" itemprop="datePublished">2026-08-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E9%9A%8F%E7%AC%94/">技术随笔</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      微信云托管部署 memos 实战：从 CLI 代理陷阱到六次迭代终成与 503 排查
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p><a target="_blank" rel="noopener" href="https://github.com/usememos/memos">memos</a> 是一个轻量级、自托管的笔记管理应用，采用 Go 后端 + React 前端，支持 Markdown 编辑和知识管理。<strong>微信云托管 (Cloud Run)</strong> 是微信团队提供的容器化应用托管平台，支持通过 GitHub 仓库自动构建 Docker 镜像并部署。</p>
+<p>用户已 fork memos 到自己的 GitHub 仓库 <code>githubusercsw/memos</code>，并通过 <code>cloud.weixin.qq.com/cloudrun</code> 网站连接了仓库。但 fork 版本缺少 Dockerfile，需要自行创建。</p>
+<blockquote>
+<p><strong>两条学习路径</strong></p>
+<ul>
+<li><strong>Path A (CLI)</strong>: 在云端 Linux 环境中用 <code>@wxcloud/cli</code> 全自动化部署 — 本文主线</li>
+<li><strong>Path B (Console)</strong>: 通过浏览器驱动控制台手动部署另一个项目 — 备选方案</li>
+</ul>
+</blockquote>
+<hr>
+<h1 id="一、Dockerfile-创建"><a href="#一、Dockerfile-创建" class="headerlink" title="一、Dockerfile 创建"></a>一、Dockerfile 创建</h1><p>官方 memos 仓库的 Dockerfile 位于 <code>scripts/Dockerfile</code>，但它不构建前端（依赖 CI 中 <code>pnpm release</code> 预构建产物），且 <code>.dockerignore</code> 排除了 <code>/web/</code> 目录。直接 clone 后 docker build 必然失败。</p>
+<p>创建的自包含 Dockerfile 采用三阶段构建：</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>基础镜像</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Stage 1: frontend</td>
+<td><code>node:24-alpine</code></td>
+<td>pnpm install + pnpm release 构建前端</td>
+</tr>
+<tr>
+<td>Stage 2: backend</td>
+<td><code>golang:1.27.0-alpine</code></td>
+<td>go mod download + go build 嵌入前端</td>
+</tr>
+<tr>
+<td>Stage 3: runtime</td>
+<td><code>alpine:3.21</code></td>
+<td>最小运行时镜像</td>
+</tr>
+</tbody></table>
+<h2 id="关键技术决策"><a href="#关键技术决策" class="headerlink" title="关键技术决策"></a>关键技术决策</h2><p><strong>CGO_ENABLED&#x3D;0</strong> 生成纯静态二进制，配合 <code>-tags netgo,osusergo</code> 确保跨架构兼容。Go 的 <code>//go:embed dist</code> 将前端构建产物嵌入二进制，无需运行时携带前端文件。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编译 — 纯静态二进制</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> CGO_ENABLED=0 go build \</span></span><br><span class="line"><span class="language-bash">      -trimpath -ldflags=<span class="string">&quot;-s -w&quot;</span> \</span></span><br><span class="line"><span class="language-bash">      -tags netgo,osusergo \</span></span><br><span class="line"><span class="language-bash">      -o memos ./cmd/memos</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="二、CLI-代理陷阱：502-Bad-Gateway"><a href="#二、CLI-代理陷阱：502-Bad-Gateway" class="headerlink" title="二、CLI 代理陷阱：502 Bad Gateway"></a>二、CLI 代理陷阱：502 Bad Gateway</h1><h2 id="安装与初次尝试"><a href="#安装与初次尝试" class="headerlink" title="安装与初次尝试"></a>安装与初次尝试</h2><p>安装 <code>@wxcloud/cli v1.1.8</code> 后，用用户提供的 AppID 和私钥尝试登录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wxcloud login --appId wx4ab8c1c53201011a --privateKey <span class="string">&quot;AAQ9G7s...&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>结果：<code>登录失败，请检查 AppID 与私钥文件是否正确</code></p>
+<h2 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h2><p>用户确认私钥字符无遗漏（200 字符，首尾匹配）。深入 CLI 源码分析认证流程：</p>
+<blockquote>
+<p><strong>认证流程 (auth.js)</strong></p>
+<p><code>checkLoginState()</code> 调用 <code>fetchApi(&quot;wxa-dev-qbase/getqbaseinfo&quot;)</code>，检查 <code>base_resp.ret === 0</code> 判断登录是否成功。<code>fetchApi</code> 中所有错误被 <code>catch</code> 静默吞掉，统一返回 <code>false</code>。</p>
+</blockquote>
+<p>开启 <code>NODE_ENV=DEBUG</code> 重试，终于看到真实错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Error: Request failed with status code 502</span><br><span class="line">data: &#x27;Forwarding error: connection closed before message completed&#x27;</span><br><span class="line">host: &#x27;127.0.0.1&#x27;   ← 请求走了沙箱代理</span><br><span class="line">protocol: &#x27;http:&#x27;   ← 用 HTTP 协议而非 HTTPS</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>根因</strong></p>
+<p>CLI 的 <strong>axios v0.24.0</strong> 自动检测到 <code>HTTP_PROXY</code> 环境变量后，用 HTTP 代理方式（发送完整 URL 作为 path）转发 HTTPS 请求，而沙箱代理不支持这种模式，返回 <strong>502 Bad Gateway</strong>。</p>
+<p>而 <code>curl</code> 能正确工作，因为它使用 <strong>CONNECT 隧道</strong>方式处理 HTTPS 代理。</p>
+</blockquote>
+<h2 id="验证：curl-直连-API"><a href="#验证：curl-直连-API" class="headerlink" title="验证：curl 直连 API"></a>验证：curl 直连 API</h2><p>用 curl 模拟 CLI 的认证请求，绕过 axios 代理问题：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -s -X POST \</span><br><span class="line">  <span class="string">&quot;https://servicewechat.com/wxa-dev-qbase/getqbaseinfo?autodev=1&amp;appid=wx4ab8c1c53201011a&quot;</span> \</span><br><span class="line">  -H <span class="string">&quot;X-CloudRunCli-Robot: 1&quot;</span> \</span><br><span class="line">  -H <span class="string">&quot;X-CloudRunCli-Key: AAQ9G7s...&quot;</span> \</span><br><span class="line">  -d <span class="string">&#x27;&#123;&quot;appid&quot;:&quot;wx4ab8c1c53201011a&quot;&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>返回 <code>&#123;&quot;base_resp&quot;:&#123;&quot;ret&quot;:0&#125;...&#125;</code> — <strong>凭证完全正确，网络也通</strong>。问题确实在 CLI 的代理处理。</p>
+<hr>
+<h1 id="三、Proxy-Patch：注入-https-proxy-agent"><a href="#三、Proxy-Patch：注入-https-proxy-agent" class="headerlink" title="三、Proxy Patch：注入 https-proxy-agent"></a>三、Proxy Patch：注入 https-proxy-agent</h1><p>安装 <code>https-proxy-agent</code> 并 patch CLI 的三个文件，让 axios 使用正确的 CONNECT 隧道方式：</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>axios 调用</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>api/base.js</code></td>
+<td><code>fetchApi()</code> + <code>getCloudRunCliRandStr()</code></td>
+<td>核心 API 请求</td>
+</tr>
+<tr>
+<td><code>api/files.js</code></td>
+<td><code>uploadVersionPackage()</code></td>
+<td>代码包上传</td>
+</tr>
+<tr>
+<td><code>api/adapter.js</code></td>
+<td><code>transactRequest()</code> (3 处)</td>
+<td>云 API 代理调用</td>
+</tr>
+</tbody></table>
+<p>每个文件注入相同的代理初始化逻辑：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在 require axios 后插入</span></span><br><span class="line"><span class="keyword">let</span> _proxyAgent = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="title class_">HttpsProxyAgent</span> = <span class="built_in">require</span>(<span class="string">&quot;https-proxy-agent&quot;</span>).<span class="property">HttpsProxyAgent</span>;</span><br><span class="line">  <span class="keyword">const</span> proxyUrl = process.<span class="property">env</span>.<span class="property">HTTPS_PROXY</span> || process.<span class="property">env</span>.<span class="property">https_proxy</span></span><br><span class="line">                 || process.<span class="property">env</span>.<span class="property">HTTP_PROXY</span>  || process.<span class="property">env</span>.<span class="property">http_proxy</span>;</span><br><span class="line">  <span class="keyword">if</span> (proxyUrl) &#123; _proxyAgent = <span class="keyword">new</span> <span class="title class_">HttpsProxyAgent</span>(proxyUrl); &#125;</span><br><span class="line">&#125; <span class="keyword">catch</span>(e) &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在每个 axios 请求配置中添加：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> config = &#123;</span><br><span class="line">  <span class="attr">url</span>: ...,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="attr">httpsAgent</span>: _proxyAgent || <span class="literal">undefined</span>,  <span class="comment">// 使用 CONNECT 隧道</span></span><br><span class="line">  <span class="attr">proxy</span>: <span class="literal">false</span>,                           <span class="comment">// 禁用 axios 自带的代理处理</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Patch 后登录成功</strong></p>
+<p>API 返回 <code>base_resp.ret: 0</code>，配置文件写入 <code>~/.wxcloudconfig</code>，显示 <code>登录成功</code>。</p>
+</blockquote>
+<hr>
+<h1 id="四、部署六次迭代"><a href="#四、部署六次迭代" class="headerlink" title="四、部署六次迭代"></a>四、部署六次迭代</h1><p>登录成功后，枚举环境 (<code>memos-prod</code>) 和服务 (<code>memos</code>)，开始部署。但部署过程经历了六次迭代：</p>
+<ol>
+<li><strong>memos-001</strong> <code>build_failed</code> — 首次部署，Dockerfile 构建失败 — 沙箱代理导致代码包上传返回 400</li>
+<li><strong>memos-002</strong> <code>deploy_failed</code> — 修复代理后上传成功，但部署失败 — 端口不匹配</li>
+<li><strong>memos-003</strong> <code>deploy_failed</code> — 同样的端口问题，之前的失败版本</li>
+<li><strong>memos-004</strong> <code>deploy_failed</code> — Dockerfile 设 MEMOS_PORT&#x3D;5230，但服务级 EnvParams 覆盖为 80 → 健康检查失败</li>
+<li><strong>memos-005</strong> <code>deploy_failed</code> — 对齐 containerPort&#x3D;80，但仍失败 — entrypoint.sh 的 su-exec 权限降级不兼容</li>
+<li><strong>memos-006</strong> <code>normal</code> — 简化 Dockerfile：去掉 entrypoint.sh&#x2F;su-exec&#x2F;VOLUME，直接运行二进制，端口 80 → 部署成功</li>
+</ol>
+<hr>
+<h1 id="五、两个关键根因"><a href="#五、两个关键根因" class="headerlink" title="五、两个关键根因"></a>五、两个关键根因</h1><h2 id="根因一：环境变量优先级冲突"><a href="#根因一：环境变量优先级冲突" class="headerlink" title="根因一：环境变量优先级冲突"></a>根因一：环境变量优先级冲突</h2><p>微信云托管的服务级 <code>EnvParams</code> 会覆盖 Dockerfile 中的 <code>ENV</code> 指令。旧版本遗留的环境变量 <code>MEMOS_PORT=80</code> 覆盖了 Dockerfile 中的 <code>MEMOS_PORT=5230</code>：</p>
+<blockquote>
+<p><strong>优先级链</strong></p>
+<p><strong>服务级 EnvParams &gt; Dockerfile ENV &gt; 默认值</strong></p>
+<p>即使 Dockerfile 写了 <code>ENV MEMOS_PORT=5230</code>，如果服务级配置中有 <code>MEMOS_PORT=80</code>，容器内 memos 实际监听的是 <strong>80</strong> 端口。若 <code>containerPort</code> 仍为 5230，健康检查会打在 5230 上 → 超时 → <code>deploy_failed</code>。</p>
+</blockquote>
+<h2 id="根因二：entrypoint-sh-的-su-exec-不兼容"><a href="#根因二：entrypoint-sh-的-su-exec-不兼容" class="headerlink" title="根因二：entrypoint.sh 的 su-exec 不兼容"></a>根因二：entrypoint.sh 的 su-exec 不兼容</h2><p>原 Dockerfile 使用 <code>entrypoint.sh</code> 脚本通过 <code>su-exec</code> 进行权限降级（root → nonroot UID 10001）。在微信云托管的容器环境中，该流程可能导致启动失败：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> # 原方案 (memos-005, deploy_failed)</span><br><span class="line"><span class="deletion">- RUN apk add --no-cache tzdata ca-certificates su-exec</span></span><br><span class="line"><span class="deletion">- COPY --from=backend .../entrypoint.sh ...</span></span><br><span class="line"><span class="deletion">- VOLUME /var/opt/memos</span></span><br><span class="line"><span class="deletion">- ENTRYPOINT [&quot;/usr/local/memos/entrypoint.sh&quot;, &quot;/usr/local/memos/memos&quot;]</span></span><br><span class="line"></span><br><span class="line"> # 简化方案 (memos-006, normal)</span><br><span class="line"><span class="addition">+ RUN apk add --no-cache tzdata ca-certificates</span></span><br><span class="line"><span class="addition">+ COPY --from=backend /backend-build/memos /usr/local/memos/memos</span></span><br><span class="line"><span class="addition">+ CMD [&quot;/usr/local/memos/memos&quot;]</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>最终 Dockerfile runtime 阶段</strong></p>
+<p>去掉 su-exec、entrypoint.sh、VOLUME、USER 指令，直接用 <code>CMD [&quot;/usr/local/memos/memos&quot;]</code> 运行二进制。端口对齐为 80，与服务级 EnvParams 一致。</p>
+</blockquote>
+<hr>
+<h1 id="六、最终部署命令"><a href="#六、最终部署命令" class="headerlink" title="六、最终部署命令"></a>六、最终部署命令</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">wxcloud run:deploy . \</span><br><span class="line">  -e memos-prod-d9gmffqwh16195962 \</span><br><span class="line">  -s memos \</span><br><span class="line">  --dockerfile Dockerfile \</span><br><span class="line">  --containerPort 80 \</span><br><span class="line">  --targetDir . \</span><br><span class="line">  --noConfirm \</span><br><span class="line">  --override \</span><br><span class="line">  --region ap-shanghai \</span><br><span class="line">  --detach \</span><br><span class="line">  --remark <span class="string">&quot;Simplified Dockerfile - no entrypoint, port 80&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>关键参数说明：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>值</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--targetDir .</code></td>
+<td>当前目录</td>
+<td>自动选择”手动上传代码包”模式，跳过交互</td>
+</tr>
+<tr>
+<td><code>--containerPort 80</code></td>
+<td>80</td>
+<td>与服务级 MEMOS_PORT&#x3D;80 对齐</td>
+</tr>
+<tr>
+<td><code>--noConfirm</code></td>
+<td>true</td>
+<td>跳过二次确认，全自动化</td>
+</tr>
+<tr>
+<td><code>--override</code></td>
+<td>true</td>
+<td>沿用旧版本缺失参数</td>
+</tr>
+<tr>
+<td><code>--detach</code></td>
+<td>true</td>
+<td>提交后立即返回，不阻塞等待日志</td>
+</tr>
+</tbody></table>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -s -o /dev/null -w <span class="string">&quot;HTTP: %&#123;http_code&#125;&quot;</span> \</span><br><span class="line">  <span class="string">&quot;https://memos-304959-11-1477399212.sh.run.tcloudbase.com&quot;</span></span><br><span class="line"><span class="comment"># HTTP: 200</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="七、503-排查：缩容到零与冷启动"><a href="#七、503-排查：缩容到零与冷启动" class="headerlink" title="七、503 排查：缩容到零与冷启动"></a>七、503 排查：缩容到零与冷启动</h1><p>部署成功后，访问 <code>https://memos-304959-11-1477399212.sh.run.tcloudbase.com/</code> 时，有时会返回 <strong>503 Service Temporarily Unavailable</strong>。但稍后再次访问又恢复正常。这一节记录了完整的排查过程。</p>
+<h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><ul>
+<li>部署成功后首次访问：HTTP 200，memos 前端正常加载</li>
+<li>一段时间不访问后再次打开：<strong>503 Service Temporarily Unavailable</strong></li>
+<li>刷新页面或等待几秒后：恢复正常，返回 200</li>
+<li>控制台服务状态显示：<strong>0 个实例（自动暂停）</strong> 或 <strong>服务冷启动中</strong></li>
+</ul>
+<h2 id="根因：缩容到零-Scale-to-Zero"><a href="#根因：缩容到零-Scale-to-Zero" class="headerlink" title="根因：缩容到零 (Scale to Zero)"></a>根因：缩容到零 (Scale to Zero)</h2><p>微信云托管默认运行模式为「始终自动扩缩容」，实例数量可在 <strong>0-10</strong> 之间自动调整。当「服务设置」中实例副本数最小值为 <strong>0</strong> 时：</p>
+<ol>
+<li><strong>30 分钟无 HTTP 请求</strong> → 服务自动缩容到 0 个实例（自动暂停），最大程度节约资源</li>
+<li><strong>新请求到达时</strong> → 触发冷启动（从 0 扩容到 1），扩容新实例</li>
+<li><strong>冷启动期间</strong> → 服务返回 <code>503 Service Temporarily Unavailable</code> &#x2F; <code>SERVICE_NOT_READY</code></li>
+<li><strong>实例就绪后</strong> → 正常处理请求，返回 200</li>
+</ol>
+<p>冷启动耗时由以下因素决定：</p>
+<ul>
+<li>平台资源调度状态</li>
+<li>镜像大小（memos 镜像约 50MB，相对较快）</li>
+<li>应用启动速度（Go 单二进制启动极快）</li>
+</ul>
+<blockquote>
+<p><strong>关键细节</strong>：微信云托管的缩容触发条件是实例<strong>无访问、无流量，闲置 10 分钟</strong>。但由于「实例副本数最小值为 0」的设置，整个服务可以缩到完全没有实例。官方 FAQ 明确指出「半小时无请求服务将缩容到 0」。</p>
+</blockquote>
+<h2 id="验证-1"><a href="#验证-1" class="headerlink" title="验证"></a>验证</h2><p>用 curl 连续测试，模拟冷启动场景：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第一次请求（可能触发冷启动，返回 503 或延迟）</span></span><br><span class="line">curl -s -o /dev/null -w <span class="string">&quot;HTTP: %&#123;http_code&#125; Time: %&#123;time_total&#125;s\n&quot;</span> \</span><br><span class="line">  <span class="string">&quot;https://memos-304959-11-1477399212.sh.run.tcloudbase.com/&quot;</span></span><br><span class="line"><span class="comment"># HTTP: 200 Time: 0.067s  ← 实例已在运行</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 等待 30 分钟后再次请求</span></span><br><span class="line"><span class="comment"># 预期：503 或延迟数秒后 200（冷启动）</span></span><br></pre></td></tr></table></figure>
+
+<p>实测中，部署完成后立即 curl 返回 HTTP 200，响应头中包含 <code>x-cloudbase-upstream-status-code: 200</code> 和 <code>x-cloudbase-upstream-type: Tencent-CloudBaseRun</code>，说明请求已正确转发到容器实例。用户遇到的 503 发生在服务长时间无访问后自动暂停、再次访问触发冷启动的窗口期。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>操作</th>
+<th>效果</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>设置最小副本数为 1</strong></td>
+<td>控制台 → 服务设置 → 实例副本数最小值改为 1</td>
+<td>服务常驻，无冷启动</td>
+<td>持续产生资源消耗和费用</td>
+</tr>
+<tr>
+<td><strong>切换运行模式</strong></td>
+<td>控制台 → 服务设置 → 运行模式改为「持续运行」</td>
+<td>固定实例数，无缩容</td>
+<td>固定较高成本</td>
+</tr>
+<tr>
+<td><strong>白天持续运行，夜间自动扩缩容</strong></td>
+<td>控制台 → 服务设置 → 运行模式改为混合模式</td>
+<td>工作时间无冷启动，夜间节约资源</td>
+<td>夜间访问仍有冷启动</td>
+</tr>
+<tr>
+<td><strong>保持默认，前端兼容</strong></td>
+<td>不改设置，前端对 503 做重试&#x2F;友好提示</td>
+<td>零额外成本</td>
+<td>首次访问可能延迟</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>建议</strong>：对于 memos 这类个人笔记服务，流量低且不可预测，推荐设置最小副本数为 1 保持常驻。如果费用敏感，可接受冷启动延迟，在前端做重试兼容即可。微信云托管免费试用额度内，1 个常驻实例的资源消耗在可接受范围内。</p>
+</blockquote>
+<h2 id="微信云托管运行模式对比"><a href="#微信云托管运行模式对比" class="headerlink" title="微信云托管运行模式对比"></a>微信云托管运行模式对比</h2><table>
+<thead>
+<tr>
+<th>运行模式</th>
+<th>适用场景</th>
+<th>成本效益</th>
+<th>响应速度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>始终自动扩缩容</td>
+<td>流量波动大、不可预测</td>
+<td>最优</td>
+<td>可能有冷启动延迟</td>
+</tr>
+<tr>
+<td>持续运行</td>
+<td>流量稳定、高可用要求</td>
+<td>固定较高</td>
+<td>最佳（无冷启动）</td>
+</tr>
+<tr>
+<td>白天持续运行，夜间自动扩缩容</td>
+<td>工作时间集中型应用</td>
+<td>较优</td>
+<td>工作时间最佳，非工作时间可能有延迟</td>
+</tr>
+<tr>
+<td>自定义</td>
+<td>有明确流量模式、需精细控制</td>
+<td>可优化</td>
+<td>可根据配置优化</td>
+</tr>
+<tr>
+<td>手工启停实例</td>
+<td>开发测试、特殊业务需求</td>
+<td>完全可控</td>
+<td>取决于人工操作及时性</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="八、Path-B-控制台部署（备选方案）"><a href="#八、Path-B-控制台部署（备选方案）" class="headerlink" title="八、Path B: 控制台部署（备选方案）"></a>八、Path B: 控制台部署（备选方案）</h1><p>Path B 是通过浏览器驱动控制台进行手动部署的方案，作为 Path A 的对照学习路径。相比 CLI 全自动化，控制台部署提供更直观的可视化界面，适合首次体验微信云托管的用户。</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Path A (CLI)</th>
+<th>Path B (Console)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>环境</td>
+<td>云端 Linux 沙箱</td>
+<td>浏览器</td>
+</tr>
+<tr>
+<td>认证</td>
+<td>AppID + 私钥</td>
+<td>微信扫码</td>
+</tr>
+<tr>
+<td>自动化</td>
+<td>全自动化</td>
+<td>半自动（需手动操作）</td>
+</tr>
+<tr>
+<td>调试</td>
+<td>需读源码 + patch</td>
+<td>可视化日志面板</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>CI&#x2F;CD 集成</td>
+<td>首次部署 &#x2F; 探索</td>
+</tr>
+</tbody></table>
+<p>Path B 的核心流程：<strong>登录控制台 → 选择&#x2F;创建环境 → 创建服务 → 连接 GitHub 仓库 → 自动构建 → 配置端口 → 发布</strong>。由于用户已在控制台创建了 memos-prod 环境和 memos 服务，Path B 可以直接复用这些资源。</p>
+<hr>
+<h1 id="九、经验总结"><a href="#九、经验总结" class="headerlink" title="九、经验总结"></a>九、经验总结</h1><h2 id="1-沙箱代理兼容性"><a href="#1-沙箱代理兼容性" class="headerlink" title="1. 沙箱代理兼容性"></a>1. 沙箱代理兼容性</h2><p>在受限网络环境中使用 Node.js CLI 工具时，<strong>老版本 axios (≤0.27) 的 HTTPS 代理处理存在已知缺陷</strong>。它用 HTTP 代理方式转发 HTTPS 请求，而非标准的 CONNECT 隧道。解决方案是安装 <code>https-proxy-agent</code> 并设置 <code>proxy: false</code> 禁用 axios 自带代理处理。</p>
+<h2 id="2-环境变量优先级"><a href="#2-环境变量优先级" class="headerlink" title="2. 环境变量优先级"></a>2. 环境变量优先级</h2><p>云托管平台的<strong>服务级环境变量优先于 Dockerfile ENV</strong>。部署前务必检查服务级配置中是否有与 Dockerfile 冲突的环境变量，特别是端口、数据目录等关键参数。</p>
+<h2 id="3-Dockerfile-简化原则"><a href="#3-Dockerfile-简化原则" class="headerlink" title="3. Dockerfile 简化原则"></a>3. Dockerfile 简化原则</h2><p>云托管环境对容器有特定的安全策略和运行时约束。<strong>最简 Dockerfile 往往兼容性最好</strong> — 去掉 su-exec、entrypoint.sh、VOLUME 等非必要组件，直接运行二进制，减少不兼容风险。</p>
+<h2 id="4-调试方法论"><a href="#4-调试方法论" class="headerlink" title="4. 调试方法论"></a>4. 调试方法论</h2><p>当 CLI 工具报错但错误信息模糊时（如”请检查 AppID 与私钥”），应该：<strong>读源码找真实错误 → 开 DEBUG 日志 → 用 curl 对照测试 → 定位差异</strong>。本次正是通过 curl 对照测试发现凭证无误，问题在代理层。</p>
+<h2 id="5-缩容到零的认知"><a href="#5-缩容到零的认知" class="headerlink" title="5. 缩容到零的认知"></a>5. 缩容到零的认知</h2><p>微信云托管默认的「始终自动扩缩容」模式会将最小实例数设为 0，导致 30 分钟无请求后服务暂停。这是<strong>特性而非 Bug</strong> — 最大程度节约资源。但对于需要随时访问的服务（如笔记应用），应设置最小副本数为 1 保持常驻，或在前端做重试兼容。</p>
+<hr>
+<h1 id="成果"><a href="#成果" class="headerlink" title="成果"></a>成果</h1><ul>
+<li>memos 已成功部署到微信云托管，公共访问地址：<code>https://memos-304959-11-1477399212.sh.run.tcloudbase.com</code></li>
+<li>简化版 Dockerfile 已提交到 GitHub：<a target="_blank" rel="noopener" href="https://github.com/githubusercsw/memos/commit/8dddbaa15df8a7cd5a8d5dcf4fafc9b141711559">commit 8dddbaa</a></li>
+<li>503 根因已定位：缩容到零 + 冷启动，建议设置最小副本数为 1</li>
+</ul>
+<hr>
+<h1 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/usememos/memos">usememos&#x2F;memos, GitHub</a> — 开源笔记管理项目，Go + React 技术栈</li>
+<li><a target="_blank" rel="noopener" href="https://cloud.weixin.qq.com/cloudrun">微信云托管 Cloud Run 官方文档</a> — 容器化应用托管平台</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/WeixinCloud/wxcloud">@wxcloud&#x2F;cli, npm</a> — 微信云服务 CLI 工具 v1.1.8</li>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/https-proxy-agent">https-proxy-agent, npm</a> — HTTPS 代理 Agent，支持 CONNECT 隧道</li>
+<li><a target="_blank" rel="noopener" href="https://docs.cloudbase.net/error-code/SERVICE_NOT_READY">SERVICE_NOT_READY 错误码文档</a> — 云托管服务未就绪状态说明</li>
+<li><a target="_blank" rel="noopener" href="https://docs.cloudbase.net/run/deploy/configuring/autoscaling/about-instance-autoscaling">运行模式与扩缩容文档</a> — 扩缩容机制详解</li>
+<li><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/wxcloudservice/wxcloudrun/src/development/call/faq.html">调用服务常见问题 FAQ</a> — 503&#x2F;冷启动&#x2F;缩容排查指引</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/08/29/%E5%BE%AE%E4%BF%A1%E4%BA%91%E6%89%98%E7%AE%A1%E9%83%A8%E7%BD%B2memos%E5%AE%9E%E6%88%98-%E4%BB%8ECLI%E4%BB%A3%E7%90%86%E9%99%B7%E9%98%B1%E5%88%B0%E5%85%AD%E6%AC%A1%E8%BF%AD%E4%BB%A3%E7%BB%88%E6%88%90%E4%B8%8E503%E6%8E%92%E6%9F%A5/" data-id="cmtl330uk002jsg2b38qo52vo" data-title="微信云托管部署 memos 实战：从 CLI 代理陷阱到六次迭代终成与 503 排查" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CLI/" rel="tag">CLI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/memos/" rel="tag">memos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BB%A3%E7%90%86/" rel="tag">代理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BE%AE%E4%BF%A1%E4%BA%91%E6%89%98%E7%AE%A1/" rel="tag">微信云托管</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%89%A9%E7%BC%A9%E5%AE%B9/" rel="tag">扩缩容</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2026/08/29/%E5%8F%8CAgent%E6%8E%A5%E7%AE%A1%E8%84%9A%E6%9C%AC%E7%8C%AB-%E4%B8%80%E6%AC%A1%E4%BA%91%E7%AB%AF%E4%B8%8E%E6%9C%AC%E5%9C%B0AI%E5%8D%8F%E4%BD%9C%E9%83%A8%E7%BD%B2%E5%AE%9E%E5%BD%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          双 Agent 接管脚本猫：一次云端与本地 AI 协作的部署实录
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2026/08/29/%E5%A4%9A%E5%B9%B3%E5%8F%B0%E5%B7%AE%E5%BC%82%E5%8C%96%E9%83%A8%E7%BD%B2Memos%E7%AC%94%E8%AE%B0%E6%9C%8D%E5%8A%A1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">多平台差异化部署 Memos 笔记服务：从 Docker 到 FreeBSD 的实战指南</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+<section id="supabase-comments" data-post-id="微信云托管部署memos实战-从CLI代理陷阱到六次迭代终成与503排查"></section>
+<link rel="stylesheet" href="/css/comments.css">
+<script>
+  window.SUPABASE_URL = "https://wdhjeduuiirmvqlfnjyg.supabase.co";
+  window.SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkaGplZHV1aWlybXZxbGZuanlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2ODU2NDIsImV4cCI6MjEwMjI2MTY0Mn0.406_tuwVUYINOR-uN7IcqJ1giy2lukZeNKSLURi_KVE";
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/comments.js"></script>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">开源项目</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%81%A5%E5%BA%B7%E4%B8%8E%E5%BF%83%E7%90%86/">健康与心理</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%81%A5%E5%BA%B7%E7%A7%91%E6%99%AE/">健康科普</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E6%88%90%E9%95%BF/">学习成长</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/">工程实践</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BF%83%E7%90%86%E4%B8%8E%E8%AE%A4%E7%9F%A5/">心理与认知</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">技术实践</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF%E9%9A%8F%E7%AC%94/">技术随笔</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A4%E7%9F%A5%E4%B8%8E%E6%96%B9%E6%B3%95/">认知与方法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI-Agent/" rel="tag">AI Agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agent/" rel="tag">Agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Anki/" rel="tag">Anki</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AnkiDroid/" rel="tag">AnkiDroid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/" rel="tag">CI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI-CD/" rel="tag">CI&#x2F;CD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CLI/" rel="tag">CLI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Chrome%E6%89%A9%E5%B1%95/" rel="tag">Chrome扩展</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compose/" rel="tag">Compose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/" rel="tag">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Actions/" rel="tag">GitHub Actions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Pages/" rel="tag">GitHub Pages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JUnit5/" rel="tag">JUnit5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kotlin/" rel="tag">Kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCP/" rel="tag">MCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MV3/" rel="tag">MV3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Memos/" rel="tag">Memos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Northflank/" rel="tag">Northflank</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle-Cloud/" rel="tag">Oracle Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quizify/" rel="tag">Quizify</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R8/" rel="tag">R8</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Render/" rel="tag">Render</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Robolectric/" rel="tag">Robolectric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScriptCat/" rel="tag">ScriptCat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serv00/" rel="tag">Serv00</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StructureRouter/" rel="tag">StructureRouter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Supabase/" rel="tag">Supabase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI/" rel="tag">UI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alert/" rel="tag">alert</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloze/" rel="tag">cloze</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memos/" rel="tag">memos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/" rel="tag">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pnpm/" rel="tag">pnpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tabs/" rel="tag">tabs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E5%B7%A5%E7%A8%8B/" rel="tag">上下文工程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/" rel="tag">上下文管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" rel="tag">个人成长</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%BA%E6%9C%BA%E5%8D%8F%E4%BD%9C/" rel="tag">人机协作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%BA%E9%99%85%E5%85%B3%E7%B3%BB/" rel="tag">人际关系</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%90%86/" rel="tag">代理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%AE%E5%A4%8D/" rel="tag">修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%81%A5%E5%BA%B7/" rel="tag">健康</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%AC%E5%BC%8F/" rel="tag">公式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%B3%E7%AD%96/" rel="tag">决策</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/" rel="tag">分层接线</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%BB%E6%84%8F%E7%BB%83%E4%B9%A0/" rel="tag">刻意练习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%AA%E8%B4%B4%E6%9D%BF/" rel="tag">剪贴板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" rel="tag">包管理器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%8B%E5%8A%9B%E7%AE%A1%E7%90%86/" rel="tag">压力管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8C%E8%BD%A8%E5%AF%B9%E6%AF%94/" rel="tag">双轨对比</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E8%84%86%E5%BC%B1/" rel="tag">反脆弱</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E9%A6%88/" rel="tag">反馈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%91%E5%B8%83/" rel="tag">发布</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8C%E6%AD%A5/" rel="tag">同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A2%9E%E5%BC%BA%E5%B1%82/" rel="tag">增强层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%87%E4%BB%BD/" rel="tag">备份</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E7%9B%98/" rel="tag">复盘</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" rel="tag">学习方法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/" rel="tag">工作流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag">工程化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/" rel="tag">工程实践</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/" rel="tag">工程方法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" rel="tag">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E4%BF%A1%E4%BA%91%E6%89%98%E7%AE%A1/" rel="tag">微信云托管</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7/" rel="tag">心理健康</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6/" rel="tag">心理学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E7%A5%9E%E7%BB%8F%E5%85%8D%E7%96%AB%E5%AD%A6/" rel="tag">心理神经免疫学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%BB%E7%BB%93/" rel="tag">总结</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%83%85%E7%BB%AA%E8%BF%9B%E9%A3%9F/" rel="tag">情绪进食</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%88%90%E9%95%BF/" rel="tag">成长</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%88%90%E9%95%BF%E6%80%9D%E7%BB%B4/" rel="tag">成长思维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%A9%E7%BC%A9%E5%AE%B9/" rel="tag">扩缩容</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%AB%E6%8F%8F/" rel="tag">扫描</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%AD%E7%A4%BA%E8%AF%AD%E6%B3%95/" rel="tag">揭示语法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F/" rel="tag">数据质量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%B9%E6%B3%95%E8%AE%BA/" rel="tag">方法论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F/" rel="tag">暗黑模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/" rel="tag">标题识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/" rel="tag">样本工程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%B9%E5%9B%A0%E5%88%86%E6%9E%90/" rel="tag">根因分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%88%99/" rel="tag">正则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%BF%B5%E9%A5%AE%E9%A3%9F/" rel="tag">正念饮食</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B2%9F%E9%80%9A%E6%8A%80%E5%B7%A7/" rel="tag">沟通技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E6%80%9D%E7%BB%B4/" rel="tag">测试思维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8/" rel="tag">测试驱动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95/" rel="tag">浏览器扩展</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%8C%81%E4%B9%85%E5%8C%96/" rel="tag">环境持久化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9C%9F%E6%9C%BA/" rel="tag">真机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9C%9F%E6%9C%BA%E9%AA%8C%E8%AF%81/" rel="tag">真机验证</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/" rel="tag">知识管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6/" rel="tag">神经科学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2/" rel="tag">站内搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%A0%E9%81%93%E8%8F%8C%E7%BE%A4/" rel="tag">肠道菌群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%83%BD%E5%8A%9B%E8%BE%B9%E7%95%8C/" rel="tag">能力边界</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%86%B3%E9%A3%9F%E7%BA%A4%E7%BB%B4/" rel="tag">膳食纤维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" rel="tag">自动化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E6%88%91%E8%B0%83%E8%8A%82/" rel="tag">自我调节</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E6%89%98%E7%AE%A1/" rel="tag">自托管</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%90%A5%E5%85%BB/" rel="tag">营养</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%93%9D%E6%9C%AC%E7%A7%BB%E6%A4%8D/" rel="tag">蓝本移植</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A1%80%E7%B3%96%E6%8E%A7%E5%88%B6/" rel="tag">血糖控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%84%E5%88%99%E5%AE%A1%E8%AE%A1/" rel="tag">规则审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%84%E5%88%99%E8%BF%AD%E4%BB%A3/" rel="tag">规则迭代</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" rel="tag">解析器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A4%E7%9F%A5/" rel="tag">认知</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A4%E7%9F%A5%E7%A7%91%E5%AD%A6/" rel="tag">认知科学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%B0%E5%BF%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" rel="tag">记忆文件系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/" rel="tag">记忆系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E7%BD%AE%E6%8C%81%E4%B9%85%E5%8C%96/" rel="tag">设置持久化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%AD%E6%B3%95%E7%BA%A2%E7%BA%BF/" rel="tag">语法红线</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%AD%E8%A8%80%E5%AD%A6/" rel="tag">语言学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%AF%E7%94%B1/" rel="tag">路由</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" rel="tag">静态博客</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A2%84%E5%A4%84%E7%90%86/" rel="tag">预处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%AA%8C%E8%AF%81/" rel="tag">验证</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/AI-Agent/" style="font-size: 11.43px;">AI Agent</a> <a href="/tags/Agent/" style="font-size: 10px;">Agent</a> <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Anki/" style="font-size: 15.71px;">Anki</a> <a href="/tags/AnkiDroid/" style="font-size: 12.86px;">AnkiDroid</a> <a href="/tags/CI/" style="font-size: 11.43px;">CI</a> <a href="/tags/CI-CD/" style="font-size: 10px;">CI/CD</a> <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/Chrome%E6%89%A9%E5%B1%95/" style="font-size: 10px;">Chrome扩展</a> <a href="/tags/Compose/" style="font-size: 12.86px;">Compose</a> <a href="/tags/Docker/" style="font-size: 11.43px;">Docker</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/GitHub-Actions/" style="font-size: 12.86px;">GitHub Actions</a> <a href="/tags/GitHub-Pages/" style="font-size: 10px;">GitHub Pages</a> <a href="/tags/Hexo/" style="font-size: 15.71px;">Hexo</a> <a href="/tags/JUnit5/" style="font-size: 10px;">JUnit5</a> <a href="/tags/Kotlin/" style="font-size: 12.86px;">Kotlin</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/MCP/" style="font-size: 10px;">MCP</a> <a href="/tags/MV3/" style="font-size: 10px;">MV3</a> <a href="/tags/Markdown/" style="font-size: 12.86px;">Markdown</a> <a href="/tags/Memos/" style="font-size: 10px;">Memos</a> <a href="/tags/Northflank/" style="font-size: 10px;">Northflank</a> <a href="/tags/Oracle-Cloud/" style="font-size: 10px;">Oracle Cloud</a> <a href="/tags/Quizify/" style="font-size: 20px;">Quizify</a> <a href="/tags/R8/" style="font-size: 10px;">R8</a> <a href="/tags/Render/" style="font-size: 10px;">Render</a> <a href="/tags/Robolectric/" style="font-size: 11.43px;">Robolectric</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/ScriptCat/" style="font-size: 10px;">ScriptCat</a> <a href="/tags/Serv00/" style="font-size: 10px;">Serv00</a> <a href="/tags/StructureRouter/" style="font-size: 10px;">StructureRouter</a> <a href="/tags/Supabase/" style="font-size: 11.43px;">Supabase</a> <a href="/tags/UI/" style="font-size: 11.43px;">UI</a> <a href="/tags/alert/" style="font-size: 10px;">alert</a> <a href="/tags/cloze/" style="font-size: 10px;">cloze</a> <a href="/tags/memos/" style="font-size: 10px;">memos</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/pnpm/" style="font-size: 10px;">pnpm</a> <a href="/tags/tabs/" style="font-size: 10px;">tabs</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E5%B7%A5%E7%A8%8B/" style="font-size: 11.43px;">上下文工程</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/" style="font-size: 10px;">上下文管理</a> <a href="/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" style="font-size: 11.43px;">个人成长</a> <a href="/tags/%E4%BA%BA%E6%9C%BA%E5%8D%8F%E4%BD%9C/" style="font-size: 10px;">人机协作</a> <a href="/tags/%E4%BA%BA%E9%99%85%E5%85%B3%E7%B3%BB/" style="font-size: 10px;">人际关系</a> <a href="/tags/%E4%BB%A3%E7%90%86/" style="font-size: 10px;">代理</a> <a href="/tags/%E4%BF%AE%E5%A4%8D/" style="font-size: 10px;">修复</a> <a href="/tags/%E5%81%A5%E5%BA%B7/" style="font-size: 10px;">健康</a> <a href="/tags/%E5%85%AC%E5%BC%8F/" style="font-size: 10px;">公式</a> <a href="/tags/%E5%86%B3%E7%AD%96/" style="font-size: 10px;">决策</a> <a href="/tags/%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/" style="font-size: 10px;">分层接线</a> <a href="/tags/%E5%88%BB%E6%84%8F%E7%BB%83%E4%B9%A0/" style="font-size: 11.43px;">刻意练习</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%AA%E8%B4%B4%E6%9D%BF/" style="font-size: 11.43px;">剪贴板</a> <a href="/tags/%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" style="font-size: 10px;">包管理器</a> <a href="/tags/%E5%8E%8B%E5%8A%9B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">压力管理</a> <a href="/tags/%E5%8F%8C%E8%BD%A8%E5%AF%B9%E6%AF%94/" style="font-size: 10px;">双轨对比</a> <a href="/tags/%E5%8F%8D%E8%84%86%E5%BC%B1/" style="font-size: 10px;">反脆弱</a> <a href="/tags/%E5%8F%8D%E9%A6%88/" style="font-size: 11.43px;">反馈</a> <a href="/tags/%E5%8F%91%E5%B8%83/" style="font-size: 11.43px;">发布</a> <a href="/tags/%E5%90%8C%E6%AD%A5/" style="font-size: 10px;">同步</a> <a href="/tags/%E5%A2%9E%E5%BC%BA%E5%B1%82/" style="font-size: 10px;">增强层</a> <a href="/tags/%E5%A4%87%E4%BB%BD/" style="font-size: 10px;">备份</a> <a href="/tags/%E5%A4%8D%E7%9B%98/" style="font-size: 10px;">复盘</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" style="font-size: 11.43px;">学习方法</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/" style="font-size: 11.43px;">工作流</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 18.57px;">工程化</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/" style="font-size: 10px;">工程实践</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/" style="font-size: 10px;">工程方法</a> <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">开发工具</a> <a href="/tags/%E5%BE%AE%E4%BF%A1%E4%BA%91%E6%89%98%E7%AE%A1/" style="font-size: 10px;">微信云托管</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7/" style="font-size: 10px;">心理健康</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6/" style="font-size: 10px;">心理学</a> <a href="/tags/%E5%BF%83%E7%90%86%E7%A5%9E%E7%BB%8F%E5%85%8D%E7%96%AB%E5%AD%A6/" style="font-size: 10px;">心理神经免疫学</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 10px;">总结</a> <a href="/tags/%E6%83%85%E7%BB%AA%E8%BF%9B%E9%A3%9F/" style="font-size: 10px;">情绪进食</a> <a href="/tags/%E6%88%90%E9%95%BF/" style="font-size: 10px;">成长</a> <a href="/tags/%E6%88%90%E9%95%BF%E6%80%9D%E7%BB%B4/" style="font-size: 10px;">成长思维</a> <a href="/tags/%E6%89%A9%E7%BC%A9%E5%AE%B9/" style="font-size: 10px;">扩缩容</a> <a href="/tags/%E6%89%AB%E6%8F%8F/" style="font-size: 10px;">扫描</a> <a href="/tags/%E6%8F%AD%E7%A4%BA%E8%AF%AD%E6%B3%95/" style="font-size: 10px;">揭示语法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F/" style="font-size: 10px;">数据质量</a> <a href="/tags/%E6%96%B9%E6%B3%95%E8%AE%BA/" style="font-size: 10px;">方法论</a> <a href="/tags/%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">暗黑模式</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 11.43px;">架构</a> <a href="/tags/%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/" style="font-size: 10px;">标题识别</a> <a href="/tags/%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/" style="font-size: 10px;">样本工程</a> <a href="/tags/%E6%A0%B9%E5%9B%A0%E5%88%86%E6%9E%90/" style="font-size: 10px;">根因分析</a> <a href="/tags/%E6%AD%A3%E5%88%99/" style="font-size: 10px;">正则</a> <a href="/tags/%E6%AD%A3%E5%BF%B5%E9%A5%AE%E9%A3%9F/" style="font-size: 10px;">正念饮食</a> <a href="/tags/%E6%B2%9F%E9%80%9A%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">沟通技巧</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 11.43px;">测试</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%80%9D%E7%BB%B4/" style="font-size: 10px;">测试思维</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8/" style="font-size: 11.43px;">测试驱动</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95/" style="font-size: 11.43px;">浏览器扩展</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E6%8C%81%E4%B9%85%E5%8C%96/" style="font-size: 10px;">环境持久化</a> <a href="/tags/%E7%9C%9F%E6%9C%BA/" style="font-size: 10px;">真机</a> <a href="/tags/%E7%9C%9F%E6%9C%BA%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">真机验证</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/" style="font-size: 10px;">知识管理</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6/" style="font-size: 10px;">神经科学</a> <a href="/tags/%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2/" style="font-size: 10px;">站内搜索</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a> <a href="/tags/%E8%82%A0%E9%81%93%E8%8F%8C%E7%BE%A4/" style="font-size: 10px;">肠道菌群</a> <a href="/tags/%E8%83%BD%E5%8A%9B%E8%BE%B9%E7%95%8C/" style="font-size: 10px;">能力边界</a> <a href="/tags/%E8%86%B3%E9%A3%9F%E7%BA%A4%E7%BB%B4/" style="font-size: 10px;">膳食纤维</a> <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" style="font-size: 14.29px;">自动化</a> <a href="/tags/%E8%87%AA%E6%88%91%E8%B0%83%E8%8A%82/" style="font-size: 10px;">自我调节</a> <a href="/tags/%E8%87%AA%E6%89%98%E7%AE%A1/" style="font-size: 10px;">自托管</a> <a href="/tags/%E8%90%A5%E5%85%BB/" style="font-size: 10px;">营养</a> <a href="/tags/%E8%93%9D%E6%9C%AC%E7%A7%BB%E6%A4%8D/" style="font-size: 10px;">蓝本移植</a> <a href="/tags/%E8%A1%80%E7%B3%96%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">血糖控制</a> <a href="/tags/%E8%A7%84%E5%88%99%E5%AE%A1%E8%AE%A1/" style="font-size: 10px;">规则审计</a> <a href="/tags/%E8%A7%84%E5%88%99%E8%BF%AD%E4%BB%A3/" style="font-size: 10px;">规则迭代</a> <a href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" style="font-size: 11.43px;">解析器</a> <a href="/tags/%E8%AE%A4%E7%9F%A5/" style="font-size: 10px;">认知</a> <a href="/tags/%E8%AE%A4%E7%9F%A5%E7%A7%91%E5%AD%A6/" style="font-size: 10px;">认知科学</a> <a href="/tags/%E8%AE%B0%E5%BF%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">记忆文件系统</a> <a href="/tags/%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">记忆系统</a> <a href="/tags/%E8%AE%BE%E7%BD%AE%E6%8C%81%E4%B9%85%E5%8C%96/" style="font-size: 10px;">设置持久化</a> <a href="/tags/%E8%AF%AD%E6%B3%95%E7%BA%A2%E7%BA%BF/" style="font-size: 10px;">语法红线</a> <a href="/tags/%E8%AF%AD%E8%A8%80%E5%AD%A6/" style="font-size: 10px;">语言学</a> <a href="/tags/%E8%B7%AF%E7%94%B1/" style="font-size: 10px;">路由</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 17.14px;">踩坑</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 17.14px;">部署</a> <a href="/tags/%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">静态博客</a> <a href="/tags/%E9%A2%84%E5%A4%84%E7%90%86/" style="font-size: 10px;">预处理</a> <a href="/tags/%E9%AA%8C%E8%AF%81/" style="font-size: 11.43px;">验证</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">九月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-12-%E5%AE%A1%E8%AE%A1%E4%B8%8ELLM%E5%B7%AE%E8%B7%9D/">Quizify Bridge 分阶段实战（十二）：规则审计与 LLM 差距——诚实地承认能力边界</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-11-%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/">Quizify Bridge 分阶段实战（十一）：工程方法总结——测试门、持久化、上下文锚点</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-10-%E7%9C%9F%E6%9C%BA%E7%AB%AF%E5%88%B0%E7%AB%AF/">Quizify Bridge 分阶段实战（十）：M6 真机端到端与发布——产品成立性验证</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-9-UI%E7%BB%86%E8%8A%82%E4%B8%8E%E6%A0%B7%E6%9C%AC%E5%9B%BA%E5%8C%96/">Quizify Bridge 分阶段实战（九）：M5.4 UI 细节与样本固化——三次修正背后的测试思维</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-8-%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/">Quizify Bridge 分阶段实战（八）：样本工程——双轨对比驱动的规则迭代</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 githubusercsw<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/search/" class="mobile-nav-link">搜索</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  window.SEARCH_SUPABASE_URL = "https://jnrqbznmottytcbojjak.supabase.co";
+  window.SEARCH_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpucnFiem5tb3R0eXRjYm9qamFrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcxMTYzMjUsImV4cCI6MjEwMjY5MjMyNX0.sjuZ_3z6-dEXaRQ7NC7Q1VynPfHRqQ_V8QUE5LXMqQU";
+</script>
+<link rel="stylesheet" href="/css/search.css">
+
+<script src="/js/theme-search.js"></script>
+
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+  </div>
+</body>
+</html>

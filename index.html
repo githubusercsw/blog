@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>CSW 的思维角落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="一只程序员的笔记 —— AI、心理学与个人成长的交叉地带">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CSW 的思维角落">
+<meta property="og:url" content="https://chenshengwu.dpdns.org/index.html">
+<meta property="og:site_name" content="CSW 的思维角落">
+<meta property="og:description" content="一只程序员的笔记 —— AI、心理学与个人成长的交叉地带">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="githubusercsw">
+<meta property="article:tag" content="AI,心理学,编程,认知科学,个人成长">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="CSW 的思维角落" type="application/atom+xml"><link rel="alternate" href="/rss2.xml" title="CSW 的思维角落" type="application/rss+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">CSW 的思维角落</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">关于技术、认知与生活的断想</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/search/">搜索</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://chenshengwu.dpdns.org"></form>
+        <div id="search-result" class="search-dropdown"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Quizify-Bridge-分阶段实战-12-审计与LLM差距" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-12-%E5%AE%A1%E8%AE%A1%E4%B8%8ELLM%E5%B7%AE%E8%B7%9D/" class="article-date">
+  <time class="dt-published" datetime="2026-09-03T13:50:00.000Z" itemprop="datePublished">2026-09-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">技术实践</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-12-%E5%AE%A1%E8%AE%A1%E4%B8%8ELLM%E5%B7%AE%E8%B7%9D/">Quizify Bridge 分阶段实战（十二）：规则审计与 LLM 差距——诚实地承认能力边界</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Quizify-Bridge-分阶段实战（十二）：规则审计与-LLM-差距——诚实地承认能力边界"><a href="#Quizify-Bridge-分阶段实战（十二）：规则审计与-LLM-差距——诚实地承认能力边界" class="headerlink" title="Quizify Bridge 分阶段实战（十二）：规则审计与 LLM 差距——诚实地承认能力边界"></a>Quizify Bridge 分阶段实战（十二）：规则审计与 LLM 差距——诚实地承认能力边界</h1><blockquote>
+<p>日期：2026-09-03 · 系列终篇</p>
+</blockquote>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>规则引擎做到 139 个测试全绿后，最该做的一件事是：<strong>停下来问一句——它到底离”人”的理解差多远？</strong> 本系列终篇讲规则审计的方法论与结论：用双轨对比量化规则与语义理解的差距，诚实标注能力边界，并给出收敛方向（LLM 兜底接口）。这是整个项目”元认知”的收束：不仅要知道系统能做什么，更要知道它不能做什么。</p>
+<h2 id="1-为什么审计比写代码更重要"><a href="#1-为什么审计比写代码更重要" class="headerlink" title="1. 为什么审计比写代码更重要"></a>1. 为什么审计比写代码更重要</h2><p>规则迭代到后期有个危险：<strong>测试全绿 ≠ 能力达标</strong>。测试是自证的（自己写规则、自己写断言），如果规则本身有系统性盲区，测试会一起盲。</p>
+<p>审计的方法：<strong>外部基准</strong>——用语义侧的人工标注（理想结构）与脚本侧的实际输出对比，量化差距。</p>
+<h2 id="2-审计结论：与-LLM-人工的差距"><a href="#2-审计结论：与-LLM-人工的差距" class="headerlink" title="2. 审计结论：与 LLM&#x2F;人工的差距"></a>2. 审计结论：与 LLM&#x2F;人工的差距</h2><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>规则侧</th>
+<th>人工&#x2F;LLM</th>
+<th>差距</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>显式信号（序号&#x2F;emoji&#x2F;加粗）</td>
+<td>~90%</td>
+<td>~100%</td>
+<td>小</td>
+</tr>
+<tr>
+<td>列表项 vs 标题（上下文引导）</td>
+<td>~60%</td>
+<td>~100%</td>
+<td><strong>最大</strong></td>
+</tr>
+<tr>
+<td>隐式语义标题</td>
+<td>~50%</td>
+<td>~95%</td>
+<td>大</td>
+</tr>
+<tr>
+<td>层级归位（嵌套结构）</td>
+<td>无</td>
+<td>~100%</td>
+<td>无规则实现</td>
+</tr>
+</tbody></table>
+<h3 id="2-1-最大差距的根因：上下文缺失"><a href="#2-1-最大差距的根因：上下文缺失" class="headerlink" title="2.1 最大差距的根因：上下文缺失"></a>2.1 最大差距的根因：上下文缺失</h3><p>“列表项 vs 标题”之所以差，是因为区分二者需要<strong>看上下文</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">让用户去：</span><br><span class="line">  ① 输入密码</span><br><span class="line">  ② 确认指纹</span><br></pre></td></tr></table></figure>
+
+<p>“① 输入密码”是列表项还是标题？答案是列表项——因为前一行”让用户去：”是引导行。规则侧虽然有”前一行尾冒号→列表项”的启发式，但覆盖不了所有引导形式（动词句引导、隐含列表等）。</p>
+<h3 id="2-2-层级归位：规则侧完全没有"><a href="#2-2-层级归位：规则侧完全没有" class="headerlink" title="2.2 层级归位：规则侧完全没有"></a>2.2 层级归位：规则侧完全没有</h3><p>“哪一行是 H1、哪一行是 H2”（嵌套层级）需要全局结构感知——规则侧目前只有”<code>---</code> 后为 H1”和”强信号为 H2”两种粗糙推断。真实的层级关系（如”方案一&#x2F;二&#x2F;三”是并列 H2，其下还有子项）需要语义理解。</p>
+<h2 id="3-双轨对比的量化方法"><a href="#3-双轨对比的量化方法" class="headerlink" title="3. 双轨对比的量化方法"></a>3. 双轨对比的量化方法</h2><h3 id="3-1-折叠数对齐率"><a href="#3-1-折叠数对齐率" class="headerlink" title="3.1 折叠数对齐率"></a>3.1 折叠数对齐率</h3><p>每份样本：脚本折叠数 vs 语义期望折叠数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">auto-q01: 7 vs 7  ✅</span><br><span class="line">auto-q03: 2 vs 5  🔴 缺「步」（已修复）</span><br><span class="line">auto-02:  0 vs 10 🔴 紧凑排版（记局限）</span><br><span class="line">auto-q10: 11 vs 8 🟡 细粒度差异</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-标题命中率"><a href="#3-2-标题命中率" class="headerlink" title="3.2 标题命中率"></a>3.2 标题命中率</h3><p>脚本识别的标题中，多少与语义标注一致（含误报率）。</p>
+<h2 id="4-诚实声明：已知边界（发布说明摘录）"><a href="#4-诚实声明：已知边界（发布说明摘录）" class="headerlink" title="4. 诚实声明：已知边界（发布说明摘录）"></a>4. 诚实声明：已知边界（发布说明摘录）</h2><ul>
+<li><strong>紧凑排版局限</strong>：真实网页文章标题后无空行时，弱信号不识别（auto-02 实证）。保守不破规则——放宽孤立段要求会大幅增加误判</li>
+<li><strong>细粒度 vs 语义粗粒度</strong>：脚本按形态信号拆块，可能多于语义合并（auto-q02&#x2F;q04&#x2F;q08&#x2F;q09&#x2F;q10）——差异属粒度选择，非缺陷</li>
+<li><strong>列表项 vs 标题</strong>：上下文引导场景识别率 ~60%</li>
+</ul>
+<h2 id="5-收敛方向：两个-LLM-兜底接口"><a href="#5-收敛方向：两个-LLM-兜底接口" class="headerlink" title="5. 收敛方向：两个 LLM 兜底接口"></a>5. 收敛方向：两个 LLM 兜底接口</h2><p>审计的产出不是”承认差距就完事”，而是<strong>设计收敛路径</strong>：</p>
+<h3 id="5-1-接口一：引导行-列表项复核"><a href="#5-1-接口一：引导行-列表项复核" class="headerlink" title="5.1 接口一：引导行&#x2F;列表项复核"></a>5.1 接口一：引导行&#x2F;列表项复核</h3><p>规则先给出”疑似标题”候选，LLM 复核”这个候选是标题还是列表项”——只处理规则置信度低的场景，不全程依赖 LLM。</p>
+<h3 id="5-2-接口二：层级归位"><a href="#5-2-接口二：层级归位" class="headerlink" title="5.2 接口二：层级归位"></a>5.2 接口二：层级归位</h3><p>规则推断出标题集合后，LLM 对标题间的层级关系（H1&#x2F;H2&#x2F;H3）做全局归位——利用 LLM 的全文理解能力。</p>
+<p>**为什么是”兜底”而不是”替代”**：规则零成本、确定、可测；LLM 有成本、不确定。主路径保持规则，兜底路径只在规则薄弱处调用 LLM——这是成本与能力的平衡点。</p>
+<h2 id="6-规则-vs-LLM-的哲学"><a href="#6-规则-vs-LLM-的哲学" class="headerlink" title="6. 规则 vs LLM 的哲学"></a>6. 规则 vs LLM 的哲学</h2><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>规则</th>
+<th>LLM</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成本</td>
+<td>零</td>
+<td>每次调用有成本</td>
+</tr>
+<tr>
+<td>确定性</td>
+<td>同一输入同一输出</td>
+<td>概率性</td>
+</tr>
+<tr>
+<td>可测性</td>
+<td>完整单测覆盖</td>
+<td>难以穷举</td>
+</tr>
+<tr>
+<td>上下文感知</td>
+<td>有限（行级启发式）</td>
+<td>全文理解</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>高频显式形态</td>
+<td>低频模糊场景</td>
+</tr>
+</tbody></table>
+<p><strong>结论</strong>：不是二选一，而是<strong>规则为主 + LLM 兜底</strong>。这个架构在 AI 应用开发中有普遍性——凡是”高频确定 + 低频模糊”的任务，都适合这个组合。</p>
+<h2 id="7-全系列总结"><a href="#7-全系列总结" class="headerlink" title="7. 全系列总结"></a>7. 全系列总结</h2><p>从 M1 验证台到 M6 发布，十二篇手记回顾了 Quizify Bridge 的完整历程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">M1 验证台    → 测试全绿为门的度量体系</span><br><span class="line">M2 补全层    → 适配剪贴板输入（保守修复）</span><br><span class="line">M3 蓝本层    → 权威规则 Kotlin 移植</span><br><span class="line">M4 增强层    → 蓝本没有的新能力（激进扩展）</span><br><span class="line">M5.1-5.2    → 引擎入库 + UI 三件套</span><br><span class="line">M5.3        → 分层接线 + 标题识别</span><br><span class="line">M5.4        → UI 细节 + 样本固化</span><br><span class="line">M6          → 真机端到端 + 发布</span><br></pre></td></tr></table></figure>
+
+<p>贯穿全程的三条纪律：<strong>测试全绿为门、环境持久化、上下文锚点</strong>。以及一个始终如一的认知：<strong>规则有边界，诚实标注边界，是可靠系统的一部分。</strong></p>
+<p>（系列完）</p>
+<blockquote>
+<p>全系列目录：<br><a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-1-JVM%E9%AA%8C%E8%AF%81%E5%8F%B0/">一、JVM 验证台</a> · <a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-2-%E8%A1%A5%E5%85%A8%E5%B1%82/">二、补全层</a> · <a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-3-%E8%93%9D%E6%9C%AC%E5%B1%82/">三、蓝本层</a> · <a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-4-%E5%A2%9E%E5%BC%BA%E5%B1%82/">四、增强层</a> · <a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-5-%E5%BC%95%E6%93%8E%E5%85%A5%E5%BA%93%E4%B8%8EUI/">五、引擎入库与 UI</a> · <a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-6-%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/">六、分层接线</a> · <a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-7-%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/">七、标题识别</a> · <a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-8-%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/">八、样本工程</a> · <a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-9-UI%E7%BB%86%E8%8A%82%E4%B8%8E%E6%A0%B7%E6%9C%AC%E5%9B%BA%E5%8C%96/">九、UI 细节与样本固化</a> · <a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-10-%E7%9C%9F%E6%9C%BA%E7%AB%AF%E5%88%B0%E7%AB%AF/">十、真机端到端</a> · <a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-11-%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/">十一、工程方法</a> · 本篇</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-12-%E5%AE%A1%E8%AE%A1%E4%B8%8ELLM%E5%B7%AE%E8%B7%9D/" data-id="cmtl330tr000gsg2bed290c9s" data-title="Quizify Bridge 分阶段实战（十二）：规则审计与 LLM 差距——诚实地承认能力边界" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quizify/" rel="tag">Quizify</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%80%BB%E7%BB%93/" rel="tag">总结</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%83%BD%E5%8A%9B%E8%BE%B9%E7%95%8C/" rel="tag">能力边界</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%A7%84%E5%88%99%E5%AE%A1%E8%AE%A1/" rel="tag">规则审计</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-Quizify-Bridge-分阶段实战-11-工程方法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-11-%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2026-09-03T13:40:00.000Z" itemprop="datePublished">2026-09-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">技术实践</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-11-%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/">Quizify Bridge 分阶段实战（十一）：工程方法总结——测试门、持久化、上下文锚点</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Quizify-Bridge-分阶段实战（十一）：工程方法总结——测试门、持久化、上下文锚点"><a href="#Quizify-Bridge-分阶段实战（十一）：工程方法总结——测试门、持久化、上下文锚点" class="headerlink" title="Quizify Bridge 分阶段实战（十一）：工程方法总结——测试门、持久化、上下文锚点"></a>Quizify Bridge 分阶段实战（十一）：工程方法总结——测试门、持久化、上下文锚点</h1><blockquote>
+<p>日期：2026-09-03 · 系列第十一篇</p>
+</blockquote>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>前十个阶段讲了”做什么”，本篇讲”怎么做”——贯穿全程的三条工程方法：<strong>测试全绿为门</strong>、<strong>环境持久化</strong>、<strong>上下文锚点</strong>。它们不是某个阶段的技术，而是让整个项目在长周期、多轮迭代、反复中断下仍能稳步推进的底层纪律。</p>
+<h2 id="1-方法一：测试全绿为门"><a href="#1-方法一：测试全绿为门" class="headerlink" title="1. 方法一：测试全绿为门"></a>1. 方法一：测试全绿为门</h2><h3 id="1-1-定义"><a href="#1-1-定义" class="headerlink" title="1.1 定义"></a>1.1 定义</h3><blockquote>
+<p>每个里程碑以”验证台全绿”为门。任何阶段红，修复到绿再前进。</p>
+</blockquote>
+<h3 id="1-2-为什么它如此重要"><a href="#1-2-为什么它如此重要" class="headerlink" title="1.2 为什么它如此重要"></a>1.2 为什么它如此重要</h3><p>“完成”这个词在软件开发里极其含糊。没有门，就会出现项目里真实发生过的现象：</p>
+<ul>
+<li><strong>写文档替代跑验证</strong>：出了 6 个问题，团队选择写更多审计文档而不是修测试</li>
+<li><strong>测试锁的与代码跑的不是同一套</strong>：StructureRouter 是死代码，测试却全绿</li>
+<li>**”mock 全绿 ≠ 真实 DOM 全过”**：验证只在理想环境过，真实场景一跑就碎</li>
+</ul>
+<p>测试门把”完成”变成<strong>可复现的度量</strong>：绿 &#x3D; 有证据，红 &#x3D; 有责任。</p>
+<h3 id="1-3-分层验证体系"><a href="#1-3-分层验证体系" class="headerlink" title="1.3 分层验证体系"></a>1.3 分层验证体系</h3><table>
+<thead>
+<tr>
+<th>层</th>
+<th>定位</th>
+<th>跑多久</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>L1 引擎单测</td>
+<td>规则&#x2F;结构推断（纯 JVM）</td>
+<td>秒级</td>
+</tr>
+<tr>
+<td>L2 结构统计</td>
+<td>批量样本折叠统计</td>
+<td>秒级</td>
+</tr>
+<tr>
+<td>L3 全量回归</td>
+<td>engine + app 全部单测</td>
+<td>8-10 分钟</td>
+</tr>
+</tbody></table>
+<p>分层的关键收益：<strong>快反馈走 L1&#x2F;L2，收口走 L3</strong>。日常迭代用秒级测试，里程碑用全量回归——不因”测试慢”而跳过，也不因”全量跑”而拖慢迭代。</p>
+<h2 id="2-方法二：环境持久化"><a href="#2-方法二：环境持久化" class="headerlink" title="2. 方法二：环境持久化"></a>2. 方法二：环境持久化</h2><h3 id="2-1-痛点"><a href="#2-1-痛点" class="headerlink" title="2.1 痛点"></a>2.1 痛点</h3><p>沙箱环境会被回收。JDK + Gradle + Android SDK + 依赖缓存共约 1.2GB，每次回收后重下，既慢又易失败（Google Maven 偶发 000）。</p>
+<h3 id="2-2-正确理解”持久化”"><a href="#2-2-正确理解”持久化”" class="headerlink" title="2.2 正确理解”持久化”"></a>2.2 正确理解”持久化”</h3><p>用户点名纠正过一个关键概念：</p>
+<blockquote>
+<p>「持久化」&#x3D; 把 JDK&#x2F;Gradle&#x2F;Android SDK&#x2F;依赖缓存<strong>物理存放</strong>到不被回收的工作区目录，沙箱回收后工具链<strong>原样还在、零下载直接可用</strong>；脚本只负责首次搭建。</p>
+</blockquote>
+<p>这区别于”脚本化重建”（每次回收后重下 1.2G 依赖）——后者看似自动，实则每次都在烧时间。</p>
+<h3 id="2-3-实现"><a href="#2-3-实现" class="headerlink" title="2.3 实现"></a>2.3 实现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/home/lingxi/workspace/.env/</span><br><span class="line">├── jdk-21.0.12.1+1       ← JDK 物理落盘</span><br><span class="line">├── gradle-8.10.2         ← Gradle 物理落盘</span><br><span class="line">├── android-sdk           ← Android SDK 物理落盘</span><br><span class="line">├── gradle-home           ← 依赖缓存（GRADLE_USER_HOME）</span><br><span class="line">└── env.sh                ← 一键加载所有环境变量</span><br></pre></td></tr></table></figure>
+
+<p>用法：<code>source /home/lingxi/workspace/.env/env.sh</code></p>
+<h2 id="3-方法三：上下文锚点"><a href="#3-方法三：上下文锚点" class="headerlink" title="3. 方法三：上下文锚点"></a>3. 方法三：上下文锚点</h2><h3 id="3-1-痛点"><a href="#3-1-痛点" class="headerlink" title="3.1 痛点"></a>3.1 痛点</h3><p>Agent 上下文窗口有限，长项目必然经历多次压缩。压缩后”失忆”是最大的信息损失风险——曾有外部调研索引在压缩后”丢失”的教训。</p>
+<h3 id="3-2-解决方案：三层联动"><a href="#3-2-解决方案：三层联动" class="headerlink" title="3.2 解决方案：三层联动"></a>3.2 解决方案：三层联动</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">文件系统（详细）    STATE.md 压缩锚点：路径/架构/规则/测试/样本/待办</span><br><span class="line">记忆系统（指针）    wiki 项目页 + 经验页 + raw 溯源索引</span><br><span class="line">Git（历史）        每次里程碑提交推送，历史真相可追溯</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-锚点文件长什么样"><a href="#3-3-锚点文件长什么样" class="headerlink" title="3.3 锚点文件长什么样"></a>3.3 锚点文件长什么样</h3><p><code>STATE.md</code> 包含：关键路径与命令、架构快照、规则引擎现状、测试分层现状、样本资产清单、本段结论与已知局限、待办队列。压缩后凭此文件 5 分钟恢复全部关键状态。</p>
+<p><strong>纪律</strong>：每次里程碑&#x2F;压缩点前刷新锚点，保证它是新鲜的（而非一次写死的旧文档）。</p>
+<h2 id="4-三方法的内在联系"><a href="#4-三方法的内在联系" class="headerlink" title="4. 三方法的内在联系"></a>4. 三方法的内在联系</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">测试全绿为门   ← 让&quot;推进&quot;有证据</span><br><span class="line">环境持久化     ← 让&quot;推进&quot;可持续（不因环境重建而停摆）</span><br><span class="line">上下文锚点     ← 让&quot;推进&quot;可恢复（不因压缩而失忆）</span><br></pre></td></tr></table></figure>
+
+<p>三者共同回答一个工程问题：<strong>如何让一个长周期项目在资源有限（沙箱 2GB 内存&#x2F;1 核）、环境易失（回收）、上下文易断（压缩）的条件下稳定推进？</strong></p>
+<h2 id="5-其他可复用经验"><a href="#5-其他可复用经验" class="headerlink" title="5. 其他可复用经验"></a>5. 其他可复用经验</h2><h3 id="5-1-沙箱内存纪律"><a href="#5-1-沙箱内存纪律" class="headerlink" title="5.1 沙箱内存纪律"></a>5.1 沙箱内存纪律</h3><p>2GB 内存、1 核、无 swap：两个 gradle 并行会 OOM。单任务串行、Xmx 收敛到 1024m、禁用 daemon。</p>
+<h3 id="5-2-等待纪律"><a href="#5-2-等待纪律" class="headerlink" title="5.2 等待纪律"></a>5.2 等待纪律</h3><p>后台跑长任务（gradle 全量回归 8-10 分钟）+ 检查日志 BUILD 标记轮询，避免空转等待。</p>
+<h3 id="5-3-协作低效的五个根因"><a href="#5-3-协作低效的五个根因" class="headerlink" title="5.3 协作低效的五个根因"></a>5.3 协作低效的五个根因</h3><p>用户批评过”协作效率太低”，复盘出五个根因：反复全量重跑、await 空轮询、批次闭环不完整、结果不落盘、规则迭代凭感觉。对应解法：验证分层、日志标记轮询、批次沉淀纪律、结果落盘、样本双轨对比。</p>
+<h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>三条方法没有一条是”技术亮点”，但正是它们让 M1-M6 全程 139+37 个测试持续全绿、让每次中断都能快速恢复、让每个里程碑都能按时交付。<strong>工程能力 &#x3D; 让”推进”可度量的能力</strong>。</p>
+<p>下一篇（终篇）讲规则审计与 LLM 差距：诚实地承认能力边界。</p>
+<blockquote>
+<p>系列目录：<a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-10-%E7%9C%9F%E6%9C%BA%E7%AB%AF%E5%88%B0%E7%AB%AF/">十、真机端到端</a> · <a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-12-%E5%AE%A1%E8%AE%A1%E4%B8%8ELLM%E5%B7%AE%E8%B7%9D/">十二、规则审计与 LLM 差距</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-11-%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/" data-id="cmtl330tq000fsg2bep4g2jx7" data-title="Quizify Bridge 分阶段实战（十一）：工程方法总结——测试门、持久化、上下文锚点" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/" rel="tag">上下文管理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E7%9B%98/" rel="tag">复盘</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/" rel="tag">工程方法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8/" rel="tag">测试驱动</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%8C%81%E4%B9%85%E5%8C%96/" rel="tag">环境持久化</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-Quizify-Bridge-分阶段实战-10-真机端到端" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-10-%E7%9C%9F%E6%9C%BA%E7%AB%AF%E5%88%B0%E7%AB%AF/" class="article-date">
+  <time class="dt-published" datetime="2026-09-03T13:30:00.000Z" itemprop="datePublished">2026-09-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">技术实践</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-10-%E7%9C%9F%E6%9C%BA%E7%AB%AF%E5%88%B0%E7%AB%AF/">Quizify Bridge 分阶段实战（十）：M6 真机端到端与发布——产品成立性验证</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Quizify-Bridge-分阶段实战（十）：M6-真机端到端与发布——产品成立性验证"><a href="#Quizify-Bridge-分阶段实战（十）：M6-真机端到端与发布——产品成立性验证" class="headerlink" title="Quizify Bridge 分阶段实战（十）：M6 真机端到端与发布——产品成立性验证"></a>Quizify Bridge 分阶段实战（十）：M6 真机端到端与发布——产品成立性验证</h1><blockquote>
+<p>日期：2026-09-03 · 系列第十篇</p>
+</blockquote>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>M1-M5 的全部验证都在沙箱&#x2F;JVM 上完成，但项目最初的六大问题里有一条始终悬着：<strong>产品成立性未端到端验证</strong>——写入 AnkiDroid 从未真机成功。M6 就是补上这最后一块拼图：真机端到端 + 发布。本文讲真机验证的分工模型、版本号策略、以及”Agent 开发+静态验证；用户真机验证”的协作定案。</p>
+<h2 id="1-真机验证的分工模型"><a href="#1-真机验证的分工模型" class="headerlink" title="1. 真机验证的分工模型"></a>1. 真机验证的分工模型</h2><p>沙箱无法渲染 Compose UI、无法调用 AnkiDroid API、无法体验剪贴板 toast。因此从一开始就定下分工：</p>
+<blockquote>
+<p><strong>Agent 开发 + 静态验证；用户真机验证。</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>验证项</th>
+<th>归属</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>引擎逻辑 &#x2F; 规则 &#x2F; 门禁</td>
+<td>沙箱（L1&#x2F;L3）</td>
+<td>纯 JVM，秒级可测</td>
+</tr>
+<tr>
+<td>UI 布局不变量</td>
+<td>沙箱（L0b Robolectric）</td>
+<td>锁死”按钮可见”等结构</td>
+</tr>
+<tr>
+<td>剪贴板 toast 观感</td>
+<td>真机</td>
+<td>系统行为，沙箱不可见</td>
+</tr>
+<tr>
+<td>暗黑模式观感</td>
+<td>真机</td>
+<td>渲染效果</td>
+</tr>
+<tr>
+<td>写入 AnkiDroid 全链路</td>
+<td>真机</td>
+<td>依赖真机 AnkiDroid</td>
+</tr>
+<tr>
+<td>R8 选择题渲染</td>
+<td>真机</td>
+<td>发布 blocker</td>
+</tr>
+</tbody></table>
+<p>这个分工让沙箱把能自动化的全部自动化，真机只留”必须人眼确认”的项——零环境成本，且观感项不阻塞开发迭代。</p>
+<h2 id="2-M6-真机端到端验证了什么"><a href="#2-M6-真机端到端验证了什么" class="headerlink" title="2. M6 真机端到端验证了什么"></a>2. M6 真机端到端验证了什么</h2><p><strong>粘贴 → 解析 → 写入 AnkiDroid 全链路</strong>：</p>
+<ol>
+<li>复制 AI 长文（如 HCI 专业解析）</li>
+<li>打开 App → 剪贴板自动带入</li>
+<li>引擎解析：结构推断 → 路由 → 折叠 → cloze → 门禁</li>
+<li>选择&#x2F;输入牌组、标签</li>
+<li>保存 → AnkiDroid 数据库写入成功</li>
+<li>在 AnkiDroid 中复习，确认卡片正确渲染（折叠&#x2F;alert&#x2F;表格&#x2F;选择题）</li>
+</ol>
+<h2 id="3-发布策略"><a href="#3-发布策略" class="headerlink" title="3. 发布策略"></a>3. 发布策略</h2><h3 id="3-1-版本号"><a href="#3-1-版本号" class="headerlink" title="3.1 版本号"></a>3.1 版本号</h3><table>
+<thead>
+<tr>
+<th>版本</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0.1.0</td>
+<td>初版雏形</td>
+</tr>
+<tr>
+<td>0.2.0</td>
+<td>M5.2 适配安卓 10+</td>
+</tr>
+<tr>
+<td>0.3.0（本次）</td>
+<td>M6 正式版：三层引擎 + 分层接线 + UI 完善</td>
+</tr>
+</tbody></table>
+<p>bump 规则：<code>versionCode</code> 随大版本递增（2→3），<code>versionName</code> 语义化（0.2.0→0.3.0）。</p>
+<h3 id="3-2-发布产物"><a href="#3-2-发布产物" class="headerlink" title="3.2 发布产物"></a>3.2 发布产物</h3><ul>
+<li>正式版 debug APK（本地构建，沙箱已编译通过）</li>
+<li>RELEASE_NOTES.md：变更 + 验证状态 + 已知边界</li>
+<li>ROADMAP.md：M6 完成快照</li>
+</ul>
+<h3 id="3-3-诚实声明（发布说明中的已知边界）"><a href="#3-3-诚实声明（发布说明中的已知边界）" class="headerlink" title="3.3 诚实声明（发布说明中的已知边界）"></a>3.3 诚实声明（发布说明中的已知边界）</h3><p>发布说明不只是”功能清单”，还包含<strong>诚实的能力边界</strong>：</p>
+<ul>
+<li>紧凑排版局限（真实网页文章标题后无空行时弱信号不识别）</li>
+<li>细粒度 vs 语义粗粒度差异（脚本拆块可能多于语义合并）</li>
+<li>LLM 差距（列表项 vs 标题 ~60%、隐式语义 ~50%）——两个 LLM 兜底接口留待后续</li>
+</ul>
+<p><strong>为什么要在发布说明里写局限</strong>：让用户对”哪些场景表现好、哪些会退化”有预期，避免把规则引擎当成万能的。</p>
+<h2 id="4-R8-选择题（发布-blocker）"><a href="#4-R8-选择题（发布-blocker）" class="headerlink" title="4. R8 选择题（发布 blocker）"></a>4. R8 选择题（发布 blocker）</h2><p>计划书 P2-2 标注 R8 选择题卡真机验证是发布 blocker：选择题卡（<code>;;;</code> 语法 + 选项）必须验证在 AnkiDroid 正确渲染——因为它涉及 AnkiDroid 对 Quizify 选择题语法的支持，与模板&#x2F;渲染相关，只能真机确认。</p>
+<h2 id="5-协作流程复盘"><a href="#5-协作流程复盘" class="headerlink" title="5. 协作流程复盘"></a>5. 协作流程复盘</h2><p>整个 M6 的协作模式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">沙箱：全量回归全绿（139+37）→ 编译闸门 → 文档收尾 → 推送</span><br><span class="line">用户：本地构建 APK → 真机安装 → 端到端验证 → 反馈结果</span><br></pre></td></tr></table></figure>
+
+<p><strong>里程碑门</strong>：测试全绿为门 + 真机清单过。两者都满足才算 M6 完成。</p>
+<h2 id="6-本阶段启示"><a href="#6-本阶段启示" class="headerlink" title="6. 本阶段启示"></a>6. 本阶段启示</h2><p><strong>“产品成立性”是任何项目的终局问题</strong>：规则再精美、架构再分层，写入 AnkiDroid 失败就是零。M6 把这件事从”悬而未决”变成”已实证”。而这一切的前提是 M1 立的纪律——<strong>测试全绿为门</strong>——让前九个阶段的所有成果都有据可依，真机验证只是最后一道确认，而不是从头开始排查。</p>
+<p>下一篇讲贯穿全程的工程方法总结。</p>
+<blockquote>
+<p>系列目录：<a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-9-UI%E7%BB%86%E8%8A%82%E4%B8%8E%E6%A0%B7%E6%9C%AC%E5%9B%BA%E5%8C%96/">九、UI 细节与样本固化</a> · <a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-11-%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/">十一、工程方法总结</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-10-%E7%9C%9F%E6%9C%BA%E7%AB%AF%E5%88%B0%E7%AB%AF/" data-id="cmtl330to000bsg2b3ceu7n49" data-title="Quizify Bridge 分阶段实战（十）：M6 真机端到端与发布——产品成立性验证" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AnkiDroid/" rel="tag">AnkiDroid</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quizify/" rel="tag">Quizify</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/R8/" rel="tag">R8</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%91%E5%B8%83/" rel="tag">发布</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%9C%9F%E6%9C%BA%E9%AA%8C%E8%AF%81/" rel="tag">真机验证</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-Quizify-Bridge-分阶段实战-9-UI细节与样本固化" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-9-UI%E7%BB%86%E8%8A%82%E4%B8%8E%E6%A0%B7%E6%9C%AC%E5%9B%BA%E5%8C%96/" class="article-date">
+  <time class="dt-published" datetime="2026-09-03T13:20:00.000Z" itemprop="datePublished">2026-09-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">技术实践</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-9-UI%E7%BB%86%E8%8A%82%E4%B8%8E%E6%A0%B7%E6%9C%AC%E5%9B%BA%E5%8C%96/">Quizify Bridge 分阶段实战（九）：M5.4 UI 细节与样本固化——三次修正背后的测试思维</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Quizify-Bridge-分阶段实战（九）：M5-4-UI-细节与样本固化——三次修正背后的测试思维"><a href="#Quizify-Bridge-分阶段实战（九）：M5-4-UI-细节与样本固化——三次修正背后的测试思维" class="headerlink" title="Quizify Bridge 分阶段实战（九）：M5.4 UI 细节与样本固化——三次修正背后的测试思维"></a>Quizify Bridge 分阶段实战（九）：M5.4 UI 细节与样本固化——三次修正背后的测试思维</h1><blockquote>
+<p>日期：2026-09-03 · 系列第九篇</p>
+</blockquote>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>M5.4 看起来是”小修小补”：Back 输入框高度、cloze 文案、牌组下拉、样本 7&#x2F;8 固化。但这一阶段暴露了最有价值的工程思维：<strong>用户报一个 UI 问题，背后往往是一类规则缺口</strong>。本文讲三处 UI 修正的取舍、样本 7&#x2F;8 从”临时诊断”到”正式断言”的固化，以及”修一个测一类”的回归思维。</p>
+<h2 id="1-三处-UI-修正"><a href="#1-三处-UI-修正" class="headerlink" title="1. 三处 UI 修正"></a>1. 三处 UI 修正</h2><h3 id="1-1-Back-输入框高度：从”随内容增长”到”固定上限”"><a href="#1-1-Back-输入框高度：从”随内容增长”到”固定上限”" class="headerlink" title="1.1 Back 输入框高度：从”随内容增长”到”固定上限”"></a>1.1 Back 输入框高度：从”随内容增长”到”固定上限”</h3><p><strong>用户反馈</strong>：Back 字段自动生成长文后，输入框无限变长，每次都要滚动很久才能看到下方解析设置。</p>
+<p><strong>根因</strong>：<code>heightIn(min = 120.dp)</code> 只设了下限——内容越长框越长，把设置区挤出屏幕。</p>
+<p><strong>修复</strong>：<code>heightIn(min = 120.dp, max = 200.dp)</code>——固定上限，比原文输入框（max&#x3D;160dp）稍长，长文在框内滚动而非撑开页面。</p>
+<h3 id="1-2-cloze-文案：从”技术描述”到”用户语言”"><a href="#1-2-cloze-文案：从”技术描述”到”用户语言”" class="headerlink" title="1.2 cloze 文案：从”技术描述”到”用户语言”"></a>1.2 cloze 文案：从”技术描述”到”用户语言”</h3><p><strong>用户反馈</strong>：「自动 cloze（tier1，可逐条核对）：」太技术化。</p>
+<p><strong>修复</strong>：「自动 cloze 这些~：」——用户视角的口语化表达。</p>
+<h3 id="1-3-牌组下拉：从”手输名字”到”API-读取”"><a href="#1-3-牌组下拉：从”手输名字”到”API-读取”" class="headerlink" title="1.3 牌组下拉：从”手输名字”到”API 读取”"></a>1.3 牌组下拉：从”手输名字”到”API 读取”</h3><p><strong>用户反馈</strong>：牌组目前只能手输，但 AnkiDroid API 明明可以读已有牌组。</p>
+<p><strong>实现</strong>：</p>
+<ul>
+<li>桥接层新增 <code>getDeckList()</code>：<code>api.deckList.values.sorted()</code> 返回已有牌组名</li>
+<li>UI 用 <code>ExposedDropdownMenuBox</code> + 已有牌组列表渲染下拉</li>
+<li><strong>降级设计</strong>：API 未启用&#x2F;无牌组时，下拉显示”无可用牌组”，不阻塞纯文本输入</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 桥接层：M5.4 牌组下拉</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getDeckList</span><span class="params">()</span></span>: List&lt;String&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (!ensureApi()) <span class="keyword">return</span> emptyList()</span><br><span class="line">    <span class="keyword">return</span> runCatching &#123; api!!.deckList.values.sorted() &#125;</span><br><span class="line">        .onFailure &#123; Log.w(TAG, <span class="string">&quot;[bridge][getDeckList] 异常: ...&quot;</span>) &#125;</span><br><span class="line">        .getOrDefault(emptyList())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-样本-7-8-固化：从诊断到断言"><a href="#2-样本-7-8-固化：从诊断到断言" class="headerlink" title="2. 样本 7&#x2F;8 固化：从诊断到断言"></a>2. 样本 7&#x2F;8 固化：从诊断到断言</h2><h3 id="2-1-之前的形态（临时诊断）"><a href="#2-1-之前的形态（临时诊断）" class="headerlink" title="2.1 之前的形态（临时诊断）"></a>2.1 之前的形态（临时诊断）</h3><p>样本 7（Vaultwarden 部署长文）和样本 8（HCI 专业解析）之前的测试是 <code>Trace*Test</code>——<strong>只打印不断言</strong>：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TraceFull07Test</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span> <span class="function"><span class="keyword">fun</span> <span class="title">trace</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// 打印推断标题、打印 Pipeline 输出、打印折叠统计</span></span><br><span class="line">        <span class="comment">// 但没有任何 assertTrue —— 绿了也等于没测</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是”测试的假象”：测试通过，但什么都没锁住。</p>
+<h3 id="2-2-固化后的形态（正式断言）"><a href="#2-2-固化后的形态（正式断言）" class="headerlink" title="2.2 固化后的形态（正式断言）"></a>2.2 固化后的形态（正式断言）</h3><p><strong>样本 7 断言</strong>（Vaultwarden）：</p>
+<ul>
+<li>推断 8 个标题（1 H1 + 7 H2），含「整个流程，通俗翻译：」「方案一：最省事 — 买个域名（推荐）」「怎么解决 HTTPS？」</li>
+<li>折叠 8 开 8 闭（LIFO 闭合平衡）</li>
+<li>tab 分隔表格修复为管道符表格</li>
+<li>折叠无平衡违规（RedlineChecker R5 不报）</li>
+</ul>
+<p><strong>样本 8 断言</strong>（HCI）：</p>
+<ul>
+<li><strong>门禁 0 P0</strong>（用户曾实测 7 项 P0 拒绝写入 → R10 空行修复后的回归点）</li>
+<li>关键标题被识别（emoji 变体 🎨🔬 + 纯文本变体）</li>
+<li>折叠开闭平衡</li>
+</ul>
+<h2 id="3-固化过程中的意外发现：三处规则缺口"><a href="#3-固化过程中的意外发现：三处规则缺口" class="headerlink" title="3. 固化过程中的意外发现：三处规则缺口"></a>3. 固化过程中的意外发现：三处规则缺口</h2><p>把样本 8 固化为断言时，测试红了——不是测试写错，而是<strong>规则真的有缺口</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>缺口</th>
+<th>样本实证</th>
+<th>修复</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>右引号收尾疑问式被误杀</td>
+<td>「人机交互到底是什么：不只是”画界面”」</td>
+<td>右引号排除移至疑问式判定之后</td>
+</tr>
+<tr>
+<td>emoji 含引号疑问式被误杀</td>
+<td>「🌍 为什么国内看似”不常见”」</td>
+<td>emoji 引号排除仅对无疑问词行生效</td>
+</tr>
+<tr>
+<td>完整句后无空行标题漏判</td>
+<td>「💡 完整句收尾。」后紧跟「HCI 的职业发展路径」</td>
+<td>prevIsEmpty 放宽：前一行句读收尾视作段落边界</td>
+</tr>
+</tbody></table>
+<p><strong>这正是”修一个测一类”的回报</strong>：固化样本 8 本意只是”把诊断变断言”，却意外揪出三个真实规则 bug——如果没有固化，这三个缺口会在真机上表现为”用户复制 HCI 长文没有折叠”。</p>
+<h2 id="4-回归护栏"><a href="#4-回归护栏" class="headerlink" title="4. 回归护栏"></a>4. 回归护栏</h2><p>固化时同步补了两类回归护栏（防修复引入新误判）：</p>
+<ul>
+<li>「”记忆已固化。”」引号包裹正文句 → 仍不误判为标题</li>
+<li>「✅ 上一轮你说：”…”」emoji 加引号引用行 → 仍不误判为标题</li>
+</ul>
+<h2 id="5-验证"><a href="#5-验证" class="headerlink" title="5. 验证"></a>5. 验证</h2><ul>
+<li>L3 全量回归：<strong>engine 139 + app 37 全绿 0 失败</strong></li>
+<li>BatchInferenceTest 27 项（新增 5 用例 + 2 护栏）</li>
+<li>UI 布局测试（Robolectric）全绿</li>
+</ul>
+<h2 id="6-本阶段启示"><a href="#6-本阶段启示" class="headerlink" title="6. 本阶段启示"></a>6. 本阶段启示</h2><p><strong>用户报的每一个”小问题”，都值得用测试锁死</strong>。三处 UI 修正看起来是”顺手改改”，但样本固化揭示的规则缺口证明：<strong>没有测试的地方，就有潜藏的 bug</strong>。把用户反馈转成断言，是产品从”能用”到”可靠”的分水岭。</p>
+<p>下一篇讲 M6：真机端到端与发布。</p>
+<blockquote>
+<p>系列目录：<a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-8-%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/">八、样本工程</a> · <a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-10-%E7%9C%9F%E6%9C%BA%E7%AB%AF%E5%88%B0%E7%AB%AF/">十、真机端到端</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-9-UI%E7%BB%86%E8%8A%82%E4%B8%8E%E6%A0%B7%E6%9C%AC%E5%9B%BA%E5%8C%96/" data-id="cmtl330u20015sg2ba9bfbnjo" data-title="Quizify Bridge 分阶段实战（九）：M5.4 UI 细节与样本固化——三次修正背后的测试思维" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quizify/" rel="tag">Quizify</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Robolectric/" rel="tag">Robolectric</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UI/" rel="tag">UI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%91%E5%B8%83/" rel="tag">发布</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E6%80%9D%E7%BB%B4/" rel="tag">测试思维</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-Quizify-Bridge-分阶段实战-8-样本工程" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-8-%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/" class="article-date">
+  <time class="dt-published" datetime="2026-09-03T13:10:00.000Z" itemprop="datePublished">2026-09-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">技术实践</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-8-%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/">Quizify Bridge 分阶段实战（八）：样本工程——双轨对比驱动的规则迭代</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Quizify-Bridge-分阶段实战（八）：样本工程——双轨对比驱动的规则迭代"><a href="#Quizify-Bridge-分阶段实战（八）：样本工程——双轨对比驱动的规则迭代" class="headerlink" title="Quizify Bridge 分阶段实战（八）：样本工程——双轨对比驱动的规则迭代"></a>Quizify Bridge 分阶段实战（八）：样本工程——双轨对比驱动的规则迭代</h1><blockquote>
+<p>日期：2026-09-03 · 系列第八篇</p>
+</blockquote>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>规则不是设计出来的，是<strong>喂出来的</strong>。标题识别规则体系迭代了四轮（P0-P3），每一次迭代都由真实样本驱动：脚本侧批量跑规则，语义侧人工标注理想结构，双轨对比暴露差距，再把差距沉淀成规则或测试。本文讲这套”样本工程”方法——它让规则迭代从”凭感觉”变成”可度量”。</p>
+<h2 id="1-为什么需要样本工程"><a href="#1-为什么需要样本工程" class="headerlink" title="1. 为什么需要样本工程"></a>1. 为什么需要样本工程</h2><p>规则系统最大的风险是<strong>过拟合与漏识别并存</strong>：</p>
+<ul>
+<li>只盯着一个样本调规则，换个样本就崩</li>
+<li>没有基线度量，”改了没改好”只能靠感觉</li>
+</ul>
+<p>解法：建立样本资产 + 双轨对比机制。</p>
+<h2 id="2-样本资产"><a href="#2-样本资产" class="headerlink" title="2. 样本资产"></a>2. 样本资产</h2><h3 id="2-1-三批样本"><a href="#2-1-三批样本" class="headerlink" title="2.1 三批样本"></a>2.1 三批样本</h3><table>
+<thead>
+<tr>
+<th>批次</th>
+<th>来源</th>
+<th>样本</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第一批</td>
+<td>用户真实复制</td>
+<td>sample-01~06（六种 AI 平台格式）</td>
+<td>金标回归基线</td>
+</tr>
+<tr>
+<td>第二批</td>
+<td>用户真实复制</td>
+<td>sample-09~18（对话类）</td>
+<td>批处理矩阵</td>
+</tr>
+<tr>
+<td>自产批次</td>
+<td>Agent 生成</td>
+<td>auto-q01~q10（生活+技术问答）+ 2 篇真实文章</td>
+<td>规则边界覆盖</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-样本形态覆盖"><a href="#2-2-样本形态覆盖" class="headerlink" title="2.2 样本形态覆盖"></a>2.2 样本形态覆盖</h3><ul>
+<li>表格三形态（管道&#x2F;空格对齐&#x2F;Tab）</li>
+<li>告警块丢 <code>&gt;</code>、代码围栏丢语言标记</li>
+<li>ASCII 框线图（卡片&#x2F;思维导图&#x2F;Mermaid&#x2F;CSV&#x2F;正则）</li>
+<li>emoji 标题、§N 章节、第X轮&#x2F;步、原则N</li>
+<li>紧凑排版（标题后无空行）</li>
+</ul>
+<h2 id="3-双轨对比机制"><a href="#3-双轨对比机制" class="headerlink" title="3. 双轨对比机制"></a>3. 双轨对比机制</h2><h3 id="3-1-两条轨道"><a href="#3-1-两条轨道" class="headerlink" title="3.1 两条轨道"></a>3.1 两条轨道</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">脚本侧（FleetAutoTest）</span><br><span class="line">  ├─ 批量跑 StructureInference + Pipeline</span><br><span class="line">  ├─ 输出：每样本折叠数、标题清单、门禁违规</span><br><span class="line">  └─ 秒级完成，可全量回归</span><br><span class="line"></span><br><span class="line">语义侧（人工/Agent 标注）</span><br><span class="line">  ├─ 逐样本标注意想结构（哪行该是标题、折叠层级）</span><br><span class="line">  └─ 形成&quot;理想答案&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-对比矩阵"><a href="#3-2-对比矩阵" class="headerlink" title="3.2 对比矩阵"></a>3.2 对比矩阵</h3><table>
+<thead>
+<tr>
+<th>样本</th>
+<th>脚本折叠数</th>
+<th>语义期望</th>
+<th>差异</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>auto-q01</td>
+<td>7</td>
+<td>7</td>
+<td>0</td>
+<td>✅ 对齐</td>
+</tr>
+<tr>
+<td>auto-q03</td>
+<td>2</td>
+<td>5</td>
+<td>-3</td>
+<td>🔴 缺「步」识别</td>
+</tr>
+<tr>
+<td>auto-02（真实文章）</td>
+<td>0</td>
+<td>10+</td>
+<td>-10</td>
+<td>🔴 紧凑排版局限</td>
+</tr>
+<tr>
+<td>auto-q10</td>
+<td>11</td>
+<td>8</td>
+<td>+3</td>
+<td>🟡 细粒度差异</td>
+</tr>
+</tbody></table>
+<p>差异分析 → 归类（规则缺口 &#x2F; 粒度选择 &#x2F; 局限声明）→ 决策（修规则 &#x2F; 记局限 &#x2F; 留 LLM 兜底）。</p>
+<h2 id="4-规则迭代闭环"><a href="#4-规则迭代闭环" class="headerlink" title="4. 规则迭代闭环"></a>4. 规则迭代闭环</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">双轨对比 → 定位缺口 → 写失败测试（先红）</span><br><span class="line">→ 修规则 → 测试转绿 → 全量回归（防回退）</span><br><span class="line">→ 沉淀经验 → 下一轮</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-1-实证迭代案例"><a href="#4-1-实证迭代案例" class="headerlink" title="4.1 实证迭代案例"></a>4.1 实证迭代案例</h3><table>
+<thead>
+<tr>
+<th>轮次</th>
+<th>样本实证</th>
+<th>修复</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P1</td>
+<td>sample-09「第一轮：上下文工程」</td>
+<td>ROUND_HEAD 补轮次</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>auto-q03「第一步：先定总预算」</td>
+<td>ROUND_HEAD 补「步」</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>sample-11 引导句「两个主流技术选型：」</td>
+<td>尾冒号先于疑问式排除</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>sample-13「🤖 AGENT CONTEXT ENGINEERING — MACHINE-SPECIFICATION v1.0」44 字</td>
+<td>emoji 放宽到 60 + 截断</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>sample-08「🌍 为什么国内看似”不常见”」</td>
+<td>emoji 含引号+疑问词放行</td>
+</tr>
+</tbody></table>
+<h3 id="4-2-批次闭环纪律"><a href="#4-2-批次闭环纪律" class="headerlink" title="4.2 批次闭环纪律"></a>4.2 批次闭环纪律</h3><p>用户明确批评过”协作效率太低”，沉淀为批次纪律：</p>
+<ol>
+<li><strong>处理一批，沉淀一批</strong>（避免上下文压缩丢失）</li>
+<li><strong>问题-规则-测试一一对应</strong>（每个规则缺口有对应失败测试）</li>
+<li><strong>全量双轨对比</strong>（不抽样、不凭感觉）</li>
+<li><strong>结果落盘</strong>（analysis&#x2F;24-29 文档 + 记忆系统联动）</li>
+</ol>
+<h2 id="5-已知局限（诚实声明）"><a href="#5-已知局限（诚实声明）" class="headerlink" title="5. 已知局限（诚实声明）"></a>5. 已知局限（诚实声明）</h2><ul>
+<li><strong>紧凑排版零折叠</strong>（auto-02 真实文章）：标题后无空行时弱信号不识别。保守不破规则（放宽孤立段要求会大幅误判），记为 LLM 兜底接口输入</li>
+<li><strong>细粒度 vs 语义粗粒度</strong>（auto-q02&#x2F;q04&#x2F;q08&#x2F;q09&#x2F;q10）：脚本按形态拆块可能多于语义合并——差异属粒度选择，非缺陷</li>
+</ul>
+<h2 id="6-本阶段启示"><a href="#6-本阶段启示" class="headerlink" title="6. 本阶段启示"></a>6. 本阶段启示</h2><p>**规则迭代的最高效路径不是”想更多规则”，而是”喂更多样本”**。双轨对比把”规则好不好”变成可量化指标（折叠数对齐率、标题命中率），驱动规则向真实分布收敛。这套方法也适用于任何”启发式规则 + 人工标注”结合的系统。</p>
+<p>下一篇讲 M5.4：UI 细节修正与样本固化的测试思维。</p>
+<blockquote>
+<p>系列目录：<a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-7-%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/">七、标题识别</a> · <a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-9-UI%E7%BB%86%E8%8A%82%E4%B8%8E%E6%A0%B7%E6%9C%AC%E5%9B%BA%E5%8C%96/">九、UI 细节修正</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-8-%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/" data-id="cmtl330u10012sg2beima0is7" data-title="Quizify Bridge 分阶段实战（八）：样本工程——双轨对比驱动的规则迭代" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quizify/" rel="tag">Quizify</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%8C%E8%BD%A8%E5%AF%B9%E6%AF%94/" rel="tag">双轨对比</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/" rel="tag">样本工程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%A7%84%E5%88%99%E8%BF%AD%E4%BB%A3/" rel="tag">规则迭代</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-Quizify-Bridge-分阶段实战-7-标题识别" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-7-%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/" class="article-date">
+  <time class="dt-published" datetime="2026-09-03T13:00:00.000Z" itemprop="datePublished">2026-09-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">技术实践</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-7-%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/">Quizify Bridge 分阶段实战（七）：标题识别规则体系 P0-P3——从强信号到揭示语法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Quizify-Bridge-分阶段实战（七）：标题识别规则体系-P0-P3——从强信号到揭示语法"><a href="#Quizify-Bridge-分阶段实战（七）：标题识别规则体系-P0-P3——从强信号到揭示语法" class="headerlink" title="Quizify Bridge 分阶段实战（七）：标题识别规则体系 P0-P3——从强信号到揭示语法"></a>Quizify Bridge 分阶段实战（七）：标题识别规则体系 P0-P3——从强信号到揭示语法</h1><blockquote>
+<p>日期：2026-09-03 · 系列第七篇</p>
+</blockquote>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>剪贴板文本没有 <code>#</code> 标题标记，折叠又从哪来？答案：<strong>从文本形态推断标题</strong>。这是全项目最有技术含量的一章——用规则体系把”AI 长文里的标题”从正文中识别出来，精度逼近人工标注（显式信号 ~90%）。本文完整拆解 StructureInference v2 的规则体系：强信号、弱信号揭示语法、长度策略、以及八类正文误判排除。</p>
+<h2 id="1-问题：无标记文本怎么找标题"><a href="#1-问题：无标记文本怎么找标题" class="headerlink" title="1. 问题：无标记文本怎么找标题"></a>1. 问题：无标记文本怎么找标题</h2><p>AI 平台复制出的文本没有 Markdown 标记，标题和正文都是裸文本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">人机交互到底是什么：不只是&quot;画界面&quot;</span><br><span class="line">（正文段落…）</span><br><span class="line">为什么建筑学、船舶与海洋工程的同学在转 HCI</span><br><span class="line">（正文段落…）</span><br></pre></td></tr></table></figure>
+
+<p>要折叠，必须先回答：<strong>哪一行是标题？</strong></p>
+<h2 id="2-信号分级：强信号-vs-弱信号"><a href="#2-信号分级：强信号-vs-弱信号" class="headerlink" title="2. 信号分级：强信号 vs 弱信号"></a>2. 信号分级：强信号 vs 弱信号</h2><h3 id="2-1-强信号（命中即折叠，无长度门禁）"><a href="#2-1-强信号（命中即折叠，无长度门禁）" class="headerlink" title="2.1 强信号（命中即折叠，无长度门禁）"></a>2.1 强信号（命中即折叠，无长度门禁）</h3><p>有明确形态特征的标题，直接命中：</p>
+<table>
+<thead>
+<tr>
+<th>信号</th>
+<th>模式</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>序号标题</td>
+<td>方案&#x2F;步骤&#x2F;方法…+序号</td>
+<td>方案一：买域名</td>
+</tr>
+<tr>
+<td>中文编号</td>
+<td>一、&#x2F;（一）&#x2F;（二）</td>
+<td>一、背景</td>
+</tr>
+<tr>
+<td>章节号</td>
+<td>§N</td>
+<td>§1 CONTEXT BUDGET</td>
+</tr>
+<tr>
+<td>轮次标题</td>
+<td>第X轮&#x2F;章&#x2F;节&#x2F;阶段&#x2F;部分&#x2F;篇&#x2F;步</td>
+<td>第一步：理解需求</td>
+</tr>
+<tr>
+<td>原则标题</td>
+<td>原则N：</td>
+<td>原则一：注意力优先</td>
+</tr>
+<tr>
+<td>emoji 前缀</td>
+<td>🎨&#x2F;⚓&#x2F;✅&#x2F;❌&#x2F;⚠️&#x2F;❗…</td>
+<td>🎨 建筑学迁移优势</td>
+</tr>
+<tr>
+<td>加粗短行</td>
+<td><strong>xxx</strong>（≤30字）</td>
+<td><strong>核心结论</strong></td>
+</tr>
+<tr>
+<td>疑问式</td>
+<td>含疑问词（什么&#x2F;如何&#x2F;为什么…）</td>
+<td>我的疑问是什么</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-弱信号（纯文本短行-→-揭示语法）"><a href="#2-2-弱信号（纯文本短行-→-揭示语法）" class="headerlink" title="2.2 弱信号（纯文本短行 → 揭示语法）"></a>2.2 弱信号（纯文本短行 → 揭示语法）</h3><p>无任何标记的短行（≤40 字），用”标题形态 vs 正文形态”判定。</p>
+<h2 id="3-揭示语法：标题像什么，正文像什么"><a href="#3-揭示语法：标题像什么，正文像什么" class="headerlink" title="3. 揭示语法：标题像什么，正文像什么"></a>3. 揭示语法：标题像什么，正文像什么</h2><p>灵感来自语言学（主位-述位理论 + 中文标题正则研究，HoWToBench &#x2F; CY-T 35-2001）。</p>
+<h3 id="3-1-标题形态（判为标题）"><a href="#3-1-标题形态（判为标题）" class="headerlink" title="3.1 标题形态（判为标题）"></a>3.1 标题形态（判为标题）</h3><ul>
+<li>疑问式短语：「我的疑问是什么」「怎么解决 HTTPS？」</li>
+<li>名词性收尾：「HCI 的职业发展路径」「给你的选择建议」</li>
+<li>4~14 字孤立名词短语：「Agent 协作红绿灯」</li>
+</ul>
+<h3 id="3-2-正文形态（判为正文，8-类排除）"><a href="#3-2-正文形态（判为正文，8-类排除）" class="headerlink" title="3.2 正文形态（判为正文，8 类排除）"></a>3.2 正文形态（判为正文，8 类排除）</h3><table>
+<thead>
+<tr>
+<th>#</th>
+<th>形态</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>句读收尾（。，；…含右引号）</td>
+<td>“记忆已固化。”</td>
+</tr>
+<tr>
+<td>2</td>
+<td>口语&#x2F;体标记收尾（了&#x2F;着&#x2F;过&#x2F;吗&#x2F;呢&#x2F;吧&#x2F;的）</td>
+<td>明白了 &#x2F; 做完了</td>
+</tr>
+<tr>
+<td>3</td>
+<td>尾冒号引导行（先于疑问式排除）</td>
+<td>两个主流技术选型：</td>
+</tr>
+<tr>
+<td>4</td>
+<td>连接词&#x2F;转折词开头（但是&#x2F;所以&#x2F;如果…）</td>
+<td>但是这样做不行</td>
+</tr>
+<tr>
+<td>5</td>
+<td>叙事主体开头（我们&#x2F;大家&#x2F;这些…）</td>
+<td>我们要先理解</td>
+</tr>
+<tr>
+<td>6</td>
+<td>动词&#x2F;介词引导（适合&#x2F;通过&#x2F;需要&#x2F;指定了&#x2F;提出了…40+）</td>
+<td>指定了验证方法</td>
+</tr>
+<tr>
+<td>7</td>
+<td>枚举前缀（Tier&#x2F;Level&#x2F;Phase&#x2F;Round）、阿拉伯列表、把字句、含连接符号</td>
+<td>向量 + 知识图谱混合</td>
+</tr>
+<tr>
+<td>8</td>
+<td>定义句（：+斜杠枚举）、这&#x2F;那+是&#x2F;有&#x2F;在判断句</td>
+<td>四层记忆架构：工作 &#x2F; 情景 &#x2F; 语义 &#x2F; 程序</td>
+</tr>
+</tbody></table>
+<h3 id="3-3-判定顺序（关键）"><a href="#3-3-判定顺序（关键）" class="headerlink" title="3.3 判定顺序（关键）"></a>3.3 判定顺序（关键）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">len → 句读收尾 → 口语标记 → 尾冒号（先于疑问式！）</span><br><span class="line">→ 疑问式 → 右引号（无疑问词才排除）→ 连接词 → 叙事主体</span><br><span class="line">→ 这/那判断句 → 动词引导 → 枚举前缀 → 阿拉伯列表 → 转折词</span><br><span class="line">→ 把字句 → 定义句 → 连接符号 → 去尾括号 → 名词收尾 → 兜底 4..14</span><br></pre></td></tr></table></figure>
+
+<p><strong>两个顺序陷阱</strong>（样本实证）：</p>
+<ol>
+<li><strong>尾冒号必须先于疑问式</strong>：「两个主流技术选型：」含冒号是引导行，若疑问式先判定会误判</li>
+<li><strong>右引号必须在疑问式之后</strong>：「人机交互到底是什么：不只是”画界面”」含疑问词是标题，若右引号先排除会误杀</li>
+</ol>
+<h2 id="4-长度策略：能制卡-标题完美"><a href="#4-长度策略：能制卡-标题完美" class="headerlink" title="4. 长度策略：能制卡 &gt; 标题完美"></a>4. 长度策略：能制卡 &gt; 标题完美</h2><p>初始规则”超长标题直接拒绝”被用户纠正：</p>
+<blockquote>
+<p><strong>能制卡 &gt; 某一个标题不完美</strong>——命中即折叠，超长只影响展示，不影响生成。</p>
+</blockquote>
+<ul>
+<li>弱信号软护栏 40 字（超过不判弱信号，但强信号不设限）</li>
+<li>emoji 标题放宽到 60 字</li>
+<li>超长标题：截断展示而非拒绝写入</li>
+</ul>
+<h2 id="5-上下文辅助规则"><a href="#5-上下文辅助规则" class="headerlink" title="5. 上下文辅助规则"></a>5. 上下文辅助规则</h2><ul>
+<li><strong>前一行尾冒号</strong> → 本行按列表项处理（引导行后的行为短行）</li>
+<li><strong><code>---</code> 分隔线后</strong> → 一级章节（H1）</li>
+<li><strong>前一行完整句收尾（句读）</strong> → 视作段落边界，允许后一短行为标题（样本 08 实证）</li>
+</ul>
+<h2 id="6-与-LLM-的差距（诚实审计）"><a href="#6-与-LLM-的差距（诚实审计）" class="headerlink" title="6. 与 LLM 的差距（诚实审计）"></a>6. 与 LLM 的差距（诚实审计）</h2><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>规则侧</th>
+<th>人工&#x2F;LLM</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>显式信号（序号&#x2F;emoji&#x2F;加粗）</td>
+<td>~90%</td>
+<td>~100%</td>
+</tr>
+<tr>
+<td>列表项 vs 标题（上下文引导）</td>
+<td>~60%</td>
+<td>~100%</td>
+</tr>
+<tr>
+<td>隐式语义标题</td>
+<td>~50%</td>
+<td>~95%</td>
+</tr>
+<tr>
+<td>层级归位（嵌套）</td>
+<td>无</td>
+<td>~100%</td>
+</tr>
+</tbody></table>
+<p><strong>最大差距</strong>：列表项 vs 标题（需要上下文理解）、层级归位（需要全局结构感知）。收敛方向：两个 LLM 兜底接口（引导行&#x2F;列表项复核 + 层级归位）。</p>
+<h2 id="7-验证"><a href="#7-验证" class="headerlink" title="7. 验证"></a>7. 验证</h2><ul>
+<li>BatchInferenceTest 27 项（含每类信号的命中 + 8 类排除的回归护栏）</li>
+<li>全量回归：engine 139 全绿</li>
+<li>样本批处理双轨对比（脚本 vs 语义）驱动规则迭代</li>
+</ul>
+<h2 id="8-本阶段启示"><a href="#8-本阶段启示" class="headerlink" title="8. 本阶段启示"></a>8. 本阶段启示</h2><p><strong>规则系统的天花板是”形态特征”，LLM 的天花板是”语义理解”<strong>。规则的优势是确定性、零成本、可测试；LLM 的优势是上下文感知。成熟的方案不是二选一，而是</strong>规则为主 + LLM 兜底</strong>——规则覆盖高频显式场景，LLM 处理规则覆盖不了的上下文场景。</p>
+<p>下一篇讲驱动这套规则迭代的引擎：样本工程与双轨对比。</p>
+<blockquote>
+<p>系列目录：<a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-6-%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/">六、分层接线</a> · <a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-8-%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/">八、样本工程</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-7-%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/" data-id="cmtl330u00010sg2b9bpz6tzy" data-title="Quizify Bridge 分阶段实战（七）：标题识别规则体系 P0-P3——从强信号到揭示语法" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quizify/" rel="tag">Quizify</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8F%AD%E7%A4%BA%E8%AF%AD%E6%B3%95/" rel="tag">揭示语法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/" rel="tag">标题识别</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%AD%A3%E5%88%99/" rel="tag">正则</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AF%AD%E8%A8%80%E5%AD%A6/" rel="tag">语言学</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-Quizify-Bridge-分阶段实战-6-分层接线" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-6-%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/" class="article-date">
+  <time class="dt-published" datetime="2026-09-03T12:50:00.000Z" itemprop="datePublished">2026-09-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">技术实践</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-6-%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/">Quizify Bridge 分阶段实战（六）：M5.3 分层接线——把断开的链路真正接起来</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Quizify-Bridge-分阶段实战（六）：M5-3-分层接线——把断开的链路真正接起来"><a href="#Quizify-Bridge-分阶段实战（六）：M5-3-分层接线——把断开的链路真正接起来" class="headerlink" title="Quizify Bridge 分阶段实战（六）：M5.3 分层接线——把断开的链路真正接起来"></a>Quizify Bridge 分阶段实战（六）：M5.3 分层接线——把断开的链路真正接起来</h1><blockquote>
+<p>日期：2026-09-03 · 系列第六篇</p>
+</blockquote>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>前五篇的引擎、UI 各自就绪，但存在一个致命问题：<strong>App 的 <code>regenerate()</code> 只跑引擎管线，从未接线 StructureRouter</strong>——路由是死代码。用户实测 Vaultwarden 样本”应该有折叠却没有”，正是链路断开的直接证据。M5.3 的核心工作：CardConverter → StructureInference → StructureRouter → Pipeline 全链路接线，并解决”剪贴板长文本必须有折叠”这一核心诉求。</p>
+<h2 id="1-断链根因：测试锁的与代码跑的不是同一套"><a href="#1-断链根因：测试锁的与代码跑的不是同一套" class="headerlink" title="1. 断链根因：测试锁的与代码跑的不是同一套"></a>1. 断链根因：测试锁的与代码跑的不是同一套</h2><p>诊断发现：</p>
+<ul>
+<li>测试锁的是 <code>StructureRouter</code>（R0-R3 路由规格）行为</li>
+<li>但 <code>regenerate()</code> 实际只跑 engine <code>Pipeline</code></li>
+<li><strong>路由从未接线</strong>（StructureRouter 是死代码）</li>
+</ul>
+<p>这是典型的”测试与实现脱节”：测试绿，不代表产品行为对。也解释了用户”Back 字段自动更新是路由的关系，并没达到理想效果”的反馈。</p>
+<h2 id="2-接线后的全链路"><a href="#2-接线后的全链路" class="headerlink" title="2. 接线后的全链路"></a>2. 接线后的全链路</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CardConverter（app/core）</span><br><span class="line">  ├─ R0 双输入分流：</span><br><span class="line">  │    已是 Quizify MD（围栏外含 ::: / &gt; [!）→ 直通蓝本（不重复处理）</span><br><span class="line">  │    原始文本 → StructureInference（无标记标题信号推断 + tab 表格→| 表格）</span><br><span class="line">  │              → StructureRouter.route 判定 R0-R3</span><br><span class="line">  ├─ cloze 包裹（跳过标题/折叠/reveal/代码围栏）</span><br><span class="line">  ├─ inlineCode（文件名/代码 token → 行内反引号）</span><br><span class="line">  └─ RuleValidator P0/T 门禁（违例硬拒）</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-R0-R3-路由规格"><a href="#2-1-R0-R3-路由规格" class="headerlink" title="2.1 R0-R3 路由规格"></a>2.1 R0-R3 路由规格</h3><table>
+<thead>
+<tr>
+<th>路由</th>
+<th>判定</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A_FLAT</td>
+<td>无结构信号</td>
+<td>蓝本 toQuizify 栈式折叠</td>
+</tr>
+<tr>
+<td>B_ALERT</td>
+<td>含警示词（注意&#x2F;警告&#x2F;必须…）</td>
+<td>Router 生成 alert 模板</td>
+</tr>
+<tr>
+<td>C_TABS</td>
+<td>对比词 + ≥2 子标题</td>
+<td>Router 生成 tabs 模板</td>
+</tr>
+<tr>
+<td>D_NESTED</td>
+<td><code>#</code> 与 <code>##</code> 共存</td>
+<td>蓝本 2 层 <code>:::</code> 嵌套折叠</td>
+</tr>
+</tbody></table>
+<p><strong>关键约束</strong>：B&#x2F;C 由 Router 生成（特殊模板），A&#x2F;D 由蓝本 toQuizify 折叠（避免双重处理）。</p>
+<h3 id="2-2-折叠的-LIFO-闭合"><a href="#2-2-折叠的-LIFO-闭合" class="headerlink" title="2.2 折叠的 LIFO 闭合"></a>2.2 折叠的 LIFO 闭合</h3><p>Quizify 折叠 <code>:::</code> 是 LIFO（后进先出）配对：</p>
+<ul>
+<li>嵌套 ≤2 层（B1 建议上限）</li>
+<li>闭合顺序严格逆序，乱序会结构错乱</li>
+<li>无法提取到警示行时降级 A（保守）</li>
+</ul>
+<h3 id="2-3-containsStructuralFold：围栏感知"><a href="#2-3-containsStructuralFold：围栏感知" class="headerlink" title="2.3 containsStructuralFold：围栏感知"></a>2.3 containsStructuralFold：围栏感知</h3><p>旧实现 <code>contains(&quot;:::&quot;)</code> 全文误判——代码示例里的 <code>:::</code> 字面量会让整个文档跳过转换。修复为<strong>围栏外扫描</strong>：<code>```</code> 围栏内的 <code>:::</code> 不算结构标记，且 <code>&gt; [!TYPE]</code> 也算”已是 Quizify MD”信号。</p>
+<h2 id="3-剪贴板长文本的折叠诉求"><a href="#3-剪贴板长文本的折叠诉求" class="headerlink" title="3. 剪贴板长文本的折叠诉求"></a>3. 剪贴板长文本的折叠诉求</h2><p>用户明确对齐过：</p>
+<blockquote>
+<p><strong>长文本必须要有折叠</strong>——这是 Anki 记忆的最小原子单元，没有折叠的卡片等于一坨无法复习的文本。</p>
+</blockquote>
+<p>这驱动了两个设计：</p>
+<ol>
+<li><strong>强信号命中即折叠</strong>：序号&#x2F;emoji&#x2F;加粗&#x2F;§N&#x2F;第X轮&#x2F;原则N 等明确标题信号，直接折叠</li>
+<li><strong>弱信号揭示语法</strong>：纯文本短行用”标题形态 vs 正文形态”判定（下一篇详述）</li>
+</ol>
+<h2 id="4-验证"><a href="#4-验证" class="headerlink" title="4. 验证"></a>4. 验证</h2><ul>
+<li>CardConverter → Pipeline 全链路单测（含 D 路由两层嵌套折叠 + LIFO 闭合 0 P0）</li>
+<li>样本 7（Vaultwarden）全链路 trace：8 个折叠块，LIFO 平衡</li>
+<li>L3 全量回归：engine 106 + app 33 全绿</li>
+</ul>
+<h2 id="5-本阶段启示"><a href="#5-本阶段启示" class="headerlink" title="5. 本阶段启示"></a>5. 本阶段启示</h2><p><strong>“分层”只是架构图，接线才是架构本身</strong>。死代码再多层也是零。M5.3 的教训是：验证一个分层系统，必须测<strong>全链路端到端</strong>，而不是每层各自单测——各自绿不等于链路通。</p>
+<p>下一篇讲全项目最有技术含量的一章：标题识别规则体系（P0-P3）。</p>
+<blockquote>
+<p>系列目录：<a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-5-%E5%BC%95%E6%93%8E%E5%85%A5%E5%BA%93%E4%B8%8EUI/">五、引擎入库与 UI</a> · <a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-7-%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/">七、标题识别规则体系</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-6-%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/" data-id="cmtl330tz000xsg2b23qqh38l" data-title="Quizify Bridge 分阶段实战（六）：M5.3 分层接线——把断开的链路真正接起来" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quizify/" rel="tag">Quizify</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/StructureRouter/" rel="tag">StructureRouter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/" rel="tag">分层接线</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B7%AF%E7%94%B1/" rel="tag">路由</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-Quizify-Bridge-分阶段实战-5-引擎入库与UI" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-5-%E5%BC%95%E6%93%8E%E5%85%A5%E5%BA%93%E4%B8%8EUI/" class="article-date">
+  <time class="dt-published" datetime="2026-09-03T12:40:00.000Z" itemprop="datePublished">2026-09-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">技术实践</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-5-%E5%BC%95%E6%93%8E%E5%85%A5%E5%BA%93%E4%B8%8EUI/">Quizify Bridge 分阶段实战（五）：M5 引擎入库与 UI 三件套——从纯逻辑到可交互</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Quizify-Bridge-分阶段实战（五）：M5-引擎入库与-UI-三件套——从纯逻辑到可交互"><a href="#Quizify-Bridge-分阶段实战（五）：M5-引擎入库与-UI-三件套——从纯逻辑到可交互" class="headerlink" title="Quizify Bridge 分阶段实战（五）：M5 引擎入库与 UI 三件套——从纯逻辑到可交互"></a>Quizify Bridge 分阶段实战（五）：M5 引擎入库与 UI 三件套——从纯逻辑到可交互</h1><blockquote>
+<p>日期：2026-09-03 · 系列第五篇</p>
+</blockquote>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>M1-M4 的解析引擎是独立工程（verification&#x2F;），跑在 JVM 验证台上，与安卓 App 完全分离。M5 的任务是把引擎<strong>物理并入安卓工程</strong>成为 <code>:engine</code> 模块，并完成 UI 三件套：剪贴板读取、设置开关、暗黑模式。这是项目从”逻辑正确”走向”产品可用”的转折点。</p>
+<h2 id="1-M5-1-引擎入库"><a href="#1-M5-1-引擎入库" class="headerlink" title="1. M5.1 引擎入库"></a>1. M5.1 引擎入库</h2><h3 id="1-1-为什么必须入库"><a href="#1-1-为什么必须入库" class="headerlink" title="1.1 为什么必须入库"></a>1.1 为什么必须入库</h3><p>之前的引擎在独立工程 <code>verification/</code>，App 用不到它——这是”引擎双份代码漂移”的温床：App 里一套规则、验证台里另一套。用户实测”解析处 0 阶段”正是因为 App 从未接线到引擎。</p>
+<h3 id="1-2-决策：物理单源"><a href="#1-2-决策：物理单源" class="headerlink" title="1.2 决策：物理单源"></a>1.2 决策：物理单源</h3><p>两个候选方案：</p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>说明</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>复制一份进 repo</td>
+<td>保留 verification 独立</td>
+<td>❌ 双份漂移风险仍在</td>
+</tr>
+<tr>
+<td><strong>verification 并入 repo 作为 <code>:engine</code> 模块</strong></td>
+<td>物理单源</td>
+<td>✅ 推荐，采纳</td>
+</tr>
+</tbody></table>
+<p>最终 <code>:engine</code> 模块成立：纯 JVM（无 android.*），app 依赖 engine。迁移后以 repo 为唯一真源，verification 停更只读。</p>
+<h3 id="1-3-里程碑门"><a href="#1-3-里程碑门" class="headerlink" title="1.3 里程碑门"></a>1.3 里程碑门</h3><p>engine 模块测试 95&#x2F;95 全绿（随迁断言套件不丢）——测试全绿为门的第一道实体闸门。</p>
+<h2 id="2-M5-2-UI-三件套"><a href="#2-M5-2-UI-三件套" class="headerlink" title="2. M5.2 UI 三件套"></a>2. M5.2 UI 三件套</h2><h3 id="2-1-剪贴板读取"><a href="#2-1-剪贴板读取" class="headerlink" title="2.1 剪贴板读取"></a>2.1 剪贴板读取</h3><p><strong>需求</strong>：用户复制 AI 长文后打开 App，应自动带入剪贴板内容，无需手动粘贴。</p>
+<p>实现要点：</p>
+<ul>
+<li><code>ClipboardManager</code> 抽象可注入（测试友好）</li>
+<li>进入 App 即读剪贴板；仅当输入区为空时自动带入（避免覆盖用户已输入内容）</li>
+<li>Android 12+ 系统强制 toast 提示（系统行为，无法关闭）</li>
+<li>无权限时回退到分享输入（复用 IntentHelper）</li>
+</ul>
+<p>关键抽象：<code>ClipboardSource</code> 接口 + <code>AndroidClipboardSource</code> 实现，测试注入 mock。</p>
+<h3 id="2-2-设置开关（持久化）"><a href="#2-2-设置开关（持久化）" class="headerlink" title="2.2 设置开关（持久化）"></a>2.2 设置开关（持久化）</h3><p><strong>需求</strong>：用户能开关增强层各能力（公式&#x2F;alert&#x2F;cloze&#x2F;tabs）、cloze 激进档位等，且重启后保留。</p>
+<p>架构：<code>SettingsStore</code>（DataStore 持久化）→ <code>AppSettings</code> 数据类 → <code>Pipeline.Options</code> 派生 → 引擎管线参数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UI 开关 → DataStore 写入 → Flow 回灌 → regenerate() 重跑解析</span><br></pre></td></tr></table></figure>
+
+<p>设置流的关键设计：<strong>开关改动即重跑解析</strong>，用户立刻看到效果，而不是”下次生效”。</p>
+<h3 id="2-3-暗黑模式"><a href="#2-3-暗黑模式" class="headerlink" title="2.3 暗黑模式"></a>2.3 暗黑模式</h3><p><strong>需求</strong>：支持跟随系统 + 手动强制。</p>
+<p>实现：Material3 动态主题，<code>isSystemInDarkTheme()</code> + 手动开关（并入设置页）。<code>darkMode=true</code> 强制暗色，否则跟随系统。</p>
+<p><strong>踩坑</strong>：暗黑模式开启&#x2F;不开启没效果——根因是缺少 Surface 兜底背景，暗色下浅字浅底看不清。修复：<code>Surface(color = MaterialTheme.colorScheme.background)</code> 包裹内容，两主题渲染正常。</p>
+<h3 id="2-4-输入框字体偏淡"><a href="#2-4-输入框字体偏淡" class="headerlink" title="2.4 输入框字体偏淡"></a>2.4 输入框字体偏淡</h3><p>用户反馈”输入框字体偏淡看不清”。这是 OutlinedTextField 的占位符&#x2F;标签颜色在浅色背景下对比度不足的问题，调整后视觉对比度达标。</p>
+<h2 id="3-验证"><a href="#3-验证" class="headerlink" title="3. 验证"></a>3. 验证</h2><ul>
+<li>L0b Robolectric 全绿（EditorScreenLayoutTest 锁死”保存按钮不被挤出屏幕”不变量）</li>
+<li>开关→输出变化有断言</li>
+<li>重启后设置恢复有断言（DataStore 持久化）</li>
+<li>暗黑两主题渲染无崩溃</li>
+</ul>
+<h2 id="4-本阶段启示"><a href="#4-本阶段启示" class="headerlink" title="4. 本阶段启示"></a>4. 本阶段启示</h2><p>**UI 不是”画界面”，而是”可交互的状态流”**。M5.2 最大的架构收益是把 UI 状态与引擎管线解耦：UI 只管用户操作 → 状态变更 → 引擎重跑 → 展示结果，纯逻辑引擎保持可测。这为 M5.3 的”分层接线”（UI → 结构识别 → 路由 → 管线）铺平了道路。</p>
+<p>下一篇讲 M5.3 的核心：分层接线与标题结构推断。</p>
+<blockquote>
+<p>系列目录：<a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-4-%E5%A2%9E%E5%BC%BA%E5%B1%82/">四、增强层</a> · <a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-6-%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/">六、分层接线</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-5-%E5%BC%95%E6%93%8E%E5%85%A5%E5%BA%93%E4%B8%8EUI/" data-id="cmtl330tx000ssg2b27i5cws6" data-title="Quizify Bridge 分阶段实战（五）：M5 引擎入库与 UI 三件套——从纯逻辑到可交互" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Compose/" rel="tag">Compose</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quizify/" rel="tag">Quizify</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%AA%E8%B4%B4%E6%9D%BF/" rel="tag">剪贴板</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F/" rel="tag">暗黑模式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E7%BD%AE%E6%8C%81%E4%B9%85%E5%8C%96/" rel="tag">设置持久化</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-Quizify-Bridge-分阶段实战-4-增强层" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-4-%E5%A2%9E%E5%BC%BA%E5%B1%82/" class="article-date">
+  <time class="dt-published" datetime="2026-09-03T12:30:00.000Z" itemprop="datePublished">2026-09-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">技术实践</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-4-%E5%A2%9E%E5%BC%BA%E5%B1%82/">Quizify Bridge 分阶段实战（四）：M4 增强层——蓝本没有的新能力</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Quizify-Bridge-分阶段实战（四）：M4-增强层——蓝本没有的新能力"><a href="#Quizify-Bridge-分阶段实战（四）：M4-增强层——蓝本没有的新能力" class="headerlink" title="Quizify Bridge 分阶段实战（四）：M4 增强层——蓝本没有的新能力"></a>Quizify Bridge 分阶段实战（四）：M4 增强层——蓝本没有的新能力</h1><blockquote>
+<p>日期：2026-09-03 · 系列第四篇</p>
+</blockquote>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>蓝本解决了”标准结构怎么定”，但用户实际使用中还有蓝本覆盖不到的场景：标签页（tabs）开放模式、公式统一体系、强调词扩展映射、cloze 收窄默认开。M4 增强层就是这些”蓝本没有的新能力”的落地点。与补全&#x2F;蓝本层的保守不同，增强层允许<strong>激进</strong>——最多多包一层，内容无损。</p>
+<h2 id="1-增强层四件套"><a href="#1-增强层四件套" class="headerlink" title="1. 增强层四件套"></a>1. 增强层四件套</h2><h3 id="1-1-tabs-开放模式（标签页）"><a href="#1-1-tabs-开放模式（标签页）" class="headerlink" title="1.1 tabs 开放模式（标签页）"></a>1.1 tabs 开放模式（标签页）</h3><p>蓝本只对”≥2 相邻代码块”触发 tabs。但 AI 回答里常见”短词+冒号”开头的对比段落（如”方案A：…\n方案B：…”），蓝本不识别。</p>
+<p>增强层：<strong>任意短词+冒号 → 标签页</strong>，统一容器处理。风险可控——“最多多包一层代码框，内容无损”，与保守原则相符。</p>
+<h3 id="1-2-公式统一体系"><a href="#1-2-公式统一体系" class="headerlink" title="1.2 公式统一体系"></a>1.2 公式统一体系</h3><p>AI 回答中的数学公式形态混乱：块级 <code>$$</code>、行内 <code>$</code>、化学式 <code>\ce</code>。增强层把它们统一接入公式渲染体系：</p>
+<table>
+<thead>
+<tr>
+<th>形态</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>块级 <code>$$ ... $$</code></td>
+<td>保留块级公式</td>
+</tr>
+<tr>
+<td>行内 <code>$ ... $</code></td>
+<td>行内公式</td>
+</tr>
+<tr>
+<td><code>\ce&#123;...&#125;</code></td>
+<td>化学式并入公式体系</td>
+</tr>
+</tbody></table>
+<h3 id="1-3-强调词扩展映射（alert）"><a href="#1-3-强调词扩展映射（alert）" class="headerlink" title="1.3 强调词扩展映射（alert）"></a>1.3 强调词扩展映射（alert）</h3><p>蓝本的 alert 四类（WARNING&#x2F;IMPORTANT&#x2F;CAUTION&#x2F;TIP）用”词边界+120 字阀”触发。但用户场景有领域词：如医学里的”禁忌”应映射 WARNING。增强层提供<strong>扩展映射表</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>词</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>建议 &#x2F; 推荐</td>
+<td>TIP</td>
+</tr>
+<tr>
+<td>务必 &#x2F; 必须</td>
+<td>WARNING</td>
+</tr>
+<tr>
+<td>禁止 &#x2F; 不要</td>
+<td>CAUTION</td>
+</tr>
+<tr>
+<td>补充 &#x2F; 另外</td>
+<td>NOTE</td>
+</tr>
+<tr>
+<td>（用户可自定义领域词）</td>
+<td>…</td>
+</tr>
+</tbody></table>
+<p>这就是”规则配置化”的雏形——映射表外置，用户可以加自己的领域词。</p>
+<h3 id="1-4-cloze-收窄默认开"><a href="#1-4-cloze-收窄默认开" class="headerlink" title="1.4 cloze 收窄默认开"></a>1.4 cloze 收窄默认开</h3><p>蓝本 fitb（填空题）默认关。但用户反馈”引号和书名号内的内容最适合做 cloze”（如”密码银行”）。增强层：<strong>cloze 仅对引号&#x2F;书名号内容默认开启</strong>，避免过度挖空。</p>
+<h2 id="2-分层原则的落实"><a href="#2-分层原则的落实" class="headerlink" title="2. 分层原则的落实"></a>2. 分层原则的落实</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">补全层 / 蓝本层：保守（误判拆碎结构）</span><br><span class="line">增强层：激进（最多多包一层，内容无损）</span><br></pre></td></tr></table></figure>
+
+<p>这个原则直接决定增强层的实现风格：</p>
+<ul>
+<li>tabs 开放模式：宁可多识别，不可漏识别</li>
+<li>公式：识别失败最多变纯文本，不破坏上下文</li>
+<li>alert：词边界匹配，避免误伤普通文本</li>
+</ul>
+<h2 id="3-与规则配置化（P1-2）的衔接"><a href="#3-与规则配置化（P1-2）的衔接" class="headerlink" title="3. 与规则配置化（P1-2）的衔接"></a>3. 与规则配置化（P1-2）的衔接</h2><p>M4 已经为 M5 的”规则配置化”埋下伏笔：</p>
+<ul>
+<li>alert 映射表 → 外置为 <code>rules.toml</code> 可编辑配置</li>
+<li>tabs 触发词 → 配置化</li>
+<li>语言词典 → 外置</li>
+</ul>
+<p>架构上，所有增强规则参数从 <code>Rules.load()</code> 读取，形成”L1 规则单一真源”——彻底消除 rules.md &#x2F; verify_p0.py &#x2F; RuleValidator.kt 三副本漂移。</p>
+<h2 id="4-验证"><a href="#4-验证" class="headerlink" title="4. 验证"></a>4. 验证</h2><ul>
+<li>规则设计讨论 8 项定案逐条可测</li>
+<li>增强层 95&#x2F;95 单测全绿（M4 里程碑门）</li>
+<li>四件套各自有针对性回归用例</li>
+</ul>
+<h2 id="5-本阶段启示"><a href="#5-本阶段启示" class="headerlink" title="5. 本阶段启示"></a>5. 本阶段启示</h2><p>**增强层的价值不在”功能多”，而在”边界清晰”**。蓝本权威负责标准结构，增强层负责蓝本没有的场景，二者通过分层原则隔离——激进增强永远不会破坏保守结构。这种”权威+扩展”的双层模型，是处理”标准与特例”关系的通用答案。</p>
+<p>下一篇讲 M5 前半段：引擎入库与 UI 三件套。</p>
+<blockquote>
+<p>系列目录：<a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-3-%E8%93%9D%E6%9C%AC%E5%B1%82/">三、蓝本层</a> · <a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-5-%E5%BC%95%E6%93%8E%E5%85%A5%E5%BA%93%E4%B8%8EUI/">五、引擎入库与 UI</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-4-%E5%A2%9E%E5%BC%BA%E5%B1%82/" data-id="cmtl330tw000psg2bdahshfn3" data-title="Quizify Bridge 分阶段实战（四）：M4 增强层——蓝本没有的新能力" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quizify/" rel="tag">Quizify</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/alert/" rel="tag">alert</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cloze/" rel="tag">cloze</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tabs/" rel="tag">tabs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%AC%E5%BC%8F/" rel="tag">公式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A2%9E%E5%BC%BA%E5%B1%82/" rel="tag">增强层</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-Quizify-Bridge-分阶段实战-3-蓝本层" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-3-%E8%93%9D%E6%9C%AC%E5%B1%82/" class="article-date">
+  <time class="dt-published" datetime="2026-09-03T12:20:00.000Z" itemprop="datePublished">2026-09-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">技术实践</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-3-%E8%93%9D%E6%9C%AC%E5%B1%82/">Quizify Bridge 分阶段实战（三）：M3 蓝本层——yuanbao2anki 权威规则的 Kotlin 移植</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Quizify-Bridge-分阶段实战（三）：M3-蓝本层——yuanbao2anki-权威规则的-Kotlin-移植"><a href="#Quizify-Bridge-分阶段实战（三）：M3-蓝本层——yuanbao2anki-权威规则的-Kotlin-移植" class="headerlink" title="Quizify Bridge 分阶段实战（三）：M3 蓝本层——yuanbao2anki 权威规则的 Kotlin 移植"></a>Quizify Bridge 分阶段实战（三）：M3 蓝本层——yuanbao2anki 权威规则的 Kotlin 移植</h1><blockquote>
+<p>日期：2026-09-03 · 系列第三篇</p>
+</blockquote>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>补全层修好了输入，接下来要回答”结构怎么定”——答案来自蓝本：yuanbao2anki 的 markdown.js。M3 的核心是把这套经过实战检验的权威规则<strong>逐行移植成 Kotlin</strong>，并保留它的”语法红线”（静默退化陷阱的硬性校验）。本文讲移植方法、关键规则、以及”直通蓝本”与”增强层”的边界。</p>
+<h2 id="1-蓝本是什么"><a href="#1-蓝本是什么" class="headerlink" title="1. 蓝本是什么"></a>1. 蓝本是什么</h2><p>yuanbao2anki 是 AnkiDroid 生态里把 AI 对话转成 Quizify 卡片的成熟方案，其 markdown.js 实现了从 Markdown 到 Quizify 语法的完整转换。我们的项目叫 Bridge（桥），蓝本 &#x3D; 桥的”设计图纸”。</p>
+<p>但注意：<strong>蓝本的能力边界是网页 DOM</strong>。上一讲已说明，纯文本剪贴板输入需要补全层先修符号，蓝本才能发挥权威性。</p>
+<h2 id="2-移植路线：从-JS-到-Kotlin"><a href="#2-移植路线：从-JS-到-Kotlin" class="headerlink" title="2. 移植路线：从 JS 到 Kotlin"></a>2. 移植路线：从 JS 到 Kotlin</h2><h3 id="2-1-蓝本的核心函数链"><a href="#2-1-蓝本的核心函数链" class="headerlink" title="2.1 蓝本的核心函数链"></a>2.1 蓝本的核心函数链</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">parseBlocks    → 把 Markdown 切成块（折叠/代码/表格/列表…）</span><br><span class="line">mergeCodeTabs  → 相邻代码块合并为 tabs</span><br><span class="line">toQuizify      → 块 → Quizify 语法</span><br><span class="line">enhance        → reveal + 高亮等行内增强</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-移植策略"><a href="#2-2-移植策略" class="headerlink" title="2.2 移植策略"></a>2.2 移植策略</h3><table>
+<thead>
+<tr>
+<th>策略</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>逐条断言</td>
+<td>蓝本原版测试样例（11 个）转 JUnit 断言，保证行为一致</td>
+</tr>
+<tr>
+<td>提取稿核对</td>
+<td>216 行提取稿逐条断言</td>
+</tr>
+<tr>
+<td>分层对照</td>
+<td>每份样本标注”补全后 &#x2F; 蓝本后 &#x2F; 增强后”三态期望，防止移植偏差</td>
+</tr>
+</tbody></table>
+<h3 id="2-3-蓝本规则要点（决策记录）"><a href="#2-3-蓝本规则要点（决策记录）" class="headerlink" title="2.3 蓝本规则要点（决策记录）"></a>2.3 蓝本规则要点（决策记录）</h3><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>蓝本行为</th>
+<th>移植决策</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>总门槛</td>
+<td>无结构信号 → 原样直出</td>
+<td><strong>采纳</strong>：有结构信号才加工，避免机械化观感</td>
+</tr>
+<tr>
+<td>h3+ 折叠</td>
+<td>不折叠原样</td>
+<td><strong>采纳</strong>：按蓝本，只折叠 h1&#x2F;h2</td>
+</tr>
+<tr>
+<td>tabs</td>
+<td>≥2 相邻代码块</td>
+<td><strong>采纳</strong>：仅蓝本触发，不搞对比词启发式</td>
+</tr>
+<tr>
+<td>列表≥2</td>
+<td><code>&gt; [!NOTE]</code></td>
+<td><strong>采纳</strong>：列表项转提示框</td>
+</tr>
+<tr>
+<td>表格</td>
+<td>直出</td>
+<td><strong>采纳</strong>：表格原样</td>
+</tr>
+<tr>
+<td>强调词 Alert</td>
+<td>四类+词边界+120 字阀</td>
+<td><strong>采纳</strong>：按蓝本</td>
+</tr>
+<tr>
+<td>行内增强</td>
+<td>reveal + 高亮</td>
+<td><strong>采纳</strong></td>
+</tr>
+<tr>
+<td>cloze</td>
+<td>fitb 默认关</td>
+<td><strong>收窄默认开</strong>：仅引号&#x2F;书名号</td>
+</tr>
+</tbody></table>
+<h2 id="3-语法红线（RedlineChecker）：静默退化陷阱的硬校验"><a href="#3-语法红线（RedlineChecker）：静默退化陷阱的硬校验" class="headerlink" title="3. 语法红线（RedlineChecker）：静默退化陷阱的硬校验"></a>3. 语法红线（RedlineChecker）：静默退化陷阱的硬校验</h2><p>Quizify 语法有个反直觉特性：<strong>语法错误不报错，而是静默退化</strong>——折叠变纯文本、tabs 错乱、alert 漏内容。用户渲染出”错卡”而不自知。</p>
+<p>RedlineChecker 就是这道防线，检查规则包括：</p>
+<table>
+<thead>
+<tr>
+<th>规则</th>
+<th>检查内容</th>
+<th>严重性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R1</td>
+<td><code>::::</code> 与 <code>===</code> 同行混用</td>
+<td>致命</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>recite 块缺 <code>%%</code></td>
+<td>致命</td>
+</tr>
+<tr>
+<td>R3</td>
+<td>折叠开闭不平衡（LIFO 配对）</td>
+<td>致命</td>
+</tr>
+<tr>
+<td>R5</td>
+<td>reveal 跨行 &#x2F; 括号不配对</td>
+<td>致命</td>
+</tr>
+<tr>
+<td>T 系列</td>
+<td>静默退化提示</td>
+<td>需修</td>
+</tr>
+</tbody></table>
+<p>实现上分两类：<strong>折叠平衡</strong>（开闭计数 + LIFO 校验）与<strong>行内配对</strong>（reveal&#x2F;fitb 括号、recite 百分号）。</p>
+<h2 id="4-移植中的关键坑"><a href="#4-移植中的关键坑" class="headerlink" title="4. 移植中的关键坑"></a>4. 移植中的关键坑</h2><h3 id="4-1-与围栏的字面量冲突"><a href="#4-1-与围栏的字面量冲突" class="headerlink" title="4.1 ::: 与围栏的字面量冲突"></a>4.1 <code>:::</code> 与围栏的字面量冲突</h3><p>代码示例里出现 <code>:::</code> 字面量（如展示语法本身），旧实现 <code>contains(&quot;:::&quot;)</code> 会全文误判，导致整个文档跳过转换。修复：<strong>围栏感知扫描</strong>——只有围栏外的 <code>:::</code> 才算结构标记。</p>
+<h3 id="4-2-嵌套折叠的-LIFO-闭合"><a href="#4-2-嵌套折叠的-LIFO-闭合" class="headerlink" title="4.2 嵌套折叠的 LIFO 闭合"></a>4.2 嵌套折叠的 LIFO 闭合</h3><p>Quizify 折叠 <code>:::</code> 是 LIFO（后进先出）配对。蓝本处理 h1→h2 嵌套时，闭合顺序必须严格逆序，否则结构错乱。这个”LIFO 闭合 + 嵌套 ≤2 层”约束贯穿后续 M5.3 的路由设计。</p>
+<h2 id="5-验证与产出"><a href="#5-验证与产出" class="headerlink" title="5. 验证与产出"></a>5. 验证与产出</h2><ul>
+<li>蓝本 11&#x2F;11 + 提取稿 216 行逐条断言全绿</li>
+<li>RedlineChecker 对未闭合围栏反例实测拦截</li>
+<li>蓝本行为与增强层边界清晰化（蓝本权威 + 增强扩展）</li>
+</ul>
+<h2 id="6-本阶段启示"><a href="#6-本阶段启示" class="headerlink" title="6. 本阶段启示"></a>6. 本阶段启示</h2><p><strong>“权威规则”不等于”复制代码”<strong>——移植过程中最花时间的不是翻译语法，而是理解每个规则背后的</strong>假设</strong>（输入是 DOM、h3 不折叠、列表转 NOTE…），并用测试把这些假设固化。假设不固化，下一轮迭代就漂移。</p>
+<p>下一篇讲 M4 增强层：蓝本没有的新能力。</p>
+<blockquote>
+<p>系列目录：<a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-2-%E8%A1%A5%E5%85%A8%E5%B1%82/">二、补全层</a> · <a href="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-4-%E5%A2%9E%E5%BC%BA%E5%B1%82/">四、增强层</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-3-%E8%93%9D%E6%9C%AC%E5%B1%82/" data-id="cmtl330tt000lsg2bhm632b7n" data-title="Quizify Bridge 分阶段实战（三）：M3 蓝本层——yuanbao2anki 权威规则的 Kotlin 移植" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kotlin/" rel="tag">Kotlin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quizify/" rel="tag">Quizify</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag">工程化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%93%9D%E6%9C%AC%E7%A7%BB%E6%A4%8D/" rel="tag">蓝本移植</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AF%AD%E6%B3%95%E7%BA%A2%E7%BA%BF/" rel="tag">语法红线</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">开源项目</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%81%A5%E5%BA%B7%E4%B8%8E%E5%BF%83%E7%90%86/">健康与心理</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%81%A5%E5%BA%B7%E7%A7%91%E6%99%AE/">健康科普</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E6%88%90%E9%95%BF/">学习成长</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/">工程实践</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BF%83%E7%90%86%E4%B8%8E%E8%AE%A4%E7%9F%A5/">心理与认知</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">技术实践</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF%E9%9A%8F%E7%AC%94/">技术随笔</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A4%E7%9F%A5%E4%B8%8E%E6%96%B9%E6%B3%95/">认知与方法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI-Agent/" rel="tag">AI Agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agent/" rel="tag">Agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Anki/" rel="tag">Anki</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AnkiDroid/" rel="tag">AnkiDroid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/" rel="tag">CI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI-CD/" rel="tag">CI&#x2F;CD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CLI/" rel="tag">CLI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Chrome%E6%89%A9%E5%B1%95/" rel="tag">Chrome扩展</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compose/" rel="tag">Compose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/" rel="tag">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Actions/" rel="tag">GitHub Actions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Pages/" rel="tag">GitHub Pages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JUnit5/" rel="tag">JUnit5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kotlin/" rel="tag">Kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCP/" rel="tag">MCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MV3/" rel="tag">MV3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Memos/" rel="tag">Memos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Northflank/" rel="tag">Northflank</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle-Cloud/" rel="tag">Oracle Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quizify/" rel="tag">Quizify</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R8/" rel="tag">R8</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Render/" rel="tag">Render</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Robolectric/" rel="tag">Robolectric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScriptCat/" rel="tag">ScriptCat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serv00/" rel="tag">Serv00</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StructureRouter/" rel="tag">StructureRouter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Supabase/" rel="tag">Supabase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI/" rel="tag">UI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alert/" rel="tag">alert</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloze/" rel="tag">cloze</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memos/" rel="tag">memos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/" rel="tag">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pnpm/" rel="tag">pnpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tabs/" rel="tag">tabs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E5%B7%A5%E7%A8%8B/" rel="tag">上下文工程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/" rel="tag">上下文管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" rel="tag">个人成长</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%BA%E6%9C%BA%E5%8D%8F%E4%BD%9C/" rel="tag">人机协作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%BA%E9%99%85%E5%85%B3%E7%B3%BB/" rel="tag">人际关系</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%90%86/" rel="tag">代理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%AE%E5%A4%8D/" rel="tag">修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%81%A5%E5%BA%B7/" rel="tag">健康</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%AC%E5%BC%8F/" rel="tag">公式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%B3%E7%AD%96/" rel="tag">决策</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/" rel="tag">分层接线</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%BB%E6%84%8F%E7%BB%83%E4%B9%A0/" rel="tag">刻意练习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%AA%E8%B4%B4%E6%9D%BF/" rel="tag">剪贴板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" rel="tag">包管理器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%8B%E5%8A%9B%E7%AE%A1%E7%90%86/" rel="tag">压力管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8C%E8%BD%A8%E5%AF%B9%E6%AF%94/" rel="tag">双轨对比</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E8%84%86%E5%BC%B1/" rel="tag">反脆弱</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E9%A6%88/" rel="tag">反馈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%91%E5%B8%83/" rel="tag">发布</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8C%E6%AD%A5/" rel="tag">同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A2%9E%E5%BC%BA%E5%B1%82/" rel="tag">增强层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%87%E4%BB%BD/" rel="tag">备份</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E7%9B%98/" rel="tag">复盘</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" rel="tag">学习方法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/" rel="tag">工作流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag">工程化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/" rel="tag">工程实践</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/" rel="tag">工程方法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" rel="tag">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E4%BF%A1%E4%BA%91%E6%89%98%E7%AE%A1/" rel="tag">微信云托管</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7/" rel="tag">心理健康</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6/" rel="tag">心理学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E7%A5%9E%E7%BB%8F%E5%85%8D%E7%96%AB%E5%AD%A6/" rel="tag">心理神经免疫学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%BB%E7%BB%93/" rel="tag">总结</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%83%85%E7%BB%AA%E8%BF%9B%E9%A3%9F/" rel="tag">情绪进食</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%88%90%E9%95%BF/" rel="tag">成长</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%88%90%E9%95%BF%E6%80%9D%E7%BB%B4/" rel="tag">成长思维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%A9%E7%BC%A9%E5%AE%B9/" rel="tag">扩缩容</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%AB%E6%8F%8F/" rel="tag">扫描</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%AD%E7%A4%BA%E8%AF%AD%E6%B3%95/" rel="tag">揭示语法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F/" rel="tag">数据质量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%B9%E6%B3%95%E8%AE%BA/" rel="tag">方法论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F/" rel="tag">暗黑模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/" rel="tag">标题识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/" rel="tag">样本工程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%B9%E5%9B%A0%E5%88%86%E6%9E%90/" rel="tag">根因分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%88%99/" rel="tag">正则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%BF%B5%E9%A5%AE%E9%A3%9F/" rel="tag">正念饮食</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B2%9F%E9%80%9A%E6%8A%80%E5%B7%A7/" rel="tag">沟通技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E6%80%9D%E7%BB%B4/" rel="tag">测试思维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8/" rel="tag">测试驱动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95/" rel="tag">浏览器扩展</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%8C%81%E4%B9%85%E5%8C%96/" rel="tag">环境持久化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9C%9F%E6%9C%BA/" rel="tag">真机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9C%9F%E6%9C%BA%E9%AA%8C%E8%AF%81/" rel="tag">真机验证</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/" rel="tag">知识管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6/" rel="tag">神经科学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2/" rel="tag">站内搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%A0%E9%81%93%E8%8F%8C%E7%BE%A4/" rel="tag">肠道菌群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%83%BD%E5%8A%9B%E8%BE%B9%E7%95%8C/" rel="tag">能力边界</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%86%B3%E9%A3%9F%E7%BA%A4%E7%BB%B4/" rel="tag">膳食纤维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" rel="tag">自动化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E6%88%91%E8%B0%83%E8%8A%82/" rel="tag">自我调节</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E6%89%98%E7%AE%A1/" rel="tag">自托管</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%90%A5%E5%85%BB/" rel="tag">营养</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%93%9D%E6%9C%AC%E7%A7%BB%E6%A4%8D/" rel="tag">蓝本移植</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A1%80%E7%B3%96%E6%8E%A7%E5%88%B6/" rel="tag">血糖控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%84%E5%88%99%E5%AE%A1%E8%AE%A1/" rel="tag">规则审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%84%E5%88%99%E8%BF%AD%E4%BB%A3/" rel="tag">规则迭代</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" rel="tag">解析器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A4%E7%9F%A5/" rel="tag">认知</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A4%E7%9F%A5%E7%A7%91%E5%AD%A6/" rel="tag">认知科学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%B0%E5%BF%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" rel="tag">记忆文件系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/" rel="tag">记忆系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E7%BD%AE%E6%8C%81%E4%B9%85%E5%8C%96/" rel="tag">设置持久化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%AD%E6%B3%95%E7%BA%A2%E7%BA%BF/" rel="tag">语法红线</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%AD%E8%A8%80%E5%AD%A6/" rel="tag">语言学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%AF%E7%94%B1/" rel="tag">路由</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" rel="tag">静态博客</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A2%84%E5%A4%84%E7%90%86/" rel="tag">预处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%AA%8C%E8%AF%81/" rel="tag">验证</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/AI-Agent/" style="font-size: 11.43px;">AI Agent</a> <a href="/tags/Agent/" style="font-size: 10px;">Agent</a> <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Anki/" style="font-size: 15.71px;">Anki</a> <a href="/tags/AnkiDroid/" style="font-size: 12.86px;">AnkiDroid</a> <a href="/tags/CI/" style="font-size: 11.43px;">CI</a> <a href="/tags/CI-CD/" style="font-size: 10px;">CI/CD</a> <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/Chrome%E6%89%A9%E5%B1%95/" style="font-size: 10px;">Chrome扩展</a> <a href="/tags/Compose/" style="font-size: 12.86px;">Compose</a> <a href="/tags/Docker/" style="font-size: 11.43px;">Docker</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/GitHub-Actions/" style="font-size: 12.86px;">GitHub Actions</a> <a href="/tags/GitHub-Pages/" style="font-size: 10px;">GitHub Pages</a> <a href="/tags/Hexo/" style="font-size: 15.71px;">Hexo</a> <a href="/tags/JUnit5/" style="font-size: 10px;">JUnit5</a> <a href="/tags/Kotlin/" style="font-size: 12.86px;">Kotlin</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/MCP/" style="font-size: 10px;">MCP</a> <a href="/tags/MV3/" style="font-size: 10px;">MV3</a> <a href="/tags/Markdown/" style="font-size: 12.86px;">Markdown</a> <a href="/tags/Memos/" style="font-size: 10px;">Memos</a> <a href="/tags/Northflank/" style="font-size: 10px;">Northflank</a> <a href="/tags/Oracle-Cloud/" style="font-size: 10px;">Oracle Cloud</a> <a href="/tags/Quizify/" style="font-size: 20px;">Quizify</a> <a href="/tags/R8/" style="font-size: 10px;">R8</a> <a href="/tags/Render/" style="font-size: 10px;">Render</a> <a href="/tags/Robolectric/" style="font-size: 11.43px;">Robolectric</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/ScriptCat/" style="font-size: 10px;">ScriptCat</a> <a href="/tags/Serv00/" style="font-size: 10px;">Serv00</a> <a href="/tags/StructureRouter/" style="font-size: 10px;">StructureRouter</a> <a href="/tags/Supabase/" style="font-size: 11.43px;">Supabase</a> <a href="/tags/UI/" style="font-size: 11.43px;">UI</a> <a href="/tags/alert/" style="font-size: 10px;">alert</a> <a href="/tags/cloze/" style="font-size: 10px;">cloze</a> <a href="/tags/memos/" style="font-size: 10px;">memos</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/pnpm/" style="font-size: 10px;">pnpm</a> <a href="/tags/tabs/" style="font-size: 10px;">tabs</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E5%B7%A5%E7%A8%8B/" style="font-size: 11.43px;">上下文工程</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/" style="font-size: 10px;">上下文管理</a> <a href="/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" style="font-size: 11.43px;">个人成长</a> <a href="/tags/%E4%BA%BA%E6%9C%BA%E5%8D%8F%E4%BD%9C/" style="font-size: 10px;">人机协作</a> <a href="/tags/%E4%BA%BA%E9%99%85%E5%85%B3%E7%B3%BB/" style="font-size: 10px;">人际关系</a> <a href="/tags/%E4%BB%A3%E7%90%86/" style="font-size: 10px;">代理</a> <a href="/tags/%E4%BF%AE%E5%A4%8D/" style="font-size: 10px;">修复</a> <a href="/tags/%E5%81%A5%E5%BA%B7/" style="font-size: 10px;">健康</a> <a href="/tags/%E5%85%AC%E5%BC%8F/" style="font-size: 10px;">公式</a> <a href="/tags/%E5%86%B3%E7%AD%96/" style="font-size: 10px;">决策</a> <a href="/tags/%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/" style="font-size: 10px;">分层接线</a> <a href="/tags/%E5%88%BB%E6%84%8F%E7%BB%83%E4%B9%A0/" style="font-size: 11.43px;">刻意练习</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%AA%E8%B4%B4%E6%9D%BF/" style="font-size: 11.43px;">剪贴板</a> <a href="/tags/%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" style="font-size: 10px;">包管理器</a> <a href="/tags/%E5%8E%8B%E5%8A%9B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">压力管理</a> <a href="/tags/%E5%8F%8C%E8%BD%A8%E5%AF%B9%E6%AF%94/" style="font-size: 10px;">双轨对比</a> <a href="/tags/%E5%8F%8D%E8%84%86%E5%BC%B1/" style="font-size: 10px;">反脆弱</a> <a href="/tags/%E5%8F%8D%E9%A6%88/" style="font-size: 11.43px;">反馈</a> <a href="/tags/%E5%8F%91%E5%B8%83/" style="font-size: 11.43px;">发布</a> <a href="/tags/%E5%90%8C%E6%AD%A5/" style="font-size: 10px;">同步</a> <a href="/tags/%E5%A2%9E%E5%BC%BA%E5%B1%82/" style="font-size: 10px;">增强层</a> <a href="/tags/%E5%A4%87%E4%BB%BD/" style="font-size: 10px;">备份</a> <a href="/tags/%E5%A4%8D%E7%9B%98/" style="font-size: 10px;">复盘</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" style="font-size: 11.43px;">学习方法</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/" style="font-size: 11.43px;">工作流</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 18.57px;">工程化</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/" style="font-size: 10px;">工程实践</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/" style="font-size: 10px;">工程方法</a> <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">开发工具</a> <a href="/tags/%E5%BE%AE%E4%BF%A1%E4%BA%91%E6%89%98%E7%AE%A1/" style="font-size: 10px;">微信云托管</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7/" style="font-size: 10px;">心理健康</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6/" style="font-size: 10px;">心理学</a> <a href="/tags/%E5%BF%83%E7%90%86%E7%A5%9E%E7%BB%8F%E5%85%8D%E7%96%AB%E5%AD%A6/" style="font-size: 10px;">心理神经免疫学</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 10px;">总结</a> <a href="/tags/%E6%83%85%E7%BB%AA%E8%BF%9B%E9%A3%9F/" style="font-size: 10px;">情绪进食</a> <a href="/tags/%E6%88%90%E9%95%BF/" style="font-size: 10px;">成长</a> <a href="/tags/%E6%88%90%E9%95%BF%E6%80%9D%E7%BB%B4/" style="font-size: 10px;">成长思维</a> <a href="/tags/%E6%89%A9%E7%BC%A9%E5%AE%B9/" style="font-size: 10px;">扩缩容</a> <a href="/tags/%E6%89%AB%E6%8F%8F/" style="font-size: 10px;">扫描</a> <a href="/tags/%E6%8F%AD%E7%A4%BA%E8%AF%AD%E6%B3%95/" style="font-size: 10px;">揭示语法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F/" style="font-size: 10px;">数据质量</a> <a href="/tags/%E6%96%B9%E6%B3%95%E8%AE%BA/" style="font-size: 10px;">方法论</a> <a href="/tags/%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">暗黑模式</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 11.43px;">架构</a> <a href="/tags/%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/" style="font-size: 10px;">标题识别</a> <a href="/tags/%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/" style="font-size: 10px;">样本工程</a> <a href="/tags/%E6%A0%B9%E5%9B%A0%E5%88%86%E6%9E%90/" style="font-size: 10px;">根因分析</a> <a href="/tags/%E6%AD%A3%E5%88%99/" style="font-size: 10px;">正则</a> <a href="/tags/%E6%AD%A3%E5%BF%B5%E9%A5%AE%E9%A3%9F/" style="font-size: 10px;">正念饮食</a> <a href="/tags/%E6%B2%9F%E9%80%9A%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">沟通技巧</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 11.43px;">测试</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%80%9D%E7%BB%B4/" style="font-size: 10px;">测试思维</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8/" style="font-size: 11.43px;">测试驱动</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95/" style="font-size: 11.43px;">浏览器扩展</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E6%8C%81%E4%B9%85%E5%8C%96/" style="font-size: 10px;">环境持久化</a> <a href="/tags/%E7%9C%9F%E6%9C%BA/" style="font-size: 10px;">真机</a> <a href="/tags/%E7%9C%9F%E6%9C%BA%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">真机验证</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/" style="font-size: 10px;">知识管理</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6/" style="font-size: 10px;">神经科学</a> <a href="/tags/%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2/" style="font-size: 10px;">站内搜索</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a> <a href="/tags/%E8%82%A0%E9%81%93%E8%8F%8C%E7%BE%A4/" style="font-size: 10px;">肠道菌群</a> <a href="/tags/%E8%83%BD%E5%8A%9B%E8%BE%B9%E7%95%8C/" style="font-size: 10px;">能力边界</a> <a href="/tags/%E8%86%B3%E9%A3%9F%E7%BA%A4%E7%BB%B4/" style="font-size: 10px;">膳食纤维</a> <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" style="font-size: 14.29px;">自动化</a> <a href="/tags/%E8%87%AA%E6%88%91%E8%B0%83%E8%8A%82/" style="font-size: 10px;">自我调节</a> <a href="/tags/%E8%87%AA%E6%89%98%E7%AE%A1/" style="font-size: 10px;">自托管</a> <a href="/tags/%E8%90%A5%E5%85%BB/" style="font-size: 10px;">营养</a> <a href="/tags/%E8%93%9D%E6%9C%AC%E7%A7%BB%E6%A4%8D/" style="font-size: 10px;">蓝本移植</a> <a href="/tags/%E8%A1%80%E7%B3%96%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">血糖控制</a> <a href="/tags/%E8%A7%84%E5%88%99%E5%AE%A1%E8%AE%A1/" style="font-size: 10px;">规则审计</a> <a href="/tags/%E8%A7%84%E5%88%99%E8%BF%AD%E4%BB%A3/" style="font-size: 10px;">规则迭代</a> <a href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" style="font-size: 11.43px;">解析器</a> <a href="/tags/%E8%AE%A4%E7%9F%A5/" style="font-size: 10px;">认知</a> <a href="/tags/%E8%AE%A4%E7%9F%A5%E7%A7%91%E5%AD%A6/" style="font-size: 10px;">认知科学</a> <a href="/tags/%E8%AE%B0%E5%BF%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">记忆文件系统</a> <a href="/tags/%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">记忆系统</a> <a href="/tags/%E8%AE%BE%E7%BD%AE%E6%8C%81%E4%B9%85%E5%8C%96/" style="font-size: 10px;">设置持久化</a> <a href="/tags/%E8%AF%AD%E6%B3%95%E7%BA%A2%E7%BA%BF/" style="font-size: 10px;">语法红线</a> <a href="/tags/%E8%AF%AD%E8%A8%80%E5%AD%A6/" style="font-size: 10px;">语言学</a> <a href="/tags/%E8%B7%AF%E7%94%B1/" style="font-size: 10px;">路由</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 17.14px;">踩坑</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 17.14px;">部署</a> <a href="/tags/%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">静态博客</a> <a href="/tags/%E9%A2%84%E5%A4%84%E7%90%86/" style="font-size: 10px;">预处理</a> <a href="/tags/%E9%AA%8C%E8%AF%81/" style="font-size: 11.43px;">验证</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">九月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-12-%E5%AE%A1%E8%AE%A1%E4%B8%8ELLM%E5%B7%AE%E8%B7%9D/">Quizify Bridge 分阶段实战（十二）：规则审计与 LLM 差距——诚实地承认能力边界</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-11-%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/">Quizify Bridge 分阶段实战（十一）：工程方法总结——测试门、持久化、上下文锚点</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-10-%E7%9C%9F%E6%9C%BA%E7%AB%AF%E5%88%B0%E7%AB%AF/">Quizify Bridge 分阶段实战（十）：M6 真机端到端与发布——产品成立性验证</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-9-UI%E7%BB%86%E8%8A%82%E4%B8%8E%E6%A0%B7%E6%9C%AC%E5%9B%BA%E5%8C%96/">Quizify Bridge 分阶段实战（九）：M5.4 UI 细节与样本固化——三次修正背后的测试思维</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-8-%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/">Quizify Bridge 分阶段实战（八）：样本工程——双轨对比驱动的规则迭代</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 githubusercsw<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/search/" class="mobile-nav-link">搜索</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  window.SEARCH_SUPABASE_URL = "https://jnrqbznmottytcbojjak.supabase.co";
+  window.SEARCH_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpucnFiem5tb3R0eXRjYm9qamFrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcxMTYzMjUsImV4cCI6MjEwMjY5MjMyNX0.sjuZ_3z6-dEXaRQ7NC7Q1VynPfHRqQ_V8QUE5LXMqQU";
+</script>
+<link rel="stylesheet" href="/css/search.css">
+
+<script src="/js/theme-search.js"></script>
+
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+  </div>
+</body>
+</html>

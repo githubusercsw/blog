@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>CSW 的思维角落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="一只程序员的笔记 —— AI、心理学与个人成长的交叉地带">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CSW 的思维角落">
+<meta property="og:url" content="https://chenshengwu.dpdns.org/page/4/index.html">
+<meta property="og:site_name" content="CSW 的思维角落">
+<meta property="og:description" content="一只程序员的笔记 —— AI、心理学与个人成长的交叉地带">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="githubusercsw">
+<meta property="article:tag" content="AI,心理学,编程,认知科学,个人成长">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="CSW 的思维角落" type="application/atom+xml"><link rel="alternate" href="/rss2.xml" title="CSW 的思维角落" type="application/rss+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">CSW 的思维角落</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">关于技术、认知与生活的断想</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/search/">搜索</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://chenshengwu.dpdns.org"></form>
+        <div id="search-result" class="search-dropdown"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-新秩序的建立-从本地推送到GitHubActions服务器端构建" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/13/%E6%96%B0%E7%A7%A9%E5%BA%8F%E7%9A%84%E5%BB%BA%E7%AB%8B-%E4%BB%8E%E6%9C%AC%E5%9C%B0%E6%8E%A8%E9%80%81%E5%88%B0GitHubActions%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%9E%84%E5%BB%BA/" class="article-date">
+  <time class="dt-published" datetime="2026-08-13T06:00:00.000Z" itemprop="datePublished">2026-08-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E9%9A%8F%E7%AC%94/">技术随笔</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/13/%E6%96%B0%E7%A7%A9%E5%BA%8F%E7%9A%84%E5%BB%BA%E7%AB%8B-%E4%BB%8E%E6%9C%AC%E5%9C%B0%E6%8E%A8%E9%80%81%E5%88%B0GitHubActions%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%9E%84%E5%BB%BA/">新秩序的建立：从本地推送到 GitHub Actions 服务器端构建的架构演进</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>搭建博客工作流的过程，本质上是一次”秩序的推倒与重建”。</p>
+<p>一开始，我在本地跑 Hexo 构建，把几百个生成文件推送到 GitHub Pages 的 <code>gh-pages</code> 分支。听起来简单，但国内网络访问 GitHub 的链路极不稳定，GnuTLS 报错、Empty reply、握手超时轮番上演，推送脚本反复重试还是失败。</p>
+<p>最后我把它改成了”推源文件到 main，让 GitHub Actions 在服务器端构建”。这一次架构演进，不只是换了个部署方式，更像是建立了一种<strong>新的秩序</strong>。这篇文章记录下整个过程里值得回味的细节。</p>
+<hr>
+<h1 id="一、旧秩序的痛点：把重活压在弱链路上"><a href="#一、旧秩序的痛点：把重活压在弱链路上" class="headerlink" title="一、旧秩序的痛点：把重活压在弱链路上"></a>一、旧秩序的痛点：把重活压在弱链路上</h1><p>旧架构是这样的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">本地:  hexo clean &amp;&amp; hexo generate   →  生成几百个 HTML/CSS/JS</span><br><span class="line">       push public/ 到 gh-pages 分支</span><br></pre></td></tr></table></figure>
+
+<p>问题出在<strong>两件事耦合在了一起</strong>：</p>
+<ol>
+<li>**推的是”生成物”**——几百个文件，体积大；</li>
+<li><strong>推的动作发生在你自己的网络</strong>——而这条网络访问 GitHub 恰好不稳定。</li>
+</ol>
+<p>于是：大文件 + 弱链路 &#x3D; 频繁失败。而失败后我只会<strong>盲试同一条路 6 次</strong>，结果可想而知。</p>
+<p>关键认知：这不是”运气不好”，而是<strong>架构选错了</strong>。我把最重的活，放在了最不稳的链路上。</p>
+<hr>
+<h1 id="二、根因分层：传输层-vs-架构层"><a href="#二、根因分层：传输层-vs-架构层" class="headerlink" title="二、根因分层：传输层 vs 架构层"></a>二、根因分层：传输层 vs 架构层</h1><p>后来我学会把问题拆成两层看：</p>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>表现</th>
+<th>本质</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>传输层</strong></td>
+<td>GnuTLS 握手超时、Empty reply</td>
+<td>网络链路不稳，协议对中断敏感</td>
+</tr>
+<tr>
+<td><strong>架构层</strong></td>
+<td>push 的是几百个生成文件</td>
+<td>把”构建+推送”耦合，重活压在弱链路</td>
+</tr>
+</tbody></table>
+<p><strong>传输层</strong> → 换协议（SSH over 443）、调参数、智能重试；<br><strong>架构层</strong> → 改部署模式（CI 服务器端构建）。</p>
+<p>这两层<strong>不是二选一，而是组合</strong>。之前我只盯着传输层，等于在错误的方向上使劲。</p>
+<hr>
+<h1 id="三、新秩序的建立：只推源文件，构建交给-GitHub"><a href="#三、新秩序的建立：只推源文件，构建交给-GitHub" class="headerlink" title="三、新秩序的建立：只推源文件，构建交给 GitHub"></a>三、新秩序的建立：只推源文件，构建交给 GitHub</h1><p>新架构的核心思想，一句话：</p>
+<blockquote>
+<p><strong>本地只推源文件，把构建和部署搬到 GitHub 自己的网络里。</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">本地:  push 源文件（Markdown + 配置）到 main 分支</span><br><span class="line">GitHub: Actions 收到 main 更新 → npm ci → hexo generate → 部署到 gh-pages</span><br></pre></td></tr></table></figure>
+
+<p>由此带来三个本质变化：</p>
+<ol>
+<li><strong>push 体积缩小 10~20 倍</strong>——从几百个生成文件，缩到几个 Markdown；</li>
+<li><strong>构建跑在 GitHub 自己的网络</strong>——不再依赖你云端的网络质量；</li>
+<li>**部署用自动注入的 <code>GITHUB_TOKEN</code>**——不需要账号级 SSH key。</li>
+</ol>
+<p>这背后是一种”职责分离”的秩序：<strong>main 分支是”源文件”（人编辑），gh-pages 分支是”只读产物”（机器生成）</strong>。人不再碰机器产物，机器不再依赖人的弱网络。</p>
+<hr>
+<h1 id="四、过程中的学习细节（最值得回味的部分）"><a href="#四、过程中的学习细节（最值得回味的部分）" class="headerlink" title="四、过程中的学习细节（最值得回味的部分）"></a>四、过程中的学习细节（最值得回味的部分）</h1><p>这次演进踩了不少”看不见的墙”，每一个都是宝贵的经验。</p>
+<h2 id="1-workflow-scope：改-workflow-需要独立权限"><a href="#1-workflow-scope：改-workflow-需要独立权限" class="headerlink" title="1. workflow scope：改 workflow 需要独立权限"></a>1. workflow scope：改 workflow 需要独立权限</h2><p>把包含 <code>.github/workflows/deploy.yml</code> 的提交推上去时，GitHub 拒绝：<code>refusing to allow a Personal Access Token to create or update workflow without workflow scope</code>。</p>
+<p><strong>原来修改 CI 配置需要专门的 <code>workflow</code> 权限</strong>，普通的 <code>repo</code> token 不够。这是 GitHub 保护 CI 配置的安全设计。解决方式：要么用带 <code>workflow</code> 权限的 token，要么<strong>网页手动创建 workflow 文件</strong>。</p>
+<h2 id="2-账号级-SSH-key-的不可控"><a href="#2-账号级-SSH-key-的不可控" class="headerlink" title="2. 账号级 SSH key 的不可控"></a>2. 账号级 SSH key 的不可控</h2><p>想用 SSH over 443 免密推送，需要把公钥加到 GitHub 账号。但添加时遇到”转圈、刷新后消失”的问题，网上也有大量讨论。这件事让我意识到：<strong>不要把方案押在账号级配置上</strong>——它往往是最不可控的一环。</p>
+<p>而 GitHub Actions 方案恰好<strong>绕开了</strong>这个坑：它用自动注入的 token，根本不碰账号级 SSH key。</p>
+<h2 id="3-本地与远程-main-失同步：连锁反应的隐患"><a href="#3-本地与远程-main-失同步：连锁反应的隐患" class="headerlink" title="3. 本地与远程 main 失同步：连锁反应的隐患"></a>3. 本地与远程 main 失同步：连锁反应的隐患</h2><p>你网页手动加了 workflow 文件后，本地 main 还停在旧 commit。如果不先同步就 push，可能冲突甚至覆盖。<strong>处理任何”两边同时改”的情况，第一件事是让本地与远程对齐</strong>，否则就是埋连锁反应的雷。</p>
+<h2 id="4-npm-ci-与-npm-install-的差别"><a href="#4-npm-ci-与-npm-install-的差别" class="headerlink" title="4. npm ci 与 npm install 的差别"></a>4. npm ci 与 npm install 的差别</h2><p>自动化构建必须用 <strong><code>npm ci</code></strong> 而不是 <code>npm install</code>：</p>
+<ul>
+<li><code>npm install</code> 可能改动 lockfile，导致每次构建结果漂移；</li>
+<li><code>npm ci</code> 严格按 <code>package-lock.json</code> 安装，<strong>可复现、可信任</strong>。</li>
+</ul>
+<p>这是 CI 与本地开发的本质区别：<strong>本地可以随意，CI 必须确定</strong>。</p>
+<h2 id="5-CNAME-红线必须写进-CI"><a href="#5-CNAME-红线必须写进-CI" class="headerlink" title="5. CNAME 红线必须写进 CI"></a>5. CNAME 红线必须写进 CI</h2><p>之前踩过”构建后自定义域名丢失”的坑（CNAME 被 hexo clean 删除）。新架构下，<strong>一定要在 workflow 里加一道 CNAME 校验</strong>：构建产物若缺失 CNAME 就中止部署。把”防错的规则”从人的记忆里，搬进机器必须执行的流程里。</p>
+<h2 id="6-异步构建要”看得见”"><a href="#6-异步构建要”看得见”" class="headerlink" title="6. 异步构建要”看得见”"></a>6. 异步构建要”看得见”</h2><p>push 到 main 后，Actions 是<strong>异步</strong>跑的。如果构建失败，没人主动通知。所以要写”<strong>轮询 Actions 状态 + 线上健康检查</strong>“——push 之后不是结束，而是等待并确认结果。</p>
+<hr>
+<h1 id="五、新秩序带来的收益"><a href="#五、新秩序带来的收益" class="headerlink" title="五、新秩序带来的收益"></a>五、新秩序带来的收益</h1><p>把这次演进落地后，实际体验：</p>
+<ul>
+<li>推送几乎不再失败——因为只推几个 Markdown；</li>
+<li>构建稳定可复现——因为跑在 GitHub 网络里、用 npm ci；</li>
+<li>部署免账号级凭据——用 GITHUB_TOKEN；</li>
+<li>更贴合”每天定时更新”——我只需管理 Markdown，发布交给 CI。</li>
+</ul>
+<hr>
+<h1 id="六、结语：秩序的建立是一种思维方式"><a href="#六、结语：秩序的建立是一种思维方式" class="headerlink" title="六、结语：秩序的建立是一种思维方式"></a>六、结语：秩序的建立是一种思维方式</h1><p>回头看，这次演进教会我的不是某个命令，而是一套<strong>决策框架</strong>：</p>
+<ol>
+<li>出问题先<strong>分层</strong>：传输层还是架构层？</li>
+<li>别把重活放在弱链路上；</li>
+<li>把”防错的规则”<strong>写进机器必须执行的流程</strong>，而不是依赖人的记忆；</li>
+<li>管理”两边同时改”的<strong>同步</strong>，避免连锁反应；</li>
+<li>异步任务要<strong>看得见结果</strong>。</li>
+</ol>
+<p>旧秩序是”人亲力亲为，机器听指挥”；新秩序是”人管内容，机器管构建，各司其职”。</p>
+<p>秩序的建立，不是一次性的重构，而是不断把经验固化成规则、把规则写进流程的过程。每一次踩坑，都是给新秩序添的一块砖。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/08/13/%E6%96%B0%E7%A7%A9%E5%BA%8F%E7%9A%84%E5%BB%BA%E7%AB%8B-%E4%BB%8E%E6%9C%AC%E5%9C%B0%E6%8E%A8%E9%80%81%E5%88%B0GitHubActions%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%9E%84%E5%BB%BA/" data-id="cmtl330uo002xsg2bh1ho0pru" data-title="新秩序的建立：从本地推送到 GitHub Actions 服务器端构建的架构演进" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CI/" rel="tag">CI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GitHub-Actions/" rel="tag">GitHub Actions</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%88%90%E9%95%BF/" rel="tag">成长</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-数据质量工程-AI牌组扫描与修复" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/13/%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E5%B7%A5%E7%A8%8B-AI%E7%89%8C%E7%BB%84%E6%89%AB%E6%8F%8F%E4%B8%8E%E4%BF%AE%E5%A4%8D/" class="article-date">
+  <time class="dt-published" datetime="2026-08-13T03:00:00.000Z" itemprop="datePublished">2026-08-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">技术实践</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/13/%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E5%B7%A5%E7%A8%8B-AI%E7%89%8C%E7%BB%84%E6%89%AB%E6%8F%8F%E4%B8%8E%E4%BF%AE%E5%A4%8D/">数据质量工程——AI 牌组扫描与修复</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="博客三：数据质量工程——AI-牌组扫描与修复"><a href="#博客三：数据质量工程——AI-牌组扫描与修复" class="headerlink" title="博客三：数据质量工程——AI 牌组扫描与修复"></a>博客三：数据质量工程——AI 牌组扫描与修复</h1><blockquote>
+<p>日期：2026-08-13</p>
+</blockquote>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>本文记录了 AI 牌组（494 张聚合卡）的全量语法扫描过程：构建 10 维只读扫描器、发现 179 处 P0 违规、设计分类修复策略，以及 GitHub REST API 认证的最佳实践。核心方法论是”先扫描后修复、先备份后修改、分阶段不跨步”。</p>
+<hr>
+<h2 id="1-扫描器设计：10-个维度"><a href="#1-扫描器设计：10-个维度" class="headerlink" title="1. 扫描器设计：10 个维度"></a>1. 扫描器设计：10 个维度</h2><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>对应陷阱</th>
+<th>严重度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>折叠配对</td>
+<td>T1&#x2F;T2</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>标签页结构</td>
+<td>T3&#x2F;P0-6</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>选择题校验</td>
+<td>T5&#x2F;T6&#x2F;T7</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>引用块隔离</td>
+<td>T9</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>Alert 前缀</td>
+<td>T8</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>cloze 跨行</td>
+<td>P1</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>揭示单行</td>
+<td>T4&#x2F;P0-5</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>高亮配对</td>
+<td>P2</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>背诵块单元</td>
+<td>P0-2</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>代码围栏</td>
+<td>P2</td>
+<td>P2</td>
+</tr>
+</tbody></table>
+<p><strong>设计原则</strong>：只读扫描，不改数据。输出 JSON 报告，人工复核后再修复。</p>
+<h2 id="2-扫描结果"><a href="#2-扫描结果" class="headerlink" title="2. 扫描结果"></a>2. 扫描结果</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AI 牌组: 494 张 Quizify Markdown 卡片</span><br><span class="line">P0 违规: 179 处（涉及 102 张卡）</span><br><span class="line">P1 违规: 2 处</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>数量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T8 alert 内容缺前缀</td>
+<td>150</td>
+<td>最多。alert 内列表行裸写</td>
+</tr>
+<tr>
+<td>T2 折叠未闭合</td>
+<td>14</td>
+<td>卡片末尾还有折叠层没关</td>
+</tr>
+<tr>
+<td>P06 标签页尾部等号</td>
+<td>12</td>
+<td><code>=== 标题 ===</code> 旧语法</td>
+</tr>
+<tr>
+<td>其他</td>
+<td>5</td>
+<td>组未闭合&#x2F;标题cloze&#x2F;T9&#x2F;cloze跨行</td>
+</tr>
+</tbody></table>
+<h2 id="3-扫描器自身的迭代（重要）"><a href="#3-扫描器自身的迭代（重要）" class="headerlink" title="3. 扫描器自身的迭代（重要）"></a>3. 扫描器自身的迭代（重要）</h2><p>第一版扫描器有 2 个 bug，通过抽查验证发现：</p>
+<p><strong>Bug 1</strong>：T8 空行后内容误报（256→150 处）</p>
+<ul>
+<li>根因：alert 遇空行即结束是 Markdown 语义，扫描器没实现</li>
+<li>修复：跟踪 prev_blank 状态</li>
+</ul>
+<p><strong>Bug 2</strong>：T9 折叠闭合 <code>:::</code> 误报（3→1 处）</p>
+<ul>
+<li>根因：闭合 <code>:::</code> 是合法块尾，不是结构标记开启</li>
+<li>修复：只针对 <code>::: 标题</code>（开启）不针对 <code>:::</code>（闭合）</li>
+</ul>
+<p><strong>教训</strong>：扫描器本身也需要测试——用已知违规的样例卡验证每个维度。</p>
+<h2 id="4-Phase-3-修复风险分析"><a href="#4-Phase-3-修复风险分析" class="headerlink" title="4. Phase 3 修复风险分析"></a>4. Phase 3 修复风险分析</h2><table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>问题</th>
+<th>风险</th>
+<th>策略</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>T8 ×150</td>
+<td>机械补前缀可能把独立列表拉进 alert</td>
+<td>分类：短列表自动修，长内容人工复核</td>
+</tr>
+<tr>
+<td>2</td>
+<td>T2 ×14</td>
+<td>补闭合位置错误导致层级错乱</td>
+<td>逐卡分析 depth 轨迹</td>
+</tr>
+<tr>
+<td>3</td>
+<td>P06 ×12</td>
+<td>修完可能产生新的组未闭合</td>
+<td>逐个修+重扫验证</td>
+</tr>
+<tr>
+<td>4</td>
+<td>其他 ×5</td>
+<td>极小</td>
+<td>逐个修</td>
+</tr>
+</tbody></table>
+<h2 id="5-GitHub-REST-API-认证实践"><a href="#5-GitHub-REST-API-认证实践" class="headerlink" title="5. GitHub REST API 认证实践"></a>5. GitHub REST API 认证实践</h2><h3 id="5-1-当前推荐的鉴权方式"><a href="#5-1-当前推荐的鉴权方式" class="headerlink" title="5.1 当前推荐的鉴权方式"></a>5.1 当前推荐的鉴权方式</h3><p><code>Authorization: Bearer &lt;token&gt;</code>（2020 年 11 月起 API 已禁用密码认证）</p>
+<h3 id="5-2-正确请求构造"><a href="#5-2-正确请求构造" class="headerlink" title="5.2 正确请求构造"></a>5.2 正确请求构造</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -H <span class="string">&quot;Authorization: Bearer <span class="variable">$TOKEN</span>&quot;</span> \</span><br><span class="line">     -H <span class="string">&quot;User-Agent: Your-App/1.0&quot;</span> \</span><br><span class="line">     -H <span class="string">&quot;Accept: application/vnd.github+json&quot;</span> \</span><br><span class="line">     -H <span class="string">&quot;X-GitHub-Api-Version: 2022-11-28&quot;</span> \</span><br><span class="line">     https://api.github.com/user</span><br></pre></td></tr></table></figure>
+
+<p><strong>必须包含 User-Agent</strong>，否则请求被拒绝。<br><strong>不要用 URL token</strong>（<code>?access_token=xxx</code>），会泄露在日志中。<br><strong>请求前先调用 &#x2F;user 验证 token 有效性</strong>。</p>
+<h3 id="5-3-实战验证结果"><a href="#5-3-实战验证结果" class="headerlink" title="5.3 实战验证结果"></a>5.3 实战验证结果</h3><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x2F;user 验证</td>
+<td>HTTP 200 ✅</td>
+</tr>
+<tr>
+<td>归属账号</td>
+<td>githubusercsw（id: 105030743）</td>
+</tr>
+<tr>
+<td>权限范围</td>
+<td><code>repo</code>（读写代码仓库）</td>
+</tr>
+<tr>
+<td>速率限制</td>
+<td>5000&#x2F;h</td>
+</tr>
+</tbody></table>
+<p><strong>权限范围与卡点关联</strong>：token 只有 <code>repo</code> 权限、没有 <code>workflow</code> 权限——这解释了为什么 AI Agent 推 deploy.yml 失败：GitHub 规定修改 <code>.github/workflows/</code> 下的文件需要 token 带 workflow scope。这是权限隔离机制，不是操作错误。</p>
+<h3 id="5-4-安全规范"><a href="#5-4-安全规范" class="headerlink" title="5.4 安全规范"></a>5.4 安全规范</h3><ul>
+<li>令牌仅内存使用，不落盘、不回显全文</li>
+<li>若返回 401&#x2F;403，仅报告原因，不反复重试（避免触发临时封禁）</li>
+</ul>
+<h2 id="6-方法论总结"><a href="#6-方法论总结" class="headerlink" title="6. 方法论总结"></a>6. 方法论总结</h2><ol>
+<li><strong>先扫描后修复</strong>：只读扫描器输出报告，人工复核后才动数据</li>
+<li><strong>先备份后修改</strong>：每步修复前备份受影响卡片</li>
+<li><strong>分阶段不跨步</strong>：P06（最机械）→ T8（分类分批）→ T2（逐卡人工）→ 剩余</li>
+<li><strong>修复后重扫</strong>：每步修复后重跑扫描器确认归零</li>
+<li><strong>扫描器也要测试</strong>：用已知违规样例验证每个维度</li>
+</ol>
+<hr>
+<p><em>系列完。三篇博客覆盖了 Anki 工程化的部署、语法、质量三个维度。</em></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/08/13/%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E5%B7%A5%E7%A8%8B-AI%E7%89%8C%E7%BB%84%E6%89%AB%E6%8F%8F%E4%B8%8E%E4%BF%AE%E5%A4%8D/" data-id="cmtl330un002tsg2b87nw0lfn" data-title="数据质量工程——AI 牌组扫描与修复" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Anki/" rel="tag">Anki</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BF%AE%E5%A4%8D/" rel="tag">修复</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%89%AB%E6%8F%8F/" rel="tag">扫描</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F/" rel="tag">数据质量</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-GitHub推送为何总失败-从GnuTLS到SSHover443与CI架构" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/13/GitHub%E6%8E%A8%E9%80%81%E4%B8%BA%E4%BD%95%E6%80%BB%E5%A4%B1%E8%B4%A5-%E4%BB%8EGnuTLS%E5%88%B0SSHover443%E4%B8%8ECI%E6%9E%B6%E6%9E%84/" class="article-date">
+  <time class="dt-published" datetime="2026-08-13T02:00:00.000Z" itemprop="datePublished">2026-08-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E9%9A%8F%E7%AC%94/">技术随笔</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/13/GitHub%E6%8E%A8%E9%80%81%E4%B8%BA%E4%BD%95%E6%80%BB%E5%A4%B1%E8%B4%A5-%E4%BB%8EGnuTLS%E5%88%B0SSHover443%E4%B8%8ECI%E6%9E%B6%E6%9E%84/">GitHub 推送为何总失败：从 GnuTLS 到 SSH over 443 与 CI 架构</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>如果你的博客用 GitHub Pages 托管，又在国内网络环境里写自动化推送脚本，几乎一定会遇到这样的场景：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GnuTLS recv error (-110): The TLS connection was non-properly terminated.</span><br><span class="line">Empty reply from server</span><br><span class="line">fatal: unable to access &#x27;https://github.com/...&#x27;: </span><br></pre></td></tr></table></figure>
+
+<p>脚本重试 6 次，全部失败，最后卡死。更气人的是——<strong>你明明什么都没写错</strong>。</p>
+<p>这篇文章不是要教你某个命令，而是把这类问题的<strong>根因、分层定位、以及从治标到治本的完整思路</strong>梳理清楚。以后无论换什么网络、什么平台，你都能自己诊断。</p>
+<hr>
+<h1 id="一、先分清两层：传输层-vs-架构层"><a href="#一、先分清两层：传输层-vs-架构层" class="headerlink" title="一、先分清两层：传输层 vs 架构层"></a>一、先分清两层：传输层 vs 架构层</h1><p>很多人把”推送失败”当成一个孤立问题去查，结果绕来绕去。实际上它是<strong>两个独立问题叠在一起</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>表现</th>
+<th>本质</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>传输层</strong></td>
+<td>握手超时、TLS 中断、Empty reply</td>
+<td>国内网络访问 GitHub 443 端口不稳，加密库对中断敏感</td>
+</tr>
+<tr>
+<td><strong>架构层</strong></td>
+<td>每次 push 的是整个编译产物（几百个文件）</td>
+<td>把”构建 + 推送”耦合在一起，把重活全压在弱链路上</td>
+</tr>
+</tbody></table>
+<p><strong>治传输层</strong> → 换协议、调参数；<br><strong>治架构层</strong> → 改部署模式（CI 服务器端构建）。</p>
+<p>两者是<strong>组合关系，不是二选一</strong>。</p>
+<hr>
+<h1 id="二、GnuTLS-到底是什么"><a href="#二、GnuTLS-到底是什么" class="headerlink" title="二、GnuTLS 到底是什么"></a>二、GnuTLS 到底是什么</h1><p>GnuTLS 是 Git 在 Linux（尤其 Debian 系）下默认的 HTTPS 加密库。它本身没问题，问题出在：</p>
+<ul>
+<li>云端服务器（尤其国内）访问 GitHub 443 端口不稳定</li>
+<li>一旦握手超时或连接中断，GnuTLS 直接抛错</li>
+</ul>
+<p><strong>结论：这不是脚本写得不好，是网络层的客观限制。</strong> 所以”重试 6 次”注定失败——你是在同一条注定要断的路上反复走。</p>
+<hr>
+<h1 id="三、传输层根治：SSH-over-443"><a href="#三、传输层根治：SSH-over-443" class="headerlink" title="三、传输层根治：SSH over 443"></a>三、传输层根治：SSH over 443</h1><p>SSH 比 HTTPS 在国内稳得多，但<strong>默认走 22 端口</strong>——很多网络环境对 22 出方向限制更严。</p>
+<p><strong>更优解：SSH over HTTPS 443</strong>。GitHub 官方支持 <code>ssh.github.com:443</code>，既享受 SSH 免密认证，又复用那条更通的 443 链路。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ~/.ssh/config</span></span><br><span class="line">Host github.com</span><br><span class="line">    HostName ssh.github.com</span><br><span class="line">    Port 443</span><br><span class="line">    User git</span><br><span class="line">    IdentityFile ~/.ssh/id_ed25519</span><br><span class="line">    StrictHostKeyChecking no</span><br></pre></td></tr></table></figure>
+
+<p>配置一次，永久免密。公钥加一次到 GitHub（Settings → SSH and GPG keys）。</p>
+<hr>
+<h1 id="四、HTTPS-调优：只能救急，不是根治"><a href="#四、HTTPS-调优：只能救急，不是根治" class="headerlink" title="四、HTTPS 调优：只能救急，不是根治"></a>四、HTTPS 调优：只能救急，不是根治</h1><p>作为兜底，几个参数能降低失败率：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.postBuffer 524288000   <span class="comment"># 大仓库</span></span><br><span class="line">git config --global http.lowSpeedLimit 1000      <span class="comment"># 防卡死</span></span><br><span class="line">git config --global http.lowSpeedTime 30</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意一个坑</strong>：<code>http.sslBackend openssl</code> 在 Debian 系<strong>不可行</strong>——GnuTLS 是 Git 编译期绑死的，不是运行时能切换的。要先用 <code>git --version</code> 确认。</p>
+<hr>
+<h1 id="五、架构层根治：GitHub-Actions-服务器端构建"><a href="#五、架构层根治：GitHub-Actions-服务器端构建" class="headerlink" title="五、架构层根治：GitHub Actions 服务器端构建"></a>五、架构层根治：GitHub Actions 服务器端构建</h1><p>这是最釜底抽薪的方案。核心思想：<strong>不再把编译产物推上去，而是只推源文件，让 GitHub 自己构建。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">本地/云端:  push 源文件（Markdown + 配置）到 main</span><br><span class="line">GitHub 端:  Actions workflow 里跑 hexo generate，部署到 gh-pages</span><br></pre></td></tr></table></figure>
+
+<p>为什么它能根治：</p>
+<ol>
+<li><strong>push 体积缩小 10~20 倍</strong>——从几百个生成文件缩到几个 Markdown，失败率指数级下降；</li>
+<li><strong>构建跑在 GitHub 自己的网络里</strong>，不再依赖你云端的网络质量；</li>
+<li><strong>贴合”每天定时更新”的工作流</strong>——你只需管理 Markdown，发布交给 CI。</li>
+</ol>
+<p>代价是写一个 workflow 文件，并处理好几个连锁点：</p>
+<ul>
+<li>Actions 需要 <code>permissions: contents: write</code> 才能写 gh-pages；</li>
+<li><code>source/CNAME</code> 必须随源文件一起，否则构建产物丢域名；</li>
+<li><code>package-lock.json</code> 必须入库，否则构建结果漂移。</li>
+</ul>
+<hr>
+<h1 id="六、智能重试：别再盲试同一条路"><a href="#六、智能重试：别再盲试同一条路" class="headerlink" title="六、智能重试：别再盲试同一条路"></a>六、智能重试：别再盲试同一条路</h1><p>无论用哪种方案，重试策略都该改一改。<strong>盲试同一失败路径 6 次 &#x3D; 浪费时间。</strong></p>
+<p>正确做法：<strong>多协议自动切换 + 指数退避</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">第 1 步：尝试 SSH over 443（优先，稳）</span><br><span class="line">第 2 步：失败 → 降级 HTTPS（内存 token + HTTP/1.1）</span><br><span class="line">第 3 步：HTTPS 失败 → 按 2^n 秒退避重试（1s, 2s, 4s...）</span><br></pre></td></tr></table></figure>
+
+<p>每次都换不同的应对策略，而不是重复同一个失败动作。</p>
+<hr>
+<h1 id="七、双平台发布：内容一次生产，多平台分发"><a href="#七、双平台发布：内容一次生产，多平台分发" class="headerlink" title="七、双平台发布：内容一次生产，多平台分发"></a>七、双平台发布：内容一次生产，多平台分发</h1><p>单平台有单点风险（GitHub 在国内本来就慢）。趋势是<strong>双平台发布</strong>：GitHub Pages 保留生态，EdgeOne&#x2F;Cloudflare Pages 加速国内访问。</p>
+<p>关键洞察：<strong>源文件可以是一套</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">一个源仓库（main 存 Markdown）</span><br><span class="line">   ├─ GitHub Actions → GitHub Pages</span><br><span class="line">   └─ EdgeOne/Cloudflare 绑定同一源仓库 → 自动构建</span><br></pre></td></tr></table></figure>
+
+<p>写一次 Markdown，两端更新，不用同步两份。唯一要注意的是 <code>_config.yml</code> 的 <code>url</code> 在不同平台不同——用环境变量处理即可，还不到拆仓库的程度。</p>
+<hr>
+<h1 id="八、总结：一套可复用的决策框架"><a href="#八、总结：一套可复用的决策框架" class="headerlink" title="八、总结：一套可复用的决策框架"></a>八、总结：一套可复用的决策框架</h1><p>遇到”推送&#x2F;部署老失败”，别急着搜命令，按这个顺序想：</p>
+<ol>
+<li><strong>判断是传输层还是架构层</strong>——协议、参数问题？还是部署模式本身不合理？</li>
+<li><strong>传输层</strong> → SSH over 443 优先，HTTPS 调优兜底；</li>
+<li><strong>架构层</strong> → 考虑 CI 服务器端构建，把重活挪到平台侧；</li>
+<li><strong>重试</strong> → 多协议切换 + 指数退避，杜绝盲试；</li>
+<li><strong>扩展</strong> → 内容一次生产、多平台分发，别被单一平台绑死。</li>
+</ol>
+<p>把”构建”和”推送”解耦、把”重活”从弱链路挪到平台侧——这两条原则，能解决大多数看似玄学的部署问题。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/08/13/GitHub%E6%8E%A8%E9%80%81%E4%B8%BA%E4%BD%95%E6%80%BB%E5%A4%B1%E8%B4%A5-%E4%BB%8EGnuTLS%E5%88%B0SSHover443%E4%B8%8ECI%E6%9E%B6%E6%9E%84/" data-id="cmtl330tl0007sg2bddgufvac" data-title="GitHub 推送为何总失败：从 GnuTLS 到 SSH over 443 与 CI 架构" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CI/" rel="tag">CI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GitHub/" rel="tag">GitHub</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-Quizify语法体系v3深度改造" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/13/Quizify%E8%AF%AD%E6%B3%95%E4%BD%93%E7%B3%BBv3%E6%B7%B1%E5%BA%A6%E6%94%B9%E9%80%A0/" class="article-date">
+  <time class="dt-published" datetime="2026-08-13T02:00:00.000Z" itemprop="datePublished">2026-08-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">技术实践</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/13/Quizify%E8%AF%AD%E6%B3%95%E4%BD%93%E7%B3%BBv3%E6%B7%B1%E5%BA%A6%E6%94%B9%E9%80%A0/">Quizify 语法体系 v3 深度改造</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="博客二：Quizify-语法体系-v3-深度改造"><a href="#博客二：Quizify-语法体系-v3-深度改造" class="headerlink" title="博客二：Quizify 语法体系 v3 深度改造"></a>博客二：Quizify 语法体系 v3 深度改造</h1><blockquote>
+<p>日期：2026-08-13</p>
+</blockquote>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>本文记录了 Quizify Markdown 语法体系的 v3 改造全过程：从嵌套语法调研报告出发，建立”单源权威→分层消费”架构，沉淀 9 大静默退化陷阱（T1-T9），并通过状态机实现精准校验。核心亮点是 T9 陷阱的现场发现——由一张真实卡片的渲染瑕疵反推 Markdown 解析器行为。</p>
+<hr>
+<h2 id="1-背景：为什么语法体系需要改造"><a href="#1-背景：为什么语法体系需要改造" class="headerlink" title="1. 背景：为什么语法体系需要改造"></a>1. 背景：为什么语法体系需要改造</h2><p>初始状态：5 个文件各自维护一份语法知识，彼此重复、部分矛盾。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">syntax_guide.md（170行）→ SKILL.md（速查表）→ prompt_template.md（11条规则）</span><br><span class="line">→ FULL_AUDIT_REPORT.md（P0规则）→ card_validator.py（校验逻辑）</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改一个语法规则，最多需要同步 4 个位置。</strong> 这就是连锁反应的根因——不是语法复杂，是知识分散且重复。</p>
+<h2 id="2-架构方案：单源权威-→-分层消费"><a href="#2-架构方案：单源权威-→-分层消费" class="headerlink" title="2. 架构方案：单源权威 → 分层消费"></a>2. 架构方案：单源权威 → 分层消费</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">           ┌─────────────────────┐</span><br><span class="line">           │  syntax_guide.md    │ ← 唯一语法权威</span><br><span class="line">           │  (规则+矩阵+陷阱+模式)│   所有修改只改这里</span><br><span class="line">           └──────────┬──────────┘</span><br><span class="line">     ┌────────────────┼────────────────┐</span><br><span class="line">     ▼                ▼                ▼</span><br><span class="line">校验层(validator)  生成层(prompt)    执行层(SKILL)</span><br><span class="line">规则→代码         模式→示例         流程→约束</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-嵌套矩阵：17-种验证过的组合"><a href="#3-嵌套矩阵：17-种验证过的组合" class="headerlink" title="3. 嵌套矩阵：17 种验证过的组合"></a>3. 嵌套矩阵：17 种验证过的组合</h2><p>基于真实解析器（marked 18.0.6）端到端测试：</p>
+<table>
+<thead>
+<tr>
+<th>外层</th>
+<th>内层</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:::</code></td>
+<td><code>===</code> 标签页</td>
+<td>✅ 官方未测，实测正常</td>
+</tr>
+<tr>
+<td><code>:::</code></td>
+<td><code>&gt; [!WARNING]</code></td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>&gt; [!TYPE]</code></td>
+<td><code>:::</code>（反向）</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>===</code></td>
+<td><code>;;;</code> 选择题</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>三层 <code>:::</code>&gt;<code>:::</code>&gt;<code>===</code></td>
+<td></td>
+<td>✅</td>
+</tr>
+</tbody></table>
+<p><strong>结论</strong>：递归嵌套本身不受限制——每个 block 扩展在收尾时都对内部内容重新解析。</p>
+<h2 id="4-九大静默退化陷阱（T1-T9）"><a href="#4-九大静默退化陷阱（T1-T9）" class="headerlink" title="4. 九大静默退化陷阱（T1-T9）"></a>4. 九大静默退化陷阱（T1-T9）</h2><p>“静默退化”指语法错误不报错，而是功能块退化为普通文本或布局错乱。</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>陷阱</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T1</td>
+<td>无标题 <code>:::</code></td>
+<td>整块退化纯文本</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>未闭合折叠</td>
+<td>折叠结构丢失</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>标签页内裸 <code>===</code></td>
+<td><strong>提前关闭标签页 + 后续变 <code>&lt;h1&gt;</code></strong></td>
+</tr>
+<tr>
+<td>T4</td>
+<td><code>[[ ]]</code> 跨行</td>
+<td>无交互</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>选择题选项字母重复</td>
+<td>整个选择题退化</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>答案字母不在选项</td>
+<td>选择题退化</td>
+</tr>
+<tr>
+<td>T7</td>
+<td>多字母答案重复</td>
+<td>自动去重</td>
+</tr>
+<tr>
+<td>T8</td>
+<td>Alert 内缺 <code>&gt;</code> 前缀</td>
+<td>内容漏出 alert</td>
+</tr>
+<tr>
+<td>T9</td>
+<td>引用块后紧跟结构标记</td>
+<td><strong>结构标记被吞入引用块</strong></td>
+</tr>
+</tbody></table>
+<h2 id="5-T9-陷阱的现场发现（最有价值的案例）"><a href="#5-T9-陷阱的现场发现（最有价值的案例）" class="headerlink" title="5. T9 陷阱的现场发现（最有价值的案例）"></a>5. T9 陷阱的现场发现（最有价值的案例）</h2><p>用户报告：卡片中”第一层：你的仓库到底有什么”没有成为折叠标题，反而和上一行构成了一个批注。</p>
+<p><strong>根因分析</strong>：Markdown blockquote 的 lazy continuation 规则。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="quote">&gt; 慢的不是&quot;推送&quot;，是&quot;构建&quot;。       ← blockquote 开启</span></span><br><span class="line">::: 第一层：你的仓库里到底有什么？  ← 无空行 → 被吞入引用块！</span><br></pre></td></tr></table></figure>
+
+<p>折叠标记被吞进引用块后变成普通文本，Quizify 解析器不再识别。</p>
+<p><strong>修复</strong>：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">**慢的不是&quot;推送&quot;，是&quot;构建&quot;。**</span>    ← 改用加粗，消除歧义</span><br><span class="line"></span><br><span class="line">::: 第一层：你的仓库里到底有什么？</span><br></pre></td></tr></table></figure>
+
+<p><strong>沉淀</strong>：T9 写入了 syntax_guide.md（规则9）、prompt_template.md（注意事项11）、card_validator.py（validate_blockquote_fold_conflict）。</p>
+<h2 id="6-状态机校验的三次迭代"><a href="#6-状态机校验的三次迭代" class="headerlink" title="6. 状态机校验的三次迭代"></a>6. 状态机校验的三次迭代</h2><p>T3 校验是最容易做错的：标签页的”闭合行”和”陷阱裸行”在语法上完全一样（都是独立 <code>===</code>），必须用上下文状态机区分。</p>
+<p><strong>迭代1</strong>：简单状态机 → 闭合行被吞，永远无法触发报错<br><strong>迭代2</strong>：加 seen_any_group 门禁 → 折叠块内文本在首个标签页组前误报<br><strong>迭代3</strong>：折叠边界重置逃出链条 → 通过</p>
+<p><strong>教训</strong>：语法校验器的复杂度不在正则，而在上下文追踪。</p>
+<h2 id="7-四个生成模式"><a href="#7-四个生成模式" class="headerlink" title="7. 四个生成模式"></a>7. 四个生成模式</h2><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>适用</th>
+<th>关键语法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A 平铺折叠</td>
+<td>纯概念</td>
+<td><code>:::</code> + Q&#x2F;A</td>
+</tr>
+<tr>
+<td>B 折叠+警告框</td>
+<td>有陷阱</td>
+<td><code>&gt; [!WARNING]</code></td>
+</tr>
+<tr>
+<td>C 折叠+标签页</td>
+<td>多方案对比</td>
+<td><code>===</code></td>
+</tr>
+<tr>
+<td>D 嵌套+自测</td>
+<td>层级体系</td>
+<td>2层 <code>:::</code> + <code>;;;</code></td>
+</tr>
+</tbody></table>
+<hr>
+<p><em>下一篇：数据质量工程——AI 牌组扫描与修复</em></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/08/13/Quizify%E8%AF%AD%E6%B3%95%E4%BD%93%E7%B3%BBv3%E6%B7%B1%E5%BA%A6%E6%94%B9%E9%80%A0/" data-id="cmtl330u9001psg2b3z219ctx" data-title="Quizify 语法体系 v3 深度改造" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Quizify/" rel="tag">Quizify</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag">工程化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" rel="tag">解析器</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-Anki云端同步与聚合工程化实战" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/13/Anki%E4%BA%91%E7%AB%AF%E5%90%8C%E6%AD%A5%E4%B8%8E%E8%81%9A%E5%90%88%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E6%88%98/" class="article-date">
+  <time class="dt-published" datetime="2026-08-13T01:00:00.000Z" itemprop="datePublished">2026-08-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">技术实践</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/13/Anki%E4%BA%91%E7%AB%AF%E5%90%8C%E6%AD%A5%E4%B8%8E%E8%81%9A%E5%90%88%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E6%88%98/">Anki 云端同步与聚合工程化实战</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="博客一：Anki-云端同步与聚合工程化实战"><a href="#博客一：Anki-云端同步与聚合工程化实战" class="headerlink" title="博客一：Anki 云端同步与聚合工程化实战"></a>博客一：Anki 云端同步与聚合工程化实战</h1><blockquote>
+<p>日期：2026-08-13</p>
+</blockquote>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>本文记录了在无 GUI 云端环境部署 Anki 26.8.1、打通 AnkiWeb 双向增量同步、以及将”删除原子卡”改造为”暂停原子卡”的完整实战过程。核心内容包括：环境部署、同步 Bug 修复、delete→suspend 架构改造的 5 步迭代法。</p>
+<hr>
+<h2 id="1-环境部署：Anki-无头环境的三个坑"><a href="#1-环境部署：Anki-无头环境的三个坑" class="headerlink" title="1. 环境部署：Anki 无头环境的三个坑"></a>1. 环境部署：Anki 无头环境的三个坑</h2><h3 id="1-1-版本号陷阱"><a href="#1-1-版本号陷阱" class="headerlink" title="1.1 版本号陷阱"></a>1.1 版本号陷阱</h3><p>skill 文档写 <code>anki==25.9.2</code>，但 PyPI 上根本不存在这个版本。实际可用最新版是 <code>26.8.1</code>。</p>
+<p><strong>教训</strong>：安装脚本的版本号必须验证真实存在，文档与 PyPI 可能脱节。</p>
+<h3 id="1-2-无头环境必须-offscreen"><a href="#1-2-无头环境必须-offscreen" class="headerlink" title="1.2 无头环境必须 offscreen"></a>1.2 无头环境必须 offscreen</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> QT_QPA_PLATFORM=offscreen</span><br></pre></td></tr></table></figure>
+
+<p>不设置会报 <code>Could not connect to display</code>。这是 Qt 应用在无 GUI 环境的经典问题。</p>
+<h3 id="1-3-AnkiConnect-必须指定版本"><a href="#1-3-AnkiConnect-必须指定版本" class="headerlink" title="1.3 AnkiConnect 必须指定版本"></a>1.3 AnkiConnect 必须指定版本</h3><p>GitHub Release 的 <code>latest</code> 标签可能没有 assets，必须用具体版本号：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sL <span class="string">&quot;https://github.com/FooSoft/anki-connect/releases/download/23.10.29.0/AnkiConnect.zip&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-AnkiWeb-同步的两个核心-Bug"><a href="#2-AnkiWeb-同步的两个核心-Bug" class="headerlink" title="2. AnkiWeb 同步的两个核心 Bug"></a>2. AnkiWeb 同步的两个核心 Bug</h2><h3 id="Bug-1：endpoint-重定向"><a href="#Bug-1：endpoint-重定向" class="headerlink" title="Bug 1：endpoint 重定向"></a>Bug 1：endpoint 重定向</h3><p><code>sync.ankiweb.net</code> 会重定向到 <code>sync15.ankiweb.net</code>。<code>sync_status()</code> 和 <code>sync_collection()</code> 都可能返回 <code>new_endpoint</code>，必须捕获并更新 <code>SyncAuth.endpoint</code> 后重新调用。</p>
+<h3 id="Bug-2：required-2-3-冲突处理"><a href="#Bug-2：required-2-3-冲突处理" class="headerlink" title="Bug 2：required&#x3D;2&#x2F;3 冲突处理"></a>Bug 2：required&#x3D;2&#x2F;3 冲突处理</h3><table>
+<thead>
+<tr>
+<th>required</th>
+<th>含义</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>NO_CHANGE</td>
+<td>无变化</td>
+</tr>
+<tr>
+<td>1</td>
+<td>NORMAL</td>
+<td>增量同步</td>
+</tr>
+<tr>
+<td>2&#x2F;3</td>
+<td>FULL_SYNC</td>
+<td>双向同步：Round1 下载云端 → reopen → Round2 上传本地新增</td>
+</tr>
+<tr>
+<td>4</td>
+<td>FULL_UPLOAD</td>
+<td>全量上传（谨慎！）</td>
+</tr>
+</tbody></table>
+<p><strong>铁律</strong>：永不 <code>full_upload</code> 覆盖非空账号。</p>
+<h2 id="3-delete→suspend-架构改造"><a href="#3-delete→suspend-架构改造" class="headerlink" title="3. delete→suspend 架构改造"></a>3. delete→suspend 架构改造</h2><h3 id="3-1-为什么暂停优于删除"><a href="#3-1-为什么暂停优于删除" class="headerlink" title="3.1 为什么暂停优于删除"></a>3.1 为什么暂停优于删除</h3><p>用户需求：聚合后的原子卡<strong>不删除</strong>，用 Anki 官方 API <strong>暂停学习</strong>。</p>
+<ul>
+<li>暂停（suspend）：<code>col.sched.suspend_cards()</code>，queue 设为 -1，可逆</li>
+<li>删除（delete）：<code>col.remove_notes()</code>，物理消失，不可逆</li>
+</ul>
+<h3 id="3-2-连锁反应分析"><a href="#3-2-连锁反应分析" class="headerlink" title="3.2 连锁反应分析"></a>3.2 连锁反应分析</h3><p>删除是”自清洁”的——卡片消失后扫描自动跳过。暂停后卡片还在，必须：</p>
+<ol>
+<li><strong>导出层</strong>注入 <code>all_suspended</code> 状态</li>
+<li><strong>扫描层</strong>跳过已暂停笔记（否则优先级矩阵永远被已聚合标签占据）</li>
+<li><strong>执行层</strong>替换删除为暂停 API</li>
+<li><strong>编排层</strong>方法改名 <code>write_and_suspend</code></li>
+<li><strong>界面层</strong>文案更新</li>
+</ol>
+<h3 id="3-3-5-步迭代法"><a href="#3-3-5-步迭代法" class="headerlink" title="3.3 5 步迭代法"></a>3.3 5 步迭代法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">第1步: card_exporter.py  ← 源头注入 all_suspended</span><br><span class="line">第2步: card_scanner.py   ← 消费者跳过已暂停</span><br><span class="line">第3步: card_writer.py    ← suspend/unsuspend API</span><br><span class="line">第4步: pipeline.py       ← write_and_suspend</span><br><span class="line">第5步: cli.py / 文档     ← 文案更新</span><br><span class="line">每步完成后验证，不跨步。</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-实战数据"><a href="#4-实战数据" class="headerlink" title="4. 实战数据"></a>4. 实战数据</h2><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>环境检查</td>
+<td>Anki 26.08.1 + offscreen ✅</td>
+</tr>
+<tr>
+<td>首次同步</td>
+<td>required&#x3D;2 冲突 → 双向同步解决 → required&#x3D;0</td>
+</tr>
+<tr>
+<td>聚合「项目2」</td>
+<td>8 张原子卡 → 1 张聚合卡（88% 覆盖度）</td>
+</tr>
+<tr>
+<td>聚合「项目1」</td>
+<td>13 张原子卡 → 1 张聚合卡（77% 覆盖度，B+C 混合模式）</td>
+</tr>
+<tr>
+<td>暂停验证</td>
+<td>queue&#x3D;-1 全部确认，unsuspend 可逆测试通过</td>
+</tr>
+</tbody></table>
+<h2 id="5-关键经验"><a href="#5-关键经验" class="headerlink" title="5. 关键经验"></a>5. 关键经验</h2><ol>
+<li><strong>分阶段推进，每阶段验证</strong>——避免连锁反应</li>
+<li><strong>从根源出发</strong>——先改数据源，再改消费者，最后改执行者</li>
+<li><strong>可逆性优先</strong>——暂停优于删除，审计日志优于回滚机制</li>
+<li><strong>记忆压缩</strong>——每完成一个大阶段，压缩上下文写 daily note</li>
+</ol>
+<hr>
+<p><em>下一篇：Quizify 语法体系 v3 深度改造</em></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/08/13/Anki%E4%BA%91%E7%AB%AF%E5%90%8C%E6%AD%A5%E4%B8%8E%E8%81%9A%E5%90%88%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E6%88%98/" data-id="cmtl330ti0003sg2b7h6kensy" data-title="Anki 云端同步与聚合工程化实战" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Anki/" rel="tag">Anki</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8C%E6%AD%A5/" rel="tag">同步</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag">工程化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-博客自动化部署踩坑记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/12/%E5%8D%9A%E5%AE%A2%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E8%B8%A9%E5%9D%91%E8%AE%B0/" class="article-date">
+  <time class="dt-published" datetime="2026-08-12T12:00:00.000Z" itemprop="datePublished">2026-08-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E9%9A%8F%E7%AC%94/">技术随笔</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/12/%E5%8D%9A%E5%AE%A2%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E8%B8%A9%E5%9D%91%E8%AE%B0/">博客自动化部署踩坑记：从 CNAME 丢失到自定义域名样式丢失</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>最近我在搭建一个”Anki 素材 → 博文 → GitHub Pages”的自动化博文工作流，过程中连续踩了几个坑，从<strong>自定义域名 404</strong> 到<strong>自定义域名只有 HTML 没有样式</strong>，排查下来才发现问题都指向同一个根源——<strong>配置与环境耦合</strong>。</p>
+<p>这篇文章把这些问题和修复思路完整记录下来，希望能帮到同样在用 Hexo + GitHub Pages 部署博客的朋友。</p>
+<hr>
+<h1 id="问题一：自定义域名突然-404"><a href="#问题一：自定义域名突然-404" class="headerlink" title="问题一：自定义域名突然 404"></a>问题一：自定义域名突然 404</h1><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>博客原本可以正常访问，某次重新构建部署后，访问第三方域名提示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">There isn&#x27;t a GitHub pages site here</span><br></pre></td></tr></table></figure>
+
+<p>而默认域名 <code>xxx.github.io</code> 却一切正常。</p>
+<h2 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h2><p>GitHub Pages 的自定义域名，靠的是<strong>发布分支根目录下的 <code>CNAME</code> 文件</strong>（文件内容就是你绑定的域名）。</p>
+<p>我检查后发现：</p>
+<ul>
+<li>GitHub Pages 配置里 <code>cname</code> 字段变成了空；</li>
+<li>发布分支上的 <code>CNAME</code> 文件<strong>不见了</strong>。</li>
+</ul>
+<h2 id="根因"><a href="#根因" class="headerlink" title="根因"></a>根因</h2><p>我的发布流程是 <code>hexo clean &amp;&amp; hexo generate</code>，再用 <code>public/</code> 目录整体强制推送到 <code>gh-pages</code> 分支。</p>
+<p>问题就在这里：**<code>hexo clean</code> 会清空 <code>public/</code> 目录**，而我的 <code>source/</code> 里没有 <code>CNAME</code> 文件，所以重建后的 <code>public/</code> 里也不含它。一强制推送，<code>gh-pages</code> 分支上的 <code>CNAME</code> 就被删除了。GitHub 检测到 CNAME 消失，就自动清掉了自定义域名配置。</p>
+<blockquote>
+<p><strong>教训</strong>：不要依赖 GitHub Pages 设置页自动生成的 <code>CNAME</code> 文件——那个文件在下次 <code>hexo clean</code> + 部署时会被覆盖清掉。</p>
+</blockquote>
+<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><p>在 <code>source/CNAME</code> 里声明一行域名：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">your-domain.com</span><br></pre></td></tr></table></figure>
+
+<p>这样每次构建，<code>CNAME</code> 都会自动进入 <code>public/</code>，随站点部署到发布分支，<strong>域名从此不会再因重建丢失</strong>。</p>
+<hr>
+<h1 id="问题二：自定义域名只有-HTML，没有样式"><a href="#问题二：自定义域名只有-HTML，没有样式" class="headerlink" title="问题二：自定义域名只有 HTML，没有样式"></a>问题二：自定义域名只有 HTML，没有样式</h1><h2 id="现象-1"><a href="#现象-1" class="headerlink" title="现象"></a>现象</h2><p>自定义域名能访问了，但页面只有文字，<strong>所有 CSS 样式都丢了</strong>，看起来像没有加载主题。</p>
+<h2 id="排查-1"><a href="#排查-1" class="headerlink" title="排查"></a>排查</h2><p>我打开浏览器开发者工具，发现样式文件全部 404。再看 HTML 里的静态资源引用，路径是这样的：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;/blog/css/style.css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>而实际访问时，自定义域名下站点在根路径 <code>/</code>，对应的样式地址应该是 <code>/css/style.css</code>。</p>
+<p>我实测验证：</p>
+<ul>
+<li><code>https://your-domain.com/css/style.css</code> → <strong>200</strong>（样式实际存在）</li>
+<li><code>https://your-domain.com/blog/css/style.css</code> → <strong>404</strong>（HTML 引用的正是这个）</li>
+</ul>
+<h2 id="根因-1"><a href="#根因-1" class="headerlink" title="根因"></a>根因</h2><p>问题出在 <code>_config.yml</code> 里：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">url:</span> <span class="string">https://xxx.github.io</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/blog/</span></span><br></pre></td></tr></table></figure>
+
+<p><code>root: /blog/</code> 让 Hexo 把<strong>所有静态资源路径</strong>都写成了绝对路径 <code>/blog/...</code>。</p>
+<ul>
+<li>默认域名 <code>xxx.github.io/blog/</code>：路径匹配，样式正常；</li>
+<li>自定义域名 <code>your-domain.com/</code>：GitHub Pages 在自定义域名下以<strong>根路径</strong>服务，但 HTML 还引用 <code>/blog/...</code>，于是样式 404。</li>
+</ul>
+<p><strong>本质</strong>：构建产物被 <code>root</code> 绑死，无法同时适配”子路径部署”和”根路径部署”两种访问方式。</p>
+<h2 id="修复-1"><a href="#修复-1" class="headerlink" title="修复"></a>修复</h2><p>如果你以自定义域名为主，把配置改为：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">url:</span> <span class="string">https://your-domain.com</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/</span></span><br></pre></td></tr></table></figure>
+
+<p>重新构建后，HTML 里的资源路径变成 <code>/css/style.css</code>，自定义域名下样式就正常了。</p>
+<blockquote>
+<p><strong>核心原则</strong>：<code>root</code> 和 <code>url</code> 必须与实际访问路径一致。它们属于”环境相关配置”，应该外置并在发布前校验，而不是写死在构建逻辑里。</p>
+</blockquote>
+<hr>
+<h1 id="问题三：GitHub-推送反复网络报错"><a href="#问题三：GitHub-推送反复网络报错" class="headerlink" title="问题三：GitHub 推送反复网络报错"></a>问题三：GitHub 推送反复网络报错</h1><h2 id="现象-2"><a href="#现象-2" class="headerlink" title="现象"></a>现象</h2><p>推送 <code>gh-pages</code> 时反复失败：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fatal: unable to access &#x27;https://github.com/.../&#x27;: GnuTLS recv error (-110): The TLS connection was non-properly terminated.</span><br><span class="line">error: failed to push some refs</span><br></pre></td></tr></table></figure>
+
+<p>有时还会出现 <code>Error in the HTTP2 framing layer</code>。</p>
+<h2 id="根因与修复"><a href="#根因与修复" class="headerlink" title="根因与修复"></a>根因与修复</h2><p>这是 Git 客户端与 GitHub 之间 <strong>HTTP&#x2F;2 连接不稳定</strong>导致的。改用 <strong>HTTP&#x2F;1.1</strong> 后稳定通过：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git -c http.version=HTTP/1.1 push -f origin gh-pages</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>小技巧：在推送命令里显式指定 <code>http.version=HTTP/1.1</code>，可规避部分 HTTP&#x2F;2 传输层的偶发错误。</p>
+</blockquote>
+<hr>
+<h1 id="问题四：git-锁文件残留"><a href="#问题四：git-锁文件残留" class="headerlink" title="问题四：git 锁文件残留"></a>问题四：git 锁文件残留</h1><h2 id="现象-3"><a href="#现象-3" class="headerlink" title="现象"></a>现象</h2><p>推送被中断后，再次执行 <code>git add</code> 报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fatal: Unable to create &#x27;.../.git/index.lock&#x27;: File exists.</span><br><span class="line">Another git process seems to be running in this repository...</span><br></pre></td></tr></table></figure>
+
+<h2 id="根因与修复-1"><a href="#根因与修复-1" class="headerlink" title="根因与修复"></a>根因与修复</h2><p>这是 git 崩溃&#x2F;中断后残留的临时锁文件。确认没有其他 git 进程在跑后，删除锁文件即可恢复：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -f path/to/repo/.git/index.lock</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="问题五：云端环境不支持定时任务"><a href="#问题五：云端环境不支持定时任务" class="headerlink" title="问题五：云端环境不支持定时任务"></a>问题五：云端环境不支持定时任务</h1><h2 id="现象-4"><a href="#现象-4" class="headerlink" title="现象"></a>现象</h2><p>我想用 cron 每天自动发布博文，但当前运行在云上环境，<strong>不支持创建定时任务</strong>。</p>
+<h2 id="处理"><a href="#处理" class="headerlink" title="处理"></a>处理</h2><ul>
+<li>云上环境无法直接挂 cron，需切换到支持定时任务的环境（如本地&#x2F;服务器，或客户端”连接我的电脑”模式）；</li>
+<li>工作流的<strong>入口脚本保持通用</strong>，外部 cron 只负责”到点触发”，业务逻辑全在脚本内，换环境即可复用。</li>
+</ul>
+<hr>
+<h1 id="根源反思：这些坑为什么一个接一个"><a href="#根源反思：这些坑为什么一个接一个" class="headerlink" title="根源反思：这些坑为什么一个接一个"></a>根源反思：这些坑为什么一个接一个</h1><p>回头看，这五个问题不是孤立的，它们都指向同一个根源——<strong>工作流的”环境假设”与”业务逻辑”耦合</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>根源耦合点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>自定义域名 404</td>
+<td>域名声明依赖了构建产物（CNAME 被重建清掉）</td>
+</tr>
+<tr>
+<td>样式丢失</td>
+<td><code>root</code> 路径写死进构建产物</td>
+</tr>
+<tr>
+<td>网络报错</td>
+<td>传输层假设（HTTP&#x2F;2）</td>
+</tr>
+<tr>
+<td>锁文件</td>
+<td>中断处理不健壮</td>
+</tr>
+<tr>
+<td>定时限制</td>
+<td>运行环境假设</td>
+</tr>
+</tbody></table>
+<p><strong>修复原则</strong>可以总结为四句话：</p>
+<ol>
+<li><strong>配置外置</strong>：域名、路径、凭证等环境项，从代码逻辑里剥离，集中声明；</li>
+<li><strong>动态注入</strong>：声明随构建&#x2F;运行自动进入产物（如 <code>source/CNAME</code> → <code>public/CNAME</code>）；</li>
+<li><strong>发布前校验</strong>：CNAME、<code>root</code>、凭证都在发布前断言正确，缺失即中止；</li>
+<li><strong>状态可重建</strong>：素材库、状态文件都能由脚本重建，不依赖脆弱记忆。</li>
+</ol>
+<hr>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>这些坑看似琐碎，但每一个都是”配置与环境耦合”的具体体现。把<strong>环境假设外置 + 校验前置</strong>后，工作流从”换个环境就崩”变成了”换环境只改声明”。</p>
+<p>自动化部署的价值，不在于”一键跑通”，而在于<strong>即使出了错，也能快速定位、安全修复、不产生连锁反应</strong>。希望这篇踩坑记录能帮你少走弯路。</p>
+<hr>
+<p><em>本文为作者在搭建自动化博文工作流过程中的真实排障记录。</em></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/08/12/%E5%8D%9A%E5%AE%A2%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E8%B8%A9%E5%9D%91%E8%AE%B0/" data-id="cmtl330uf0028sg2bhm9vgzwt" data-title="博客自动化部署踩坑记：从 CNAME 丢失到自定义域名样式丢失" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GitHub-Pages/" rel="tag">GitHub Pages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" rel="tag">自动化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-前端包管理器怎么选" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/12/%E5%89%8D%E7%AB%AF%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E6%80%8E%E4%B9%88%E9%80%89/" class="article-date">
+  <time class="dt-published" datetime="2026-08-12T03:00:00.000Z" itemprop="datePublished">2026-08-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E9%9A%8F%E7%AC%94/">技术随笔</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/12/%E5%89%8D%E7%AB%AF%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E6%80%8E%E4%B9%88%E9%80%89/">前端包管理器怎么选：npm、yarn 还是 pnpm？</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="引言：一个绕不开的选择题"><a href="#引言：一个绕不开的选择题" class="headerlink" title="引言：一个绕不开的选择题"></a>引言：一个绕不开的选择题</h1><p>只要是前端开发者，几乎每天都会和”包管理器”打交道。</p>
+<p>它帮你下载依赖、管理版本、跑脚本，是开发流程里最不起眼却又最重要的工具之一。但面对 npm、yarn、pnpm 三兄弟，很多人会纠结：<strong>到底该用哪个？</strong></p>
+<p>今天这篇，帮你把三个工具的家底、优缺点和应用场景一次说清。</p>
+<hr>
+<h1 id="一、npm：生态的”老大哥”"><a href="#一、npm：生态的”老大哥”" class="headerlink" title="一、npm：生态的”老大哥”"></a>一、npm：生态的”老大哥”</h1><p>npm 是 Node.js 自带的包管理器，也是整个 JavaScript 生态的基础设施。</p>
+<p><strong>优点：</strong></p>
+<ul>
+<li><strong>无需安装</strong>：装了 Node 就有，零门槛；</li>
+<li><strong>生态最大</strong>：几乎所有库都默认发布在 npm 上，兼容性最好；</li>
+<li><strong>社区活跃</strong>：遇到问题，网上一搜一大把解决方案。</li>
+</ul>
+<p><strong>适合场景：</strong></p>
+<ul>
+<li>小型项目、快速启动；</li>
+<li>不想折腾、追求”开箱即用”；</li>
+<li>项目依赖简单，对安装速度和磁盘占用不敏感。</li>
+</ul>
+<blockquote>
+<p>一句话：npm 是”稳妥之选”，可能不是最快的，但永远不会掉链子。</p>
+</blockquote>
+<hr>
+<h1 id="二、yarn：为团队协作而生"><a href="#二、yarn：为团队协作而生" class="headerlink" title="二、yarn：为团队协作而生"></a>二、yarn：为团队协作而生</h1><p>yarn 由 Facebook 团队出品，曾经是为了解决 npm 早期”安装慢、不确定”的痛点而生的。</p>
+<p><strong>核心优势：</strong></p>
+<ul>
+<li><strong>确定性</strong>：通过 lockfile 精确锁定依赖版本，保证团队里每个人装出来的依赖一致；</li>
+<li><strong>并行安装</strong>：比同时期的 npm 快很多；</li>
+<li><strong>离线缓存</strong>：装过的包会缓存，二次安装更快。</li>
+</ul>
+<p><strong>适合场景：</strong></p>
+<ul>
+<li>中大型项目、需要多人协作；</li>
+<li>对”依赖一致性”要求高的团队；</li>
+<li>需要稳定、可控的依赖管理。</li>
+</ul>
+<blockquote>
+<p>一句话：yarn 是”协作之选”，尤其适合需要统一环境的团队项目。</p>
+</blockquote>
+<hr>
+<h1 id="三、pnpm：性能与磁盘的”卷王”"><a href="#三、pnpm：性能与磁盘的”卷王”" class="headerlink" title="三、pnpm：性能与磁盘的”卷王”"></a>三、pnpm：性能与磁盘的”卷王”</h1><p>pnpm 是近年快速崛起的后起之秀，凭借<strong>硬链接（hard link）</strong>技术彻底改变了依赖的存储方式。</p>
+<p><strong>核心优势：</strong></p>
+<ul>
+<li><strong>省磁盘</strong>：同一个版本的包，只在磁盘上存一份，通过硬链接共享，多个项目不再重复下载；</li>
+<li><strong>安装快</strong>：得益于共享存储，安装速度往往明显优于 npm；</li>
+<li><strong>隔离性好</strong>：默认的 node_modules 结构，从机制上避免了”幽灵依赖”问题。</li>
+</ul>
+<p><strong>适合场景：</strong></p>
+<ul>
+<li>大型项目、monorepo（多包仓库）；</li>
+<li>磁盘空间紧张、依赖体积大的项目；</li>
+<li>追求极致的安装速度和工程质量。</li>
+</ul>
+<blockquote>
+<p>一句话：pnpm 是”进阶之选”，如果你在意性能和磁盘，它几乎是现代前端的主流答案。</p>
+</blockquote>
+<hr>
+<h1 id="四、怎么选：一张表看清"><a href="#四、怎么选：一张表看清" class="headerlink" title="四、怎么选：一张表看清"></a>四、怎么选：一张表看清</h1><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>npm</th>
+<th>yarn</th>
+<th>pnpm</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>上手难度</td>
+<td>最低（自带）</td>
+<td>低</td>
+<td>中</td>
+</tr>
+<tr>
+<td>安装速度</td>
+<td>一般</td>
+<td>较快</td>
+<td>最快</td>
+</tr>
+<tr>
+<td>磁盘占用</td>
+<td>高（重复）</td>
+<td>中</td>
+<td>最低（共享）</td>
+</tr>
+<tr>
+<td>依赖一致性</td>
+<td>有 lockfile</td>
+<td>强</td>
+<td>强</td>
+</tr>
+<tr>
+<td>团队协作</td>
+<td>一般</td>
+<td>强</td>
+<td>强</td>
+</tr>
+<tr>
+<td>典型场景</td>
+<td>小项目&#x2F;快速启动</td>
+<td>中大型协作</td>
+<td>大型&#x2F;monorepo</td>
+</tr>
+</tbody></table>
+<p><strong>给你的实用建议：</strong></p>
+<ul>
+<li>个人小项目、写 demo：直接用 <strong>npm</strong>，别纠结；</li>
+<li>团队中大型项目：<strong>yarn</strong> 很稳；</li>
+<li>大型项目、monorepo、或者你追求极致性能和磁盘效率：直接上 <strong>pnpm</strong>。</li>
+</ul>
+<hr>
+<h1 id="五、附：环境变量的小知识"><a href="#五、附：环境变量的小知识" class="headerlink" title="五、附：环境变量的小知识"></a>五、附：环境变量的小知识</h1><p>用这些工具时，还常遇到一个基础概念——<strong>环境变量</strong>。</p>
+<ul>
+<li><strong>系统变量</strong>：全局生效，需要管理员权限，改完通常要重启电脑；</li>
+<li><strong>用户变量</strong>：仅当前用户生效，普通权限即可，改完重启应用即可。</li>
+</ul>
+<p>配置工具时（比如某个命令的路径），优先在<strong>用户变量</strong>里加，既不影响系统，又方便管理。记住一个规律：<strong>用户变量的优先级高于系统变量</strong>，所以临时测试的配置放在用户变量里反而更灵活。</p>
+<hr>
+<h1 id="结语：没有最好的，只有最合适的"><a href="#结语：没有最好的，只有最合适的" class="headerlink" title="结语：没有最好的，只有最合适的"></a>结语：没有最好的，只有最合适的</h1><p>工具没有绝对的优劣，关键看场景。</p>
+<ul>
+<li>想要省心 → npm；</li>
+<li>想要协作稳定 → yarn；</li>
+<li>想要性能和磁盘效率 → pnpm。</li>
+</ul>
+<p><strong>先搞清楚你的项目是什么，再选工具</strong>——这本身就是一名合格前端工程师的”工具思维”。</p>
+<p><em>本文基于个人学习笔记整理，属技术分享。</em></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/08/12/%E5%89%8D%E7%AB%AF%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E6%80%8E%E4%B9%88%E9%80%89/" data-id="cmtl330uf0026sg2bgttp5xhs" data-title="前端包管理器怎么选：npm、yarn 还是 pnpm？" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/" rel="tag">npm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pnpm/" rel="tag">pnpm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" rel="tag">包管理器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" rel="tag">开发工具</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-刷了一百张卡能力却没涨" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/12/%E5%88%B7%E4%BA%86%E4%B8%80%E7%99%BE%E5%BC%A0%E5%8D%A1%E8%83%BD%E5%8A%9B%E5%8D%B4%E6%B2%A1%E6%B6%A8/" class="article-date">
+  <time class="dt-published" datetime="2026-08-12T02:00:00.000Z" itemprop="datePublished">2026-08-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E6%88%90%E9%95%BF/">学习成长</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/12/%E5%88%B7%E4%BA%86%E4%B8%80%E7%99%BE%E5%BC%A0%E5%8D%A1%E8%83%BD%E5%8A%9B%E5%8D%B4%E6%B2%A1%E6%B6%A8/">刷了一百张卡，能力却没涨？警惕&#34;天真的练习&#34;</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="引言：一种隐蔽的自我欺骗"><a href="#引言：一种隐蔽的自我欺骗" class="headerlink" title="引言：一种隐蔽的自我欺骗"></a>引言：一种隐蔽的自我欺骗</h1><p>有没有过这样的时刻？</p>
+<p>今天又刷完了 100 张单词卡，心里踏实极了：”我今天很努力，学到了很多。”可到了真正要用的场景，却发现自己还是不会。</p>
+<p>这不是你的问题，也不是”记忆”的问题——而是一种被包装得很好的<strong>自我欺骗</strong>：</p>
+<blockquote>
+<p>“我刷了 100 张卡 &#x3D; 我的能力提升了 &#x3D; 我今天很有价值。”</p>
+</blockquote>
+<p>这是心理学上典型的”<strong>虚假自我叙事</strong>“：用<strong>过程上的忙碌</strong>，替代<strong>结果上的成长</strong>。它让我们感觉很充实，却悄悄偷走了真正的进步。</p>
+<hr>
+<h1 id="一、什么是”天真的练习”？"><a href="#一、什么是”天真的练习”？" class="headerlink" title="一、什么是”天真的练习”？"></a>一、什么是”天真的练习”？</h1><p>在刻意练习理论里，有一个概念叫”<strong>天真的练习</strong>“（Naive Practice）。</p>
+<p>它的特征是：<strong>重复做同一件事，却没有反馈、没有目标、没有迭代。</strong></p>
+<p>比如：</p>
+<ul>
+<li>反复刷卡，却从不检验自己是否真的记住了；</li>
+<li>反复做题，却从不复盘错在哪、为什么错；</li>
+<li>反复朗读，却从不听自己的发音是否标准。</li>
+</ul>
+<p>天真的练习，本质是<strong>低水平重复</strong>——用”量”的堆积，回避”质”的突破。它给你”我在努力”的错觉，却几乎不产生能力增长。</p>
+<hr>
+<h1 id="二、深度练习的第三步：反馈"><a href="#二、深度练习的第三步：反馈" class="headerlink" title="二、深度练习的第三步：反馈"></a>二、深度练习的第三步：反馈</h1><p>真正有效的练习，关键不在于”练得多”，而在于<strong>基于反馈的迭代</strong>。</p>
+<p>刻意练习的完整链条，通常是这样：</p>
+<ol>
+<li><strong>明确目标</strong>：知道自己要练什么、练到什么程度；</li>
+<li><strong>专注练习</strong>：全神贯注地执行，而不是机械重复；</li>
+<li><strong>反馈结果</strong>：这是最容易被跳过、却最重要的一步。</li>
+</ol>
+<h3 id="反馈为什么关键？"><a href="#反馈为什么关键？" class="headerlink" title="反馈为什么关键？"></a>反馈为什么关键？</h3><ul>
+<li><strong>正反馈建立信心</strong>：看到自己确实进步了，才愿意继续；</li>
+<li><strong>负反馈指明方向</strong>：知道哪里错了，才能针对性地改。</li>
+</ul>
+<p>没有反馈的练习，就像蒙着眼睛射箭——射了一百次，也不知道该往左还是往右调。</p>
+<blockquote>
+<p>一个可操作的检验方法：<strong>每练完一轮，问自己”我这次做错的具体是什么？下次怎么改？”</strong> 如果答不上来，说明你很可能在”天真练习”。</p>
+</blockquote>
+<hr>
+<h1 id="三、先学再记：别从碎片里”捡知识”"><a href="#三、先学再记：别从碎片里”捡知识”" class="headerlink" title="三、先学再记：别从碎片里”捡知识”"></a>三、先学再记：别从碎片里”捡知识”</h1><p>另一个常见误区，是从<strong>零碎材料</strong>里学习。</p>
+<p>很多人喜欢直接刷题、刷卡片、刷”干货”，却忽略了建立<strong>知识框架</strong>。没有框架的知识，就像散落一地的零件——每个看起来都认识，但拼不成一台机器。</p>
+<p>有效的学习顺序，应该是”<strong>先学再记</strong>“：</p>
+<ol>
+<li><strong>先理解结构</strong>：先读通一个主题的整体脉络，知道它在整个知识地图里的位置；</li>
+<li><strong>再记忆细节</strong>：在框架之上，用卡片、练习去强化具体知识点。</li>
+</ol>
+<p>先有骨架，再填血肉。这样记住的东西才”挂得住”，而不是孤立地漂浮。</p>
+<hr>
+<h1 id="四、怎么把-Anki-用出真正的效果"><a href="#四、怎么把-Anki-用出真正的效果" class="headerlink" title="四、怎么把 Anki 用出真正的效果"></a>四、怎么把 Anki 用出真正的效果</h1><p>既然聊到卡片，就多说两句 Anki 的正确打开方式：</p>
+<h3 id="1-卡片服务于”提取”，而非”输入”"><a href="#1-卡片服务于”提取”，而非”输入”" class="headerlink" title="1. 卡片服务于”提取”，而非”输入”"></a>1. 卡片服务于”提取”，而非”输入”</h3><p>卡片的价值，在于逼迫你<strong>主动回忆</strong>，而不是被动浏览。如果你只是”看”卡片，而没有先在脑中回忆答案，那它和阅读没有区别。</p>
+<h3 id="2-为卡片配”情境”和”应用”"><a href="#2-为卡片配”情境”和”应用”" class="headerlink" title="2. 为卡片配”情境”和”应用”"></a>2. 为卡片配”情境”和”应用”</h3><p>记忆最牢固的，往往是那些被用在真实场景里的知识。试着给卡片加一点情境，或问自己”这条知识能解决我什么问题”。</p>
+<h3 id="3-警惕”刷卡数量”的虚荣指标"><a href="#3-警惕”刷卡数量”的虚荣指标" class="headerlink" title="3. 警惕”刷卡数量”的虚荣指标"></a>3. 警惕”刷卡数量”的虚荣指标</h3><p>别用”今天刷了几张”来度量学习。度量标准应该是：<strong>这一周，我真正掌握并能应用了几条？</strong></p>
+<hr>
+<h1 id="结语：把”忙碌”换成”迭代”"><a href="#结语：把”忙碌”换成”迭代”" class="headerlink" title="结语：把”忙碌”换成”迭代”"></a>结语：把”忙碌”换成”迭代”</h1><p>真正的成长，从来不是靠堆积量，而是靠<strong>一次次小步迭代</strong>：</p>
+<ul>
+<li>设定明确目标；</li>
+<li>专注练习；</li>
+<li>拿到反馈；</li>
+<li>修正，再来。</li>
+</ul>
+<p>把”我刷了很多”换成”我改进了什么”——你会发现，同样的时间，进步完全不同。</p>
+<p><strong>练习的真正含义，不是重复，而是改进。</strong></p>
+<hr>
+<p><em>本文基于个人学习笔记整理，属学习方法论分享。</em></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/08/12/%E5%88%B7%E4%BA%86%E4%B8%80%E7%99%BE%E5%BC%A0%E5%8D%A1%E8%83%BD%E5%8A%9B%E5%8D%B4%E6%B2%A1%E6%B6%A8/" data-id="cmtl330ud0020sg2b9fsheroe" data-title="刷了一百张卡，能力却没涨？警惕&#34;天真的练习&#34;" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Anki/" rel="tag">Anki</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%BB%E6%84%8F%E7%BB%83%E4%B9%A0/" rel="tag">刻意练习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%8D%E9%A6%88/" rel="tag">反馈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" rel="tag">学习方法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-肠道菌群-被你忽略的另一半身体" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/12/%E8%82%A0%E9%81%93%E8%8F%8C%E7%BE%A4-%E8%A2%AB%E4%BD%A0%E5%BF%BD%E7%95%A5%E7%9A%84%E5%8F%A6%E4%B8%80%E5%8D%8A%E8%BA%AB%E4%BD%93/" class="article-date">
+  <time class="dt-published" datetime="2026-08-12T01:00:00.000Z" itemprop="datePublished">2026-08-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%81%A5%E5%BA%B7%E7%A7%91%E6%99%AE/">健康科普</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/12/%E8%82%A0%E9%81%93%E8%8F%8C%E7%BE%A4-%E8%A2%AB%E4%BD%A0%E5%BF%BD%E7%95%A5%E7%9A%84%E5%8F%A6%E4%B8%80%E5%8D%8A%E8%BA%AB%E4%BD%93/">肠道菌群：被你忽略的&#34;另一半&#34;身体</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="引言：你的身体里，住着另一个”你”"><a href="#引言：你的身体里，住着另一个”你”" class="headerlink" title="引言：你的身体里，住着另一个”你”"></a>引言：你的身体里，住着另一个”你”</h1><p>你有没有想过，你的身体里其实住着数量庞大到难以想象的”室友”？</p>
+<p>它们不是寄生虫，也不是病菌，而是与你共生的<strong>肠道菌群</strong>——数以百万亿计、总重可达 1.5 公斤的微生物。它们挤在你的肠道里，默默参与消化、免疫、甚至影响你的情绪和体重。</p>
+<p>很长一段时间里，我们只把它们当成”无害的过客”。但近年的研究告诉我们：<strong>这群看不见的”另一半”，可能比你想的更影响你的健康。</strong></p>
+<hr>
+<h1 id="一、先认识这群”室友”"><a href="#一、先认识这群”室友”" class="headerlink" title="一、先认识这群”室友”"></a>一、先认识这群”室友”</h1><p>肠道菌群不是一种细菌，而是一个复杂的生态系统。它们大致可以分为三类角色：</p>
+<ul>
+<li><strong>有益菌</strong>：帮你消化、合成维生素、维持免疫平衡，是你的”盟友”。</li>
+<li><strong>中性菌</strong>：平时安分守己，一旦环境失衡，可能”倒戈”成为致病菌。</li>
+<li><strong>有害菌</strong>：数量超标时会引发炎症、腹泻等问题。</li>
+</ul>
+<p>关键在于<strong>平衡</strong>，而不是”有益菌越多越好”。菌群的多样性和结构，才决定你的肠道健康。</p>
+<blockquote>
+<p>一个形象的比喻：你的肠道就是一座城市，菌群是城市里的各种居民。城市好不好，不取决于某一类人特别多，而取决于<strong>生态结构是否健康</strong>。</p>
+</blockquote>
+<hr>
+<h1 id="二、膳食纤维：菌群最爱的”口粮”"><a href="#二、膳食纤维：菌群最爱的”口粮”" class="headerlink" title="二、膳食纤维：菌群最爱的”口粮”"></a>二、膳食纤维：菌群最爱的”口粮”</h1><p>菌群不是白住的，它们也要”吃饭”。而它们最爱的食物，就是<strong>膳食纤维</strong>。</p>
+<p>中国营养学会建议，成年人每天应摄入 25~30 克膳食纤维。但现实是，多数人远没达标——精制米面、加工食品把纤维都”剥”掉了。</p>
+<p>当肠道菌群发酵膳食纤维时，会产生一类关键的物质：<strong>短链脂肪酸</strong>（SCFAs）。</p>
+<ul>
+<li>它是肠道上皮细胞的”燃料”，维护肠屏障完整；</li>
+<li>它能降低肠道炎症，调节免疫反应；</li>
+<li>它甚至能通过”肠脑轴”影响情绪和食欲。</li>
+</ul>
+<p>简单说：<strong>你喂饱了菌群，菌群回报你的，是一整条健康通路。</strong></p>
+<h3 id="日常怎么补？"><a href="#日常怎么补？" class="headerlink" title="日常怎么补？"></a>日常怎么补？</h3><ul>
+<li>全谷物替代精制米面（糙米、燕麦、藜麦）</li>
+<li>多吃蔬菜水果，尤其深绿色、橙黄色的</li>
+<li>豆类、坚果、菌菇都是好来源</li>
+</ul>
+<hr>
+<h1 id="三、”好油养好菌”：脂肪的选择同样关键"><a href="#三、”好油养好菌”：脂肪的选择同样关键" class="headerlink" title="三、”好油养好菌”：脂肪的选择同样关键"></a>三、”好油养好菌”：脂肪的选择同样关键</h1><p>很多人以为吃脂肪就会发胖、伤血管，其实<strong>脂肪也分好坏</strong>。</p>
+<p>研究表明，<strong>橄榄油和深海鱼油</strong>这类富含单不饱和脂肪酸和 Omega-3 的”好油”，能促进一种名为<strong>阿克曼菌</strong>（Akkermansia）的有益菌增殖。而阿克曼菌正是著名的”抗炎菌”，与更低的炎症水平、更健康的代谢密切相关。</p>
+<p>相反，反式脂肪和过量的饱和脂肪，则会”喂肥”有害菌，加重慢性炎症。</p>
+<blockquote>
+<p>所以结论不是”少吃油”，而是<strong>吃对油</strong>：厨房里常备橄榄油，每周吃两三次深海鱼。</p>
+</blockquote>
+<hr>
+<h1 id="四、从菌群到心血管：一石二鸟"><a href="#四、从菌群到心血管：一石二鸟" class="headerlink" title="四、从菌群到心血管：一石二鸟"></a>四、从菌群到心血管：一石二鸟</h1><p>这些肠道健康的选择，往往与心血管健康殊途同归。</p>
+<p>研究证据最充分的<strong>地中海饮食</strong>——以橄榄油、全谷物、蔬果、鱼为主——三十年来反复被验证能显著降低心血管事件风险。它的底层逻辑之一，正是”喂好肠道菌群 + 降低炎症”。</p>
+<p>把<strong>白米换成杂粮</strong>，不仅增加纤维、帮助降血脂，还能稳定血糖。这些看起来不起眼的替换，正是”菌群友好”和”心血管友好”的交叉点。</p>
+<hr>
+<h1 id="结语：从一顿饭开始"><a href="#结语：从一顿饭开始" class="headerlink" title="结语：从一顿饭开始"></a>结语：从一顿饭开始</h1><p>你不需要一夜之间改变整个生活方式。健康从来是”最小可执行动作”的累积：</p>
+<ul>
+<li>今天，把晚餐的白米饭换成一半杂粮；</li>
+<li>明天，给早餐的煎蛋里加一把青椒丝；</li>
+<li>周末，买一瓶好的橄榄油。</li>
+</ul>
+<p>你的肠道菌群、你的心血管、你的免疫系统，都会记住这些微小的善意。</p>
+<p>毕竟，<strong>照顾好身体里那 1.5 公斤的”另一半”，其实就是在照顾你自己。</strong></p>
+<hr>
+<p><em>本文基于个人学习笔记整理，属通用健康科普，不构成医疗建议。</em></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/08/12/%E8%82%A0%E9%81%93%E8%8F%8C%E7%BE%A4-%E8%A2%AB%E4%BD%A0%E5%BF%BD%E7%95%A5%E7%9A%84%E5%8F%A6%E4%B8%80%E5%8D%8A%E8%BA%AB%E4%BD%93/" data-id="cmtl330ur0038sg2b1513b8im" data-title="肠道菌群：被你忽略的&#34;另一半&#34;身体" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%81%A5%E5%BA%B7/" rel="tag">健康</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%A0%E9%81%93%E8%8F%8C%E7%BE%A4/" rel="tag">肠道菌群</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%86%B3%E9%A3%9F%E7%BA%A4%E7%BB%B4/" rel="tag">膳食纤维</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%90%A5%E5%85%BB/" rel="tag">营养</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-AI时代的情绪自救指南" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/05/AI%E6%97%B6%E4%BB%A3%E7%9A%84%E6%83%85%E7%BB%AA%E8%87%AA%E6%95%91%E6%8C%87%E5%8D%97/" class="article-date">
+  <time class="dt-published" datetime="2026-08-05T06:00:00.000Z" itemprop="datePublished">2026-08-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%BF%83%E7%90%86%E4%B8%8E%E8%AE%A4%E7%9F%A5/">心理与认知</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/08/05/AI%E6%97%B6%E4%BB%A3%E7%9A%84%E6%83%85%E7%BB%AA%E8%87%AA%E6%95%91%E6%8C%87%E5%8D%97/">AI 时代的情绪自救指南</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="引言：当算法比你更焦虑"><a href="#引言：当算法比你更焦虑" class="headerlink" title="引言：当算法比你更焦虑"></a>引言：当算法比你更焦虑</h1><p>2026 年，AI 已经无处不在。</p>
+<p>它帮你写邮件、选股、推荐电影、甚至当心理咨询师。但你可能没意识到——<strong>AI 的存在本身，正在悄悄改变我们的情绪节律</strong>。</p>
+<p>推送制造的错失恐惧、算法强化的信息茧房、深夜屏幕前的无限下滑……我们在享受便利的同时，也在经历一场规模空前的”情绪实验”。</p>
+<p>这篇文章不打算妖魔化 AI。相反，我想分享一些真正有用的”情绪自救”策略——有的来自我自己踩过的坑，有的来自心理神经免疫学的前沿研究。</p>
+<hr>
+<h1 id="Q1：AI-让我越来越焦虑，怎么办？"><a href="#Q1：AI-让我越来越焦虑，怎么办？" class="headerlink" title="Q1：AI 让我越来越焦虑，怎么办？"></a>Q1：AI 让我越来越焦虑，怎么办？</h1><p><strong>先说结论</strong>：这不是你的错，这是设计者的意图。</p>
+<p>大多数 AI 驱动的内容平台，目标函数明确——**”最大化用户停留时间”**。为了实现这个目标，算法会持续试探你的情绪按钮：什么让你愤怒、什么让你好奇、什么让你害怕错过。</p>
+<p>被这些情绪劫持时，你的杏仁核处于”高唤醒”状态，大脑理性思考的前额叶被抑制。于是你刷得更多 → 变得更焦虑 → 更需要”分散注意力” → 继续刷。<strong>这就是一个完美闭环的情绪陷阱</strong>。</p>
+<h3 id="怎么破？"><a href="#怎么破？" class="headerlink" title="怎么破？"></a>怎么破？</h3><p><strong>1. 物理隔离法</strong></p>
+<p>最简单粗暴也最有效：睡前把手机放到卧室外。一个 2025 年的睡眠研究发现，睡前 1 小时内移除屏幕接触，入睡时间平均缩短 23 分钟，深度睡眠时长提升 18%。</p>
+<p><strong>2. 情绪命名法</strong></p>
+<p>当焦虑来袭，试着在纸上写出具体的情绪词汇。不是简单的”我烦”，而是精确到：”我害怕被团队抛弃””我担心 35 岁失业””我对未知感到失控”。</p>
+<p>神经科学证明，给情绪命名（affect labeling）能降低杏仁核活跃度约 15%。你说出来的那一刻，焦虑就在减弱。</p>
+<p><strong>3. 回关”笨”人类</strong></p>
+<p>每周留出固定时段，放下手机，面对面地和真实人类待一会儿。聊什么都行，八卦也好、吹牛也罢。人类大脑的镜像神经元系统需要真实的人际互动才能保持健康。</p>
+<hr>
+<h1 id="Q2：深夜emo，AI心理咨询靠谱吗？"><a href="#Q2：深夜emo，AI心理咨询靠谱吗？" class="headerlink" title="Q2：深夜emo，AI心理咨询靠谱吗？"></a>Q2：深夜emo，AI心理咨询靠谱吗？</h1><p>很谨慎地说：<strong>ChatGPT 可以是很好的倾听者，但绝不是合格的治疗师</strong>。</p>
+<p>AI 心理咨询的优势很明显：</p>
+<ul>
+<li>24 小时在线，凌晨 3 点崩溃也不怕</li>
+<li>不会评判你，”羞耻成本”为零</li>
+<li>能快速梳理大量情绪素材，帮你看见模式</li>
+</ul>
+<p>但它的局限性同样致命：</p>
+<ul>
+<li><strong>没有真正的共情</strong> —— 它模拟的是”理解”，不是感受</li>
+<li><strong>无法识别危机信号</strong> —— 重度抑郁伴随自杀倾向时，AI 没有法律义务干预</li>
+<li><strong>缺少身体在场</strong> —— 心理神经免疫学强调，治疗关系中神经肽的调节（如催产素释放）需要真实人际互动</li>
+</ul>
+<p><strong>建议</strong>：把 AI 当作情绪急救箱，而不是主治医师。日常焦虑、轻度失眠、关系困惑可以找它聊聊；但如果持续两周以上情绪低落、兴趣减退、睡眠食欲明显改变——请立即寻求真人专业帮助。</p>
+<hr>
+<h1 id="Q3：心理神经免疫学怎么教我们抗压？"><a href="#Q3：心理神经免疫学怎么教我们抗压？" class="headerlink" title="Q3：心理神经免疫学怎么教我们抗压？"></a>Q3：心理神经免疫学怎么教我们抗压？</h1><p>这是我最近沉迷的一个交叉领域。核心发现让人震惊：**长期心理压力真的会让免疫系统”变笨”**。</p>
+<p>具体机制是这样的：</p>
+<p>长期压力 → 皮质醇持续升高 → 抑制 T 细胞活性 → 免疫监视能力下降</p>
+<p>结果呢？同样的病毒压力下，高压人群更易感染、疫苗效果更差、伤口愈合更慢。</p>
+<p>那怎么办？以下三个策略经随机对照实验验证：</p>
+<h3 id="1-有氧运动"><a href="#1-有氧运动" class="headerlink" title="1. 有氧运动"></a>1. 有氧运动</h3><p>每周 150 分钟中等强度有氧运动（快走、游泳、骑车），能显著降低 CRP（C反应蛋白）水平，这是体内炎症的标志物。</p>
+<h3 id="2-慢波睡眠"><a href="#2-慢波睡眠" class="headerlink" title="2. 慢波睡眠"></a>2. 慢波睡眠</h3><p>深度睡眠期间，脑脊液会冲洗掉大脑中的代谢废物，包括与阿尔茨海默症相关的β-淀粉样蛋白。<strong>睡得好不是懒，是在给免疫系统做大扫除</strong>。</p>
+<h3 id="3-觉察冥想"><a href="#3-觉察冥想" class="headerlink" title="3. 觉察冥想"></a>3. 觉察冥想</h3><p>每天 10 分钟正念冥想，持续 8 周后，被试的端粒酶活性显著提升——这意味着细胞层面的衰老在减缓。对，冥想不是玄学，是真真切切的分子层面改变。</p>
+<hr>
+<h1 id="结语：做-AI-的主人，而非数据"><a href="#结语：做-AI-的主人，而非数据" class="headerlink" title="结语：做 AI 的主人，而非数据"></a>结语：做 AI 的主人，而非数据</h1><p>AI 时代的最大心理挑战，不是技术本身，而是<strong>在便利与自主之间找到平衡点</strong>。</p>
+<p>我们需要记住：</p>
+<ul>
+<li>算法喂给你的，不一定是你的真实需求</li>
+<li>深夜的焦虑感放大了200%，第二天醒来大概率会觉得”也没什么大不了”</li>
+<li>人类最有价值的情绪能力——共情、内省、面对原始的恐惧依然无法被 AI 取代</li>
+</ul>
+<p>保持觉知，保持与真实世界的连接，保持对自己身体的关注。这是心理神经免疫学交给我们的”反脆弱”智慧。</p>
+<p>愿你被 AI 服务，而不被 AI 消耗。</p>
+<hr>
+<p><em>来源：ADAA、心理神经免疫学研究综述、作者个人经验</em></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenshengwu.dpdns.org/2026/08/05/AI%E6%97%B6%E4%BB%A3%E7%9A%84%E6%83%85%E7%BB%AA%E8%87%AA%E6%95%91%E6%8C%87%E5%8D%97/" data-id="cmtl330te0001sg2b9xeaawjo" data-title="AI 时代的情绪自救指南" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E7%A5%9E%E7%BB%8F%E5%85%8D%E7%96%AB%E5%AD%A6/" rel="tag">心理神经免疫学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E6%88%91%E8%B0%83%E8%8A%82/" rel="tag">自我调节</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">下一页 &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">开源项目</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%81%A5%E5%BA%B7%E4%B8%8E%E5%BF%83%E7%90%86/">健康与心理</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%81%A5%E5%BA%B7%E7%A7%91%E6%99%AE/">健康科普</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E6%88%90%E9%95%BF/">学习成长</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/">工程实践</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BF%83%E7%90%86%E4%B8%8E%E8%AE%A4%E7%9F%A5/">心理与认知</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">技术实践</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF%E9%9A%8F%E7%AC%94/">技术随笔</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A4%E7%9F%A5%E4%B8%8E%E6%96%B9%E6%B3%95/">认知与方法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI-Agent/" rel="tag">AI Agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agent/" rel="tag">Agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Anki/" rel="tag">Anki</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AnkiDroid/" rel="tag">AnkiDroid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/" rel="tag">CI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI-CD/" rel="tag">CI&#x2F;CD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CLI/" rel="tag">CLI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Chrome%E6%89%A9%E5%B1%95/" rel="tag">Chrome扩展</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compose/" rel="tag">Compose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/" rel="tag">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Actions/" rel="tag">GitHub Actions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-Pages/" rel="tag">GitHub Pages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JUnit5/" rel="tag">JUnit5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kotlin/" rel="tag">Kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCP/" rel="tag">MCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MV3/" rel="tag">MV3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Memos/" rel="tag">Memos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Northflank/" rel="tag">Northflank</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle-Cloud/" rel="tag">Oracle Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quizify/" rel="tag">Quizify</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R8/" rel="tag">R8</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Render/" rel="tag">Render</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Robolectric/" rel="tag">Robolectric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScriptCat/" rel="tag">ScriptCat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serv00/" rel="tag">Serv00</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StructureRouter/" rel="tag">StructureRouter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Supabase/" rel="tag">Supabase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI/" rel="tag">UI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alert/" rel="tag">alert</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloze/" rel="tag">cloze</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memos/" rel="tag">memos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/" rel="tag">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pnpm/" rel="tag">pnpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tabs/" rel="tag">tabs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E5%B7%A5%E7%A8%8B/" rel="tag">上下文工程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/" rel="tag">上下文管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" rel="tag">个人成长</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%BA%E6%9C%BA%E5%8D%8F%E4%BD%9C/" rel="tag">人机协作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%BA%E9%99%85%E5%85%B3%E7%B3%BB/" rel="tag">人际关系</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%90%86/" rel="tag">代理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%AE%E5%A4%8D/" rel="tag">修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%81%A5%E5%BA%B7/" rel="tag">健康</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%AC%E5%BC%8F/" rel="tag">公式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%B3%E7%AD%96/" rel="tag">决策</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/" rel="tag">分层接线</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%BB%E6%84%8F%E7%BB%83%E4%B9%A0/" rel="tag">刻意练习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%AA%E8%B4%B4%E6%9D%BF/" rel="tag">剪贴板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" rel="tag">包管理器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%8B%E5%8A%9B%E7%AE%A1%E7%90%86/" rel="tag">压力管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8C%E8%BD%A8%E5%AF%B9%E6%AF%94/" rel="tag">双轨对比</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E8%84%86%E5%BC%B1/" rel="tag">反脆弱</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E9%A6%88/" rel="tag">反馈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%91%E5%B8%83/" rel="tag">发布</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8C%E6%AD%A5/" rel="tag">同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A2%9E%E5%BC%BA%E5%B1%82/" rel="tag">增强层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%87%E4%BB%BD/" rel="tag">备份</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E7%9B%98/" rel="tag">复盘</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" rel="tag">学习方法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/" rel="tag">工作流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag">工程化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/" rel="tag">工程实践</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/" rel="tag">工程方法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" rel="tag">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E4%BF%A1%E4%BA%91%E6%89%98%E7%AE%A1/" rel="tag">微信云托管</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7/" rel="tag">心理健康</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6/" rel="tag">心理学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E7%A5%9E%E7%BB%8F%E5%85%8D%E7%96%AB%E5%AD%A6/" rel="tag">心理神经免疫学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%BB%E7%BB%93/" rel="tag">总结</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%83%85%E7%BB%AA%E8%BF%9B%E9%A3%9F/" rel="tag">情绪进食</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%88%90%E9%95%BF/" rel="tag">成长</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%88%90%E9%95%BF%E6%80%9D%E7%BB%B4/" rel="tag">成长思维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%A9%E7%BC%A9%E5%AE%B9/" rel="tag">扩缩容</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%AB%E6%8F%8F/" rel="tag">扫描</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%AD%E7%A4%BA%E8%AF%AD%E6%B3%95/" rel="tag">揭示语法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F/" rel="tag">数据质量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%B9%E6%B3%95%E8%AE%BA/" rel="tag">方法论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F/" rel="tag">暗黑模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/" rel="tag">标题识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/" rel="tag">样本工程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%B9%E5%9B%A0%E5%88%86%E6%9E%90/" rel="tag">根因分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%88%99/" rel="tag">正则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%BF%B5%E9%A5%AE%E9%A3%9F/" rel="tag">正念饮食</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B2%9F%E9%80%9A%E6%8A%80%E5%B7%A7/" rel="tag">沟通技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E6%80%9D%E7%BB%B4/" rel="tag">测试思维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8/" rel="tag">测试驱动</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95/" rel="tag">浏览器扩展</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%8C%81%E4%B9%85%E5%8C%96/" rel="tag">环境持久化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9C%9F%E6%9C%BA/" rel="tag">真机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9C%9F%E6%9C%BA%E9%AA%8C%E8%AF%81/" rel="tag">真机验证</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/" rel="tag">知识管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6/" rel="tag">神经科学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2/" rel="tag">站内搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%A0%E9%81%93%E8%8F%8C%E7%BE%A4/" rel="tag">肠道菌群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%83%BD%E5%8A%9B%E8%BE%B9%E7%95%8C/" rel="tag">能力边界</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%86%B3%E9%A3%9F%E7%BA%A4%E7%BB%B4/" rel="tag">膳食纤维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" rel="tag">自动化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E6%88%91%E8%B0%83%E8%8A%82/" rel="tag">自我调节</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E6%89%98%E7%AE%A1/" rel="tag">自托管</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%90%A5%E5%85%BB/" rel="tag">营养</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%93%9D%E6%9C%AC%E7%A7%BB%E6%A4%8D/" rel="tag">蓝本移植</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A1%80%E7%B3%96%E6%8E%A7%E5%88%B6/" rel="tag">血糖控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%84%E5%88%99%E5%AE%A1%E8%AE%A1/" rel="tag">规则审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%84%E5%88%99%E8%BF%AD%E4%BB%A3/" rel="tag">规则迭代</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" rel="tag">解析器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A4%E7%9F%A5/" rel="tag">认知</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A4%E7%9F%A5%E7%A7%91%E5%AD%A6/" rel="tag">认知科学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%B0%E5%BF%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" rel="tag">记忆文件系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/" rel="tag">记忆系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E7%BD%AE%E6%8C%81%E4%B9%85%E5%8C%96/" rel="tag">设置持久化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%AD%E6%B3%95%E7%BA%A2%E7%BA%BF/" rel="tag">语法红线</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%AD%E8%A8%80%E5%AD%A6/" rel="tag">语言学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%AF%E7%94%B1/" rel="tag">路由</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" rel="tag">静态博客</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A2%84%E5%A4%84%E7%90%86/" rel="tag">预处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%AA%8C%E8%AF%81/" rel="tag">验证</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/AI-Agent/" style="font-size: 11.43px;">AI Agent</a> <a href="/tags/Agent/" style="font-size: 10px;">Agent</a> <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Anki/" style="font-size: 15.71px;">Anki</a> <a href="/tags/AnkiDroid/" style="font-size: 12.86px;">AnkiDroid</a> <a href="/tags/CI/" style="font-size: 11.43px;">CI</a> <a href="/tags/CI-CD/" style="font-size: 10px;">CI/CD</a> <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/Chrome%E6%89%A9%E5%B1%95/" style="font-size: 10px;">Chrome扩展</a> <a href="/tags/Compose/" style="font-size: 12.86px;">Compose</a> <a href="/tags/Docker/" style="font-size: 11.43px;">Docker</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/GitHub-Actions/" style="font-size: 12.86px;">GitHub Actions</a> <a href="/tags/GitHub-Pages/" style="font-size: 10px;">GitHub Pages</a> <a href="/tags/Hexo/" style="font-size: 15.71px;">Hexo</a> <a href="/tags/JUnit5/" style="font-size: 10px;">JUnit5</a> <a href="/tags/Kotlin/" style="font-size: 12.86px;">Kotlin</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/MCP/" style="font-size: 10px;">MCP</a> <a href="/tags/MV3/" style="font-size: 10px;">MV3</a> <a href="/tags/Markdown/" style="font-size: 12.86px;">Markdown</a> <a href="/tags/Memos/" style="font-size: 10px;">Memos</a> <a href="/tags/Northflank/" style="font-size: 10px;">Northflank</a> <a href="/tags/Oracle-Cloud/" style="font-size: 10px;">Oracle Cloud</a> <a href="/tags/Quizify/" style="font-size: 20px;">Quizify</a> <a href="/tags/R8/" style="font-size: 10px;">R8</a> <a href="/tags/Render/" style="font-size: 10px;">Render</a> <a href="/tags/Robolectric/" style="font-size: 11.43px;">Robolectric</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/ScriptCat/" style="font-size: 10px;">ScriptCat</a> <a href="/tags/Serv00/" style="font-size: 10px;">Serv00</a> <a href="/tags/StructureRouter/" style="font-size: 10px;">StructureRouter</a> <a href="/tags/Supabase/" style="font-size: 11.43px;">Supabase</a> <a href="/tags/UI/" style="font-size: 11.43px;">UI</a> <a href="/tags/alert/" style="font-size: 10px;">alert</a> <a href="/tags/cloze/" style="font-size: 10px;">cloze</a> <a href="/tags/memos/" style="font-size: 10px;">memos</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/pnpm/" style="font-size: 10px;">pnpm</a> <a href="/tags/tabs/" style="font-size: 10px;">tabs</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E5%B7%A5%E7%A8%8B/" style="font-size: 11.43px;">上下文工程</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/" style="font-size: 10px;">上下文管理</a> <a href="/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" style="font-size: 11.43px;">个人成长</a> <a href="/tags/%E4%BA%BA%E6%9C%BA%E5%8D%8F%E4%BD%9C/" style="font-size: 10px;">人机协作</a> <a href="/tags/%E4%BA%BA%E9%99%85%E5%85%B3%E7%B3%BB/" style="font-size: 10px;">人际关系</a> <a href="/tags/%E4%BB%A3%E7%90%86/" style="font-size: 10px;">代理</a> <a href="/tags/%E4%BF%AE%E5%A4%8D/" style="font-size: 10px;">修复</a> <a href="/tags/%E5%81%A5%E5%BA%B7/" style="font-size: 10px;">健康</a> <a href="/tags/%E5%85%AC%E5%BC%8F/" style="font-size: 10px;">公式</a> <a href="/tags/%E5%86%B3%E7%AD%96/" style="font-size: 10px;">决策</a> <a href="/tags/%E5%88%86%E5%B1%82%E6%8E%A5%E7%BA%BF/" style="font-size: 10px;">分层接线</a> <a href="/tags/%E5%88%BB%E6%84%8F%E7%BB%83%E4%B9%A0/" style="font-size: 11.43px;">刻意练习</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%89%AA%E8%B4%B4%E6%9D%BF/" style="font-size: 11.43px;">剪贴板</a> <a href="/tags/%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" style="font-size: 10px;">包管理器</a> <a href="/tags/%E5%8E%8B%E5%8A%9B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">压力管理</a> <a href="/tags/%E5%8F%8C%E8%BD%A8%E5%AF%B9%E6%AF%94/" style="font-size: 10px;">双轨对比</a> <a href="/tags/%E5%8F%8D%E8%84%86%E5%BC%B1/" style="font-size: 10px;">反脆弱</a> <a href="/tags/%E5%8F%8D%E9%A6%88/" style="font-size: 11.43px;">反馈</a> <a href="/tags/%E5%8F%91%E5%B8%83/" style="font-size: 11.43px;">发布</a> <a href="/tags/%E5%90%8C%E6%AD%A5/" style="font-size: 10px;">同步</a> <a href="/tags/%E5%A2%9E%E5%BC%BA%E5%B1%82/" style="font-size: 10px;">增强层</a> <a href="/tags/%E5%A4%87%E4%BB%BD/" style="font-size: 10px;">备份</a> <a href="/tags/%E5%A4%8D%E7%9B%98/" style="font-size: 10px;">复盘</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" style="font-size: 11.43px;">学习方法</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/" style="font-size: 11.43px;">工作流</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 18.57px;">工程化</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/" style="font-size: 10px;">工程实践</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/" style="font-size: 10px;">工程方法</a> <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">开发工具</a> <a href="/tags/%E5%BE%AE%E4%BF%A1%E4%BA%91%E6%89%98%E7%AE%A1/" style="font-size: 10px;">微信云托管</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7/" style="font-size: 10px;">心理健康</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6/" style="font-size: 10px;">心理学</a> <a href="/tags/%E5%BF%83%E7%90%86%E7%A5%9E%E7%BB%8F%E5%85%8D%E7%96%AB%E5%AD%A6/" style="font-size: 10px;">心理神经免疫学</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 10px;">总结</a> <a href="/tags/%E6%83%85%E7%BB%AA%E8%BF%9B%E9%A3%9F/" style="font-size: 10px;">情绪进食</a> <a href="/tags/%E6%88%90%E9%95%BF/" style="font-size: 10px;">成长</a> <a href="/tags/%E6%88%90%E9%95%BF%E6%80%9D%E7%BB%B4/" style="font-size: 10px;">成长思维</a> <a href="/tags/%E6%89%A9%E7%BC%A9%E5%AE%B9/" style="font-size: 10px;">扩缩容</a> <a href="/tags/%E6%89%AB%E6%8F%8F/" style="font-size: 10px;">扫描</a> <a href="/tags/%E6%8F%AD%E7%A4%BA%E8%AF%AD%E6%B3%95/" style="font-size: 10px;">揭示语法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F/" style="font-size: 10px;">数据质量</a> <a href="/tags/%E6%96%B9%E6%B3%95%E8%AE%BA/" style="font-size: 10px;">方法论</a> <a href="/tags/%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">暗黑模式</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 11.43px;">架构</a> <a href="/tags/%E6%A0%87%E9%A2%98%E8%AF%86%E5%88%AB/" style="font-size: 10px;">标题识别</a> <a href="/tags/%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/" style="font-size: 10px;">样本工程</a> <a href="/tags/%E6%A0%B9%E5%9B%A0%E5%88%86%E6%9E%90/" style="font-size: 10px;">根因分析</a> <a href="/tags/%E6%AD%A3%E5%88%99/" style="font-size: 10px;">正则</a> <a href="/tags/%E6%AD%A3%E5%BF%B5%E9%A5%AE%E9%A3%9F/" style="font-size: 10px;">正念饮食</a> <a href="/tags/%E6%B2%9F%E9%80%9A%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">沟通技巧</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 11.43px;">测试</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%80%9D%E7%BB%B4/" style="font-size: 10px;">测试思维</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8/" style="font-size: 11.43px;">测试驱动</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95/" style="font-size: 11.43px;">浏览器扩展</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E6%8C%81%E4%B9%85%E5%8C%96/" style="font-size: 10px;">环境持久化</a> <a href="/tags/%E7%9C%9F%E6%9C%BA/" style="font-size: 10px;">真机</a> <a href="/tags/%E7%9C%9F%E6%9C%BA%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">真机验证</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/" style="font-size: 10px;">知识管理</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%A7%91%E5%AD%A6/" style="font-size: 10px;">神经科学</a> <a href="/tags/%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2/" style="font-size: 10px;">站内搜索</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a> <a href="/tags/%E8%82%A0%E9%81%93%E8%8F%8C%E7%BE%A4/" style="font-size: 10px;">肠道菌群</a> <a href="/tags/%E8%83%BD%E5%8A%9B%E8%BE%B9%E7%95%8C/" style="font-size: 10px;">能力边界</a> <a href="/tags/%E8%86%B3%E9%A3%9F%E7%BA%A4%E7%BB%B4/" style="font-size: 10px;">膳食纤维</a> <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" style="font-size: 14.29px;">自动化</a> <a href="/tags/%E8%87%AA%E6%88%91%E8%B0%83%E8%8A%82/" style="font-size: 10px;">自我调节</a> <a href="/tags/%E8%87%AA%E6%89%98%E7%AE%A1/" style="font-size: 10px;">自托管</a> <a href="/tags/%E8%90%A5%E5%85%BB/" style="font-size: 10px;">营养</a> <a href="/tags/%E8%93%9D%E6%9C%AC%E7%A7%BB%E6%A4%8D/" style="font-size: 10px;">蓝本移植</a> <a href="/tags/%E8%A1%80%E7%B3%96%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">血糖控制</a> <a href="/tags/%E8%A7%84%E5%88%99%E5%AE%A1%E8%AE%A1/" style="font-size: 10px;">规则审计</a> <a href="/tags/%E8%A7%84%E5%88%99%E8%BF%AD%E4%BB%A3/" style="font-size: 10px;">规则迭代</a> <a href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" style="font-size: 11.43px;">解析器</a> <a href="/tags/%E8%AE%A4%E7%9F%A5/" style="font-size: 10px;">认知</a> <a href="/tags/%E8%AE%A4%E7%9F%A5%E7%A7%91%E5%AD%A6/" style="font-size: 10px;">认知科学</a> <a href="/tags/%E8%AE%B0%E5%BF%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">记忆文件系统</a> <a href="/tags/%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">记忆系统</a> <a href="/tags/%E8%AE%BE%E7%BD%AE%E6%8C%81%E4%B9%85%E5%8C%96/" style="font-size: 10px;">设置持久化</a> <a href="/tags/%E8%AF%AD%E6%B3%95%E7%BA%A2%E7%BA%BF/" style="font-size: 10px;">语法红线</a> <a href="/tags/%E8%AF%AD%E8%A8%80%E5%AD%A6/" style="font-size: 10px;">语言学</a> <a href="/tags/%E8%B7%AF%E7%94%B1/" style="font-size: 10px;">路由</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 17.14px;">踩坑</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 17.14px;">部署</a> <a href="/tags/%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">静态博客</a> <a href="/tags/%E9%A2%84%E5%A4%84%E7%90%86/" style="font-size: 10px;">预处理</a> <a href="/tags/%E9%AA%8C%E8%AF%81/" style="font-size: 11.43px;">验证</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">九月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-12-%E5%AE%A1%E8%AE%A1%E4%B8%8ELLM%E5%B7%AE%E8%B7%9D/">Quizify Bridge 分阶段实战（十二）：规则审计与 LLM 差距——诚实地承认能力边界</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-11-%E5%B7%A5%E7%A8%8B%E6%96%B9%E6%B3%95/">Quizify Bridge 分阶段实战（十一）：工程方法总结——测试门、持久化、上下文锚点</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-10-%E7%9C%9F%E6%9C%BA%E7%AB%AF%E5%88%B0%E7%AB%AF/">Quizify Bridge 分阶段实战（十）：M6 真机端到端与发布——产品成立性验证</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-9-UI%E7%BB%86%E8%8A%82%E4%B8%8E%E6%A0%B7%E6%9C%AC%E5%9B%BA%E5%8C%96/">Quizify Bridge 分阶段实战（九）：M5.4 UI 细节与样本固化——三次修正背后的测试思维</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/03/Quizify-Bridge-%E5%88%86%E9%98%B6%E6%AE%B5%E5%AE%9E%E6%88%98-8-%E6%A0%B7%E6%9C%AC%E5%B7%A5%E7%A8%8B/">Quizify Bridge 分阶段实战（八）：样本工程——双轨对比驱动的规则迭代</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 githubusercsw<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/search/" class="mobile-nav-link">搜索</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  window.SEARCH_SUPABASE_URL = "https://jnrqbznmottytcbojjak.supabase.co";
+  window.SEARCH_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpucnFiem5tb3R0eXRjYm9qamFrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcxMTYzMjUsImV4cCI6MjEwMjY5MjMyNX0.sjuZ_3z6-dEXaRQ7NC7Q1VynPfHRqQ_V8QUE5LXMqQU";
+</script>
+<link rel="stylesheet" href="/css/search.css">
+
+<script src="/js/theme-search.js"></script>
+
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+  </div>
+</body>
+</html>
